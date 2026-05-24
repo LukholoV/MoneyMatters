@@ -6,429 +6,70 @@
   <title>MoneyMatters | Stokvel</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
-  
-  <!-- ========== PAGE-SPECIFIC CSS ========== -->
+  <link rel="manifest" href="manifest.json">
   <style>
-    :root {
-  --sb-blue: #006b3f;
-  --sb-blue-light: #008f54;
-  --sb-blue-dark: #004d2c;
-  --ink: #102033;
-  --muted: #64748b;
-  --paper: #ffffff;
-  --soft: #f3f7fb;
-  --line: rgba(16, 32, 51, 0.1);
-  --aqua: #00a86b;
-  --lime: #6cc24a;
-  --gold: #d4af37;
-  --coral: #ff6b5f;
-  --violet: #6750d8;
-  --shadow: 0 18px 45px rgba(0, 107, 63, 0.13);
-  --shadow-sm: 0 10px 26px rgba(0, 107, 63, 0.09);
-  --transition: 180ms ease;
-}
-
-    * { box-sizing: border-box; }
-
-    body {
-      margin: 0;
-      min-height: 100vh;
-      background:
-        radial-gradient(circle at top left, rgba(0, 166, 166, 0.12), transparent 34rem),
-        linear-gradient(135deg, rgba(0, 51, 160, 0.08), rgba(108, 194, 74, 0.05)),
-        var(--soft);
-      color: var(--ink);
-      font-family: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-      overflow-x: hidden;
-      padding-bottom: 82px;
-    }
-
-    button, input, select, textarea { font: inherit; }
-    a { color: inherit; }
-
-    .topbar {
-      position: sticky;
-      top: 0;
-      z-index: 1020;
-      background: linear-gradient(135deg, var(--sb-blue-dark), var(--sb-blue));
-      color: #fff;
-      box-shadow: 0 8px 28px rgba(0, 31, 102, 0.18);
-    }
-
-    .topbar-inner {
-      width: min(1180px, calc(100% - 28px));
-      margin: 0 auto;
-      min-height: 72px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 14px;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      color: #fff;
-      text-decoration: none;
-      font-weight: 850;
-    }
-
-    .brand i, .icon-box, .member-avatar, .icon-tile, .square-action { display: grid; place-items: center; }
-
-    .brand i {
-      width: 42px;
-      height: 42px;
-      border-radius: 8px;
-      background: rgba(255, 255, 255, 0.15);
-      font-size: 1.35rem;
-    }
-
-    .toolbar {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .member-select {
-      min-width: 172px;
-      border: 1px solid rgba(255, 255, 255, 0.28);
-      color: #fff;
-      background-color: rgba(255, 255, 255, 0.12);
-      border-radius: 8px;
-      padding: 9px 12px;
-    }
-
-    .member-select option { color: var(--ink); background: #fff; }
-
-    .btn-soft, .btn-blue, .btn-ghost {
-      border: 0;
-      border-radius: 8px;
-      font-weight: 780;
-      min-height: 42px;
-      padding: 9px 14px;
-      transition: transform var(--transition), box-shadow var(--transition), background var(--transition);
-    }
-
-    .btn-soft { background: #fff; color: var(--sb-blue); box-shadow: 0 8px 22px rgba(0, 0, 0, 0.12); }
-    .btn-blue { background: var(--sb-blue); color: #fff; box-shadow: 0 12px 24px rgba(0, 51, 160, 0.2); }
-    .btn-ghost { background: rgba(0, 51, 160, 0.08); color: var(--sb-blue); }
-
-    .btn-soft:hover, .btn-blue:hover, .btn-ghost:hover,
-    .dashboard-card:hover, .home-tile:hover, .mini-card:hover, .square-action:hover {
-      transform: translateY(-3px);
-    }
-
-    .btn-blue:hover { background: var(--sb-blue-dark); color: #fff; }
-
-    .main {
-      width: min(1180px, calc(100% - 28px));
-      margin: 22px auto 38px;
-    }
-
-    .page-hero {
-      overflow: hidden;
-      border-radius: 8px;
-      min-height: 252px;
-      background:
-        linear-gradient(90deg, rgba(0, 31, 102, 0.96), rgba(0, 51, 160, 0.74), rgba(0, 166, 166, 0.48)),
-        url("https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1600&q=80") center/cover;
-      color: #fff;
-      padding: clamp(22px, 4vw, 42px);
-      display: grid;
-      grid-template-columns: minmax(0, 1.3fr) minmax(260px, 0.7fr);
-      gap: 24px;
-      align-items: end;
-      box-shadow: var(--shadow);
-    }
-
-    .page-hero h1 {
-      margin: 0;
-      font-size: clamp(2rem, 5vw, 4.6rem);
-      line-height: 0.95;
-      font-weight: 900;
-    }
-
-    .page-hero p {
-      max-width: 660px;
-      margin: 14px 0 0;
-      color: rgba(255, 255, 255, 0.86);
-      font-size: clamp(0.98rem, 2vw, 1.12rem);
-    }
-
-    .hero-stats {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 10px;
-    }
-
-    .hero-stat {
-      min-height: 106px;
-      padding: 14px;
-      border-radius: 8px;
-      background: rgba(255, 255, 255, 0.14);
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      backdrop-filter: blur(10px);
-    }
-
-    .hero-stat strong {
-      display: block;
-      font-size: clamp(1.3rem, 3vw, 1.8rem);
-      line-height: 1.05;
-    }
-
-    .hero-stat span { color: rgba(255, 255, 255, 0.78); font-size: 0.84rem; }
-
-    .app-nav {
-      display: grid;
-      grid-template-columns: repeat(7, minmax(100px, 1fr));
-      gap: 12px;
-      margin: 18px 0 8px;
-    }
-
-    .home-tile {
-      aspect-ratio: 1 / 1;
-      border: 1px solid var(--line);
-      background: var(--paper);
-      border-radius: 8px;
-      color: var(--ink);
-      text-decoration: none;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      padding: 13px;
-      box-shadow: var(--shadow-sm);
-      transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
-      min-width: 0;
-    }
-
-    .home-tile:hover, .home-tile.active {
-      border-color: rgba(0, 51, 160, 0.45);
-      box-shadow: 0 18px 35px rgba(0, 51, 160, 0.17);
-    }
-
-    .icon-tile {
-      width: 42px;
-      height: 42px;
-      border-radius: 8px;
-      color: #fff;
-      font-size: 1.25rem;
-    }
-
-    .home-tile span { font-size: 0.83rem; color: var(--muted); font-weight: 750; line-height: 1.1; }
-    .home-tile strong { font-size: clamp(1rem, 2vw, 1.32rem); line-height: 1.05; }
-
-    .tile-blue { background: var(--sb-blue); }
-    .tile-aqua { background: var(--aqua); }
-    .tile-lime { background: var(--lime); }
-    .tile-gold { background: var(--gold); }
-    .tile-coral { background: var(--coral); }
-    .tile-violet { background: var(--violet); }
-    .tile-dark { background: var(--ink); }
-
-    .section-title {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-      margin: 26px 0 14px;
-    }
-
-    .section-title h2 {
-      margin: 0;
-      font-size: clamp(1.3rem, 3vw, 2rem);
-      font-weight: 900;
-    }
-
-    .dashboard-card, .mini-card {
-      background: var(--paper);
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      box-shadow: var(--shadow-sm);
-      transition: transform var(--transition), box-shadow var(--transition);
-    }
-
-    .dashboard-card { padding: 18px; height: 100%; }
-    .mini-card { padding: 15px; min-height: 112px; }
-
-    .metric-value {
-      color: var(--sb-blue-dark);
-      font-weight: 900;
-      font-size: clamp(1.55rem, 4vw, 2.1rem);
-      line-height: 1;
-      margin: 8px 0 5px;
-    }
-
-    .muted { color: var(--muted); }
-
-    .pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      min-height: 28px;
-      border-radius: 999px;
-      background: rgba(0, 51, 160, 0.08);
-      color: var(--sb-blue-dark);
-      font-weight: 800;
-      font-size: 0.78rem;
-      padding: 5px 9px;
-      white-space: nowrap;
-    }
-
-    .pill-success { background: rgba(108, 194, 74, 0.14); color: #256b12; }
-    .pill-warn { background: rgba(212, 175, 55, 0.18); color: #725700; }
-
-    .progress {
-      height: 11px;
-      border-radius: 999px;
-      background: rgba(0, 51, 160, 0.08);
-    }
-
-    .progress-bar {
-      background: linear-gradient(90deg, var(--aqua), var(--sb-blue));
-      border-radius: 999px;
-    }
-
-    .member-row {
-      display: grid;
-      grid-template-columns: auto minmax(0, 1fr) auto;
-      align-items: center;
-      gap: 12px;
-      padding: 12px 0;
-      border-bottom: 1px solid var(--line);
-    }
-
-    .member-row:last-child { border-bottom: 0; padding-bottom: 0; }
-
-    .member-avatar {
-      width: 42px;
-      height: 42px;
-      border-radius: 8px;
-      color: #fff;
-      background: var(--sb-blue);
-      font-weight: 900;
-    }
-
-    .square-actions {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 10px;
-    }
-
-    .square-action {
-      min-height: 94px;
-      border-radius: 8px;
-      border: 1px solid var(--line);
-      background: #fff;
-      color: var(--ink);
-      box-shadow: var(--shadow-sm);
-      transition: transform var(--transition), box-shadow var(--transition);
-      padding: 10px;
-      text-align: center;
-      font-weight: 800;
-    }
-
-    .square-action i {
-      display: block;
-      font-size: 1.35rem;
-      color: var(--sb-blue);
-      margin-bottom: 7px;
-    }
-
-    .fund-split {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 10px;
-    }
-
-    .toast-stack {
-      position: fixed;
-      right: 16px;
-      bottom: 88px;
-      z-index: 1080;
-      display: grid;
-      gap: 10px;
-      width: min(340px, calc(100% - 32px));
-    }
-
-    .app-toast {
-      background: var(--ink);
-      color: #fff;
-      border-radius: 8px;
-      padding: 12px 14px;
-      box-shadow: var(--shadow);
-      animation: toastIn 220ms ease both;
-      font-weight: 700;
-    }
-
-    @keyframes toastIn {
-      from { transform: translateY(12px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
-    }
-
-    .mobile-bottom-nav {
-      position: fixed;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      z-index: 1030;
-      min-height: 72px;
-      padding: 7px 8px calc(7px + env(safe-area-inset-bottom));
-      display: grid;
-      grid-template-columns: repeat(5, minmax(0, 1fr));
-      gap: 6px;
-      background: rgba(255, 255, 255, 0.96);
-      border-top: 1px solid var(--line);
-      box-shadow: 0 -12px 28px rgba(16, 32, 51, 0.08);
-      backdrop-filter: blur(14px);
-    }
-
-    .mobile-nav-item {
-      min-width: 0;
-      min-height: 55px;
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      gap: 2px;
-      text-decoration: none;
-      color: var(--muted);
-      font-size: 0.7rem;
-      font-weight: 750;
-    }
-
-    .mobile-nav-item i { font-size: 1.18rem; }
-
-    .mobile-nav-item.active {
-      color: var(--sb-blue);
-      background: rgba(0, 51, 160, 0.08);
-    }
-
-    @media (min-width: 860px) {
-      body { padding-bottom: 0; }
-      .mobile-bottom-nav { display: none; }
-    }
-
-    @media (max-width: 1040px) {
-      .app-nav { grid-template-columns: repeat(4, minmax(110px, 1fr)); }
-      .page-hero { grid-template-columns: 1fr; }
-    }
-
-    @media (max-width: 720px) {
-      .topbar-inner { align-items: stretch; flex-direction: column; padding: 12px 0; }
-      .toolbar { display: grid; grid-template-columns: 1fr auto; }
-      .member-select { width: 100%; min-width: 0; }
-      .app-nav { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .hero-stats, .fund-split, .square-actions { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .section-title { align-items: flex-start; flex-direction: column; }
-    }
-
-    @media (max-width: 420px) {
-      .main, .topbar-inner { width: min(100% - 20px, 1180px); }
-      .page-hero { padding: 20px; }
-      .hero-stats, .square-actions { grid-template-columns: 1fr; }
-    }
+    :root{--sb-blue:#006b3f;--sb-blue-light:#008f54;--sb-blue-dark:#004d2c;--ink:#102033;--muted:#64748b;--paper:#ffffff;--soft:#f3f7fb;--line:rgba(16,32,51,0.1);--aqua:#00a86b;--lime:#6cc24a;--gold:#d4af37;--coral:#ff6b5f;--violet:#6750d8;--shadow:0 18px 45px rgba(0,107,63,0.13);--shadow-sm:0 10px 26px rgba(0,107,63,0.09);--transition:180ms ease}
+    *{box-sizing:border-box}
+    body{margin:0;min-height:100vh;background:radial-gradient(circle at top left,rgba(0,166,166,0.12),transparent 34rem),linear-gradient(135deg,rgba(0,51,160,0.08),rgba(108,194,74,0.05)),var(--soft);color:var(--ink);font-family:"Segoe UI",system-ui,-apple-system,BlinkMacSystemFont,sans-serif;overflow-x:hidden;padding-bottom:82px}
+    button,input,select,textarea{font:inherit}
+    a{color:inherit}
+    .topbar{position:sticky;top:0;z-index:1020;background:linear-gradient(135deg,var(--sb-blue-dark),var(--sb-blue));color:#fff;box-shadow:0 8px 28px rgba(0,31,102,0.18)}
+    .topbar-inner{width:min(1180px,calc(100% - 28px));margin:0 auto;min-height:72px;display:flex;align-items:center;justify-content:space-between;gap:14px}
+    .brand{display:flex;align-items:center;gap:12px;color:#fff;text-decoration:none;font-weight:850}
+    .brand i,.icon-box,.member-avatar,.icon-tile,.square-action{display:grid;place-items:center}
+    .brand i{width:42px;height:42px;border-radius:8px;background:rgba(255,255,255,0.15);font-size:1.35rem}
+    .toolbar{display:flex;align-items:center;gap:10px}
+    .member-select{min-width:172px;border:1px solid rgba(255,255,255,0.28);color:#fff;background-color:rgba(255,255,255,0.12);border-radius:8px;padding:9px 12px}
+    .member-select option{color:var(--ink);background:#fff}
+    .btn-soft,.btn-blue,.btn-ghost{border:0;border-radius:8px;font-weight:780;min-height:42px;padding:9px 14px;transition:transform var(--transition),box-shadow var(--transition),background var(--transition)}
+    .btn-soft{background:#fff;color:var(--sb-blue);box-shadow:0 8px 22px rgba(0,0,0,0.12)}
+    .btn-blue{background:var(--sb-blue);color:#fff;box-shadow:0 12px 24px rgba(0,51,160,0.2)}
+    .btn-ghost{background:rgba(0,51,160,0.08);color:var(--sb-blue)}
+    .btn-soft:hover,.btn-blue:hover,.btn-ghost:hover,.dashboard-card:hover,.home-tile:hover,.mini-card:hover,.square-action:hover{transform:translateY(-3px)}
+    .btn-blue:hover{background:var(--sb-blue-dark);color:#fff}
+    .main{width:min(1180px,calc(100% - 28px));margin:22px auto 38px}
+    .page-hero{overflow:hidden;border-radius:8px;min-height:252px;background:linear-gradient(90deg,rgba(0,31,102,0.96),rgba(0,51,160,0.74),rgba(0,166,166,0.48)),url("https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1600&q=80") center/cover;color:#fff;padding:clamp(22px,4vw,42px);display:grid;grid-template-columns:minmax(0,1.3fr) minmax(260px,0.7fr);gap:24px;align-items:end;box-shadow:var(--shadow)}
+    .page-hero h1{margin:0;font-size:clamp(2rem,5vw,4.6rem);line-height:0.95;font-weight:900}
+    .page-hero p{max-width:660px;margin:14px 0 0;color:rgba(255,255,255,0.86);font-size:clamp(0.98rem,2vw,1.12rem)}
+    .hero-stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+    .hero-stat{min-height:106px;padding:14px;border-radius:8px;background:rgba(255,255,255,0.14);border:1px solid rgba(255,255,255,0.18);backdrop-filter:blur(10px)}
+    .hero-stat strong{display:block;font-size:clamp(1.3rem,3vw,1.8rem);line-height:1.05}
+    .hero-stat span{color:rgba(255,255,255,0.78);font-size:0.84rem}
+    .app-nav{display:grid;grid-template-columns:repeat(8,minmax(100px,1fr));gap:12px;margin:18px 0 8px}
+    .home-tile{aspect-ratio:1/1;border:1px solid var(--line);background:var(--paper);border-radius:8px;text-decoration:none;display:flex;flex-direction:column;justify-content:space-between;padding:13px;box-shadow:var(--shadow-sm);transition:transform var(--transition),box-shadow var(--transition),border-color var(--transition);min-width:0}
+    .home-tile:hover,.home-tile.active{border-color:rgba(0,51,160,0.45);box-shadow:0 18px 35px rgba(0,51,160,0.17)}
+    .icon-tile{width:42px;height:42px;border-radius:8px;color:#fff;font-size:1.25rem}
+    .home-tile span{font-size:0.83rem;color:var(--muted);font-weight:750;line-height:1.1}
+    .home-tile strong{font-size:clamp(1rem,2vw,1.32rem);line-height:1.05}
+    .tile-blue{background:var(--sb-blue)}.tile-aqua{background:var(--aqua)}.tile-lime{background:var(--lime)}.tile-gold{background:var(--gold)}.tile-coral{background:var(--coral)}.tile-violet{background:var(--violet)}.tile-dark{background:var(--ink)}
+    .section-title{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:26px 0 14px}
+    .section-title h2{margin:0;font-size:clamp(1.3rem,3vw,2rem);font-weight:900}
+    .dashboard-card,.mini-card{background:var(--paper);border:1px solid var(--line);border-radius:8px;box-shadow:var(--shadow-sm);transition:transform var(--transition),box-shadow var(--transition)}
+    .dashboard-card{padding:18px;height:100%}.mini-card{padding:15px;min-height:112px}
+    .metric-value{color:var(--sb-blue-dark);font-weight:900;font-size:clamp(1.55rem,4vw,2.1rem);line-height:1;margin:8px 0 5px}
+    .muted{color:var(--muted)}
+    .pill{display:inline-flex;align-items:center;gap:6px;min-height:28px;border-radius:999px;background:rgba(0,51,160,0.08);color:var(--sb-blue-dark);font-weight:800;font-size:0.78rem;padding:5px 9px;white-space:nowrap}
+    .pill-success{background:rgba(108,194,74,0.14);color:#256b12}.pill-warn{background:rgba(212,175,55,0.18);color:#725700}
+    .progress{height:11px;border-radius:999px;background:rgba(0,51,160,0.08)}
+    .progress-bar{background:linear-gradient(90deg,var(--aqua),var(--sb-blue));border-radius:999px}
+    .member-row{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}
+    .member-row:last-child{border-bottom:0;padding-bottom:0}
+    .member-avatar{width:42px;height:42px;border-radius:8px;color:#fff;background:var(--sb-blue);font-weight:900}
+    .square-actions{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+    .square-action{min-height:94px;border-radius:8px;border:1px solid var(--line);background:#fff;color:var(--ink);box-shadow:var(--shadow-sm);transition:transform var(--transition),box-shadow var(--transition);padding:10px;text-align:center;font-weight:800}
+    .square-action i{display:block;font-size:1.35rem;color:var(--sb-blue);margin-bottom:7px}
+    .fund-split{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+    .voice-assistant{position:fixed;bottom:100px;right:20px;width:56px;height:56px;border-radius:50%;background:var(--gold);color:var(--sb-blue-dark);border:none;font-size:1.4rem;z-index:1040;box-shadow:0 8px 24px rgba(0,0,0,0.2);cursor:pointer;display:grid;place-items:center}.voice-assistant.listening{background:var(--coral);animation:pulse 1s infinite}.voice-feedback{display:none;position:fixed;bottom:165px;right:20px;background:var(--ink);color:#fff;padding:12px 16px;border-radius:12px;font-size:.85rem;z-index:1040;max-width:250px;box-shadow:var(--shadow)}@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(255,107,95,0.5)}50%{box-shadow:0 0 0 15px rgba(255,107,95,0)}}
+    .toast-stack{position:fixed;right:16px;bottom:88px;z-index:1080;display:grid;gap:10px;width:min(340px,calc(100% - 32px))}
+    .app-toast{background:var(--ink);color:#fff;border-radius:8px;padding:12px 14px;box-shadow:var(--shadow);animation:toastIn 220ms ease both;font-weight:700}
+    @keyframes toastIn{from{transform:translateY(12px);opacity:0}to{transform:translateY(0);opacity:1}}
+    .mobile-bottom-nav{position:fixed;left:0;right:0;bottom:0;z-index:1030;min-height:72px;padding:7px 8px calc(7px + env(safe-area-inset-bottom));display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px;background:rgba(255,255,255,0.96);border-top:1px solid var(--line);box-shadow:0 -12px 28px rgba(16,32,51,0.08);backdrop-filter:blur(14px)}
+    .mobile-nav-item{min-width:0;min-height:55px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:2px;text-decoration:none;color:var(--muted);font-size:0.7rem;font-weight:750}
+    .mobile-nav-item i{font-size:1.18rem}.mobile-nav-item.active{color:var(--sb-blue);background:rgba(0,51,160,0.08)}
+    @media(min-width:860px){body{padding-bottom:0}.mobile-bottom-nav{display:none}}
+    @media(max-width:1040px){.app-nav{grid-template-columns:repeat(4,minmax(110px,1fr))}.page-hero{grid-template-columns:1fr}}
+    @media(max-width:720px){.topbar-inner{align-items:stretch;flex-direction:column;padding:12px 0}.toolbar{display:grid;grid-template-columns:1fr auto}.member-select{width:100%;min-width:0}.app-nav{grid-template-columns:repeat(2,minmax(0,1fr))}.hero-stats,.fund-split,.square-actions{grid-template-columns:repeat(2,minmax(0,1fr))}.section-title{align-items:flex-start;flex-direction:column}}
+    @media(max-width:420px){.main,.topbar-inner{width:min(100% - 20px,1180px)}.page-hero{padding:20px}.hero-stats,.square-actions{grid-template-columns:1fr}}
   </style>
 </head>
 <body data-page="stokvel">
@@ -442,13 +83,20 @@
     </div>
   </header>
 
+  <nav class="app-nav">
+    <a class="home-tile" data-nav="overview" href="index.html"><i class="bi bi-grid-1x2-fill icon-tile tile-blue"></i><span>Home</span><strong>Overview</strong></a>
+    <a class="home-tile active" data-nav="stokvel" href="stokvel.html"><i class="bi bi-people-fill icon-tile tile-aqua"></i><span>Shared</span><strong>Stokvel</strong></a>
+    <a class="home-tile" data-nav="approvals" href="approvals.html"><i class="bi bi-check2-square icon-tile tile-lime"></i><span>All members</span><strong>Approvals</strong></a>
+    <a class="home-tile" data-nav="emergency" href="emergency.html"><i class="bi bi-life-preserver icon-tile tile-coral"></i><span>14% split</span><strong>Emergency</strong></a>
+    <a class="home-tile" data-nav="payments" href="payments.html"><i class="bi bi-cash-coin icon-tile tile-gold"></i><span>Money in</span><strong>Budget</strong></a>
+    <a class="home-tile" data-nav="credit" href="credit.html"><i class="bi bi-speedometer2 icon-tile tile-violet"></i><span>Profile</span><strong>Credit</strong></a>
+    <a class="home-tile" data-nav="savings" href="savings.html"><i class="bi bi-graph-up-arrow icon-tile tile-dark"></i><span>Growth</span><strong>Savings</strong></a>
+    <a class="home-tile" data-nav="community" href="community.html"><i class="bi bi-chat-dots-fill icon-tile tile-aqua"></i><span>Connect</span><strong>Community</strong></a>
+  </nav>
+
   <main class="main">
     <section class="page-hero">
-      <div>
-        <span class="pill"><i class="bi bi-people"></i> Digital stokvel room</span>
-        <h1 class="mt-3">The group wallet with rules.</h1>
-        <p>Member profiles, R250 contributions, the 14% emergency split, invite code access, and beneficiary queue management.</p>
-      </div>
+      <div><span class="pill"><i class="bi bi-people"></i> Digital stokvel room</span><h1 class="mt-3">The group wallet with rules.</h1><p>Member profiles, R250 contributions, the 14% emergency split, invite code access, and beneficiary queue management.</p></div>
       <div class="hero-stats">
         <div class="hero-stat"><strong id="heroPool">R0</strong><span>Total value</span></div>
         <div class="hero-stat"><strong id="heroEmergency">R0</strong><span>Emergency reserve</span></div>
@@ -457,39 +105,14 @@
       </div>
     </section>
 
-    <nav class="app-nav">
-      <a class="home-tile" data-nav="overview" href="index.html"><i class="bi bi-grid-1x2-fill icon-tile tile-blue"></i><span>Home</span><strong>Overview</strong></a>
-      <a class="home-tile" data-nav="stokvel" href="stokvel.html"><i class="bi bi-people-fill icon-tile tile-aqua"></i><span>Shared</span><strong>Stokvel</strong></a>
-      <a class="home-tile" data-nav="approvals" href="approvals.html"><i class="bi bi-check2-square icon-tile tile-lime"></i><span>All members</span><strong>Approvals</strong></a>
-      <a class="home-tile" data-nav="emergency" href="emergency.html"><i class="bi bi-life-preserver icon-tile tile-coral"></i><span>14% split</span><strong>Emergency</strong></a>
-      <a class="home-tile" data-nav="payments" href="payments.html"><i class="bi bi-cash-coin icon-tile tile-gold"></i><span>Money in</span><strong>Payments</strong></a>
-      <a class="home-tile" data-nav="credit" href="credit.html"><i class="bi bi-speedometer2 icon-tile tile-violet"></i><span>Profile</span><strong>Credit</strong></a>
-      <a class="home-tile" data-nav="savings" href="savings.html"><i class="bi bi-graph-up-arrow icon-tile tile-dark"></i><span>Growth</span><strong>Savings</strong></a>
-    </nav>
-
-    <section class="section-title">
-      <div>
-        <h2>Stokvel Controls</h2>
-        <p class="muted mb-0">Active member: <strong id="activeMemberLabel"></strong></p>
-      </div>
-      <button class="btn-ghost" id="copyInviteBtn"><i class="bi bi-whatsapp me-1"></i>Copy invite</button>
-    </section>
+    <section class="section-title"><div><h2>Stokvel Controls</h2><p class="muted mb-0">Active member: <strong id="activeMemberLabel"></strong></p></div><button class="btn-ghost" id="copyInviteBtn"><i class="bi bi-whatsapp me-1"></i>Copy invite</button></section>
 
     <section class="row g-3">
-      <div class="col-lg-7">
-        <div class="dashboard-card">
-          <h2 class="h5 fw-bold mb-1">Members and beneficiary order</h2>
-          <p class="muted">Every member is part of the approval circle.</p>
-          <div id="stokvelMembersList"></div>
-        </div>
-      </div>
+      <div class="col-lg-7"><div class="dashboard-card"><h2 class="h5 fw-bold mb-1">Members and beneficiary order</h2><p class="muted">Every member is part of the approval circle.</p><div id="stokvelMembersList"></div></div></div>
       <div class="col-lg-5">
         <div class="dashboard-card mb-3">
           <h2 class="h5 fw-bold mb-3">Contribution split</h2>
-          <div class="fund-split mb-3">
-            <div class="mini-card"><span class="muted small">Member pays</span><div class="metric-value">R<span id="monthlyContribution">250</span></div></div>
-            <div class="mini-card"><span class="muted small">Emergency cut</span><div class="metric-value" id="emergencyContributionDetail">R35</div></div>
-          </div>
+          <div class="fund-split mb-3"><div class="mini-card"><span class="muted small">Member pays</span><div class="metric-value">R<span id="monthlyContribution">250</span></div></div><div class="mini-card"><span class="muted small">Emergency cut</span><div class="metric-value" id="emergencyContributionDetail">R35</div></div></div>
           <div class="d-flex justify-content-between mb-1 small fw-bold"><span>Main pool receives</span><span id="mainContribution">R215</span></div>
           <div class="progress mb-3"><div class="progress-bar" style="width:86%"></div></div>
           <div class="square-actions">
@@ -499,326 +122,34 @@
             <button class="square-action" id="resetDemoBtn"><i class="bi bi-arrow-counterclockwise"></i>Reset</button>
           </div>
         </div>
-        <div class="dashboard-card">
-          <h2 class="h5 fw-bold mb-3">Add member</h2>
-          <input class="form-control mb-2" id="newMemberName" placeholder="Member name">
-          <input class="form-control mb-3" id="newMemberRole" placeholder="Role, e.g. Secretary">
-          <button class="btn-blue w-100" id="addMemberBtn"><i class="bi bi-person-plus me-2"></i>Add to stokvel</button>
-        </div>
+        <div class="dashboard-card"><h2 class="h5 fw-bold mb-3">Add member</h2><input class="form-control mb-2" id="newMemberName" placeholder="Member name"><input class="form-control mb-3" id="newMemberRole" placeholder="Role, e.g. Secretary"><button class="btn-blue w-100" id="addMemberBtn"><i class="bi bi-person-plus me-2"></i>Add to stokvel</button></div>
       </div>
     </section>
+
+    <button class="voice-assistant" id="voiceAssistantBtn"><i class="bi bi-mic-fill"></i></button>
+    <div class="voice-feedback" id="voiceFeedback"></div>
   </main>
 
   <nav class="mobile-bottom-nav">
-    <a href="index.html" class="mobile-nav-item" data-nav="overview"><i class="bi bi-house"></i><span>Home</span></a>
-    <a href="stokvel.html" class="mobile-nav-item" data-nav="stokvel"><i class="bi bi-people"></i><span>Stokvel</span></a>
-    <a href="approvals.html" class="mobile-nav-item" data-nav="approvals"><i class="bi bi-check2-square"></i><span>Approve</span></a>
-    <a href="emergency.html" class="mobile-nav-item" data-nav="emergency"><i class="bi bi-life-preserver"></i><span>Emergency</span></a>
-    <a href="payments.html" class="mobile-nav-item" data-nav="payments"><i class="bi bi-cash"></i><span>Cash</span></a>
+    <a href="index.html" class="mobile-nav-item"><i class="bi bi-house"></i><span>Home</span></a>
+    <a href="stokvel.html" class="mobile-nav-item active"><i class="bi bi-people"></i><span>Stokvel</span></a>
+    <a href="approvals.html" class="mobile-nav-item"><i class="bi bi-check2-square"></i><span>Approve</span></a>
+    <a href="emergency.html" class="mobile-nav-item"><i class="bi bi-life-preserver"></i><span>Emergency</span></a>
+    <a href="community.html" class="mobile-nav-item"><i class="bi bi-chat-dots"></i><span>Forum</span></a>
   </nav>
 
   <div class="toast-stack" id="toastStack"></div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-
-  <!-- ========== PAGE-SPECIFIC JAVASCRIPT ========== -->
   <script>
-    (function() {
-      const STORAGE_KEY = "moneyMattersUltimateStokvelState";
-      const EMERGENCY_RATE = 0.14;
-      const DEFAULT_CONTRIBUTION = 250;
-
-      const baseMembers = [
-        { name: "Thabo", role: "Chairperson", color: "#0033a0" },
-        { name: "Priya", role: "Treasurer", color: "#00a6a6" },
-        { name: "Lerato", role: "Member", color: "#6cc24a" },
-        { name: "Sipho", role: "Member", color: "#d4af37" },
-        { name: "Nandi", role: "Member", color: "#ff6b5f" }
-      ];
-
-      const defaultState = {
-        currentMode: "business",
-        activeMember: "Thabo",
-        stokvel: {
-          contribution: DEFAULT_CONTRIBUTION,
-          mainPool: 6450,
-          emergencyFund: 1050,
-          payoutIndex: 2,
-          currentPayoutIndex: 2,
-          inviteCode: "MM-STOKVEL-250",
-          members: baseMembers,
-          memberContributions: {
-            Thabo: 1500, Priya: 1500, Lerato: 1500, Sipho: 1500, Nandi: 1500
-          }
-        },
-        transactions: [
-          { id: "txn-001", type: "Business payout", amount: 1200, reason: "Buy stock for township weekend market", requestedBy: "Lerato", approvals: ["Thabo", "Priya", "Lerato"], status: "pending", createdAt: "2026-05-23" },
-          { id: "txn-002", type: "Supplier payment", amount: 650, reason: "Bulk airtime reseller float", requestedBy: "Priya", approvals: ["Thabo", "Priya", "Lerato", "Sipho", "Nandi"], status: "approved", createdAt: "2026-05-21", poolDeducted: true }
-        ],
-        repayments: [
-          { id: "repay-001", member: "Sipho", amount: 500, dueDate: "2026-06-23", paid: false }
-        ],
-        activity: [
-          { icon: "bi-check2-circle", tone: "tile-lime", title: "Priya approved supplier payment", detail: "All members have visibility", amount: 650 },
-          { icon: "bi-life-preserver", tone: "tile-coral", title: "Sipho emergency drawdown logged", detail: "Repayment due in one month", amount: 500 },
-          { icon: "bi-phone", tone: "tile-aqua", title: "Mobile access enabled", detail: "Members can switch profiles on shared demo", amount: 0 }
-        ],
-        businessData: {
-          creditScore: 742,
-          subscriptions: [],
-          incomingPayments: [],
-          rent: { amount: 1500, paid: false },
-          savings: 8720,
-          investments: 5340
-        },
-        personalData: {
-          creditScore: 698,
-          subscriptions: [],
-          incomingPayments: [],
-          rent: { amount: 1100, paid: true },
-          savings: 4200,
-          investments: 2100
-        }
-      };
-
-      const clone = (value) => JSON.parse(JSON.stringify(value));
-      const qs = (selector) => document.querySelector(selector);
-      const qsa = (selector) => Array.from(document.querySelectorAll(selector));
-      const money = (value) => "R" + Number(value || 0).toLocaleString("en-ZA", { maximumFractionDigits: 2 });
-      const today = () => new Date().toISOString().slice(0, 10);
-      const pageName = document.body.dataset.page || "stokvel";
-
-      let state = loadState();
-      let activeData = getActiveData();
-
-      function loadState() {
-        const base = clone(defaultState);
-        try {
-          const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
-          if (!saved) return base;
-          const merged = { ...base, ...saved,
-            stokvel: { ...base.stokvel, ...(saved.stokvel || {}),
-              members: (saved.stokvel && saved.stokvel.members) || base.stokvel.members,
-              memberContributions: { ...base.stokvel.memberContributions, ...((saved.stokvel && saved.stokvel.memberContributions) || {}) }
-            },
-            businessData: { ...base.businessData, ...(saved.businessData || {}) },
-            personalData: { ...base.personalData, ...(saved.personalData || {}) },
-            transactions: saved.transactions || base.transactions,
-            repayments: saved.repayments || base.repayments,
-            activity: saved.activity || base.activity
-          };
-          merged.stokvel.payoutIndex = Number.isFinite(merged.stokvel.payoutIndex) ? merged.stokvel.payoutIndex : merged.stokvel.currentPayoutIndex || 0;
-          if (!merged.stokvel.members.some(member => member.name === merged.activeMember)) {
-            merged.activeMember = merged.stokvel.members[0].name;
-          }
-          return merged;
-        } catch (error) { return base; }
-      }
-
-      function saveState() {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-      }
-
-      function getActiveData() {
-        return state.currentMode === "business" ? state.businessData : state.personalData;
-      }
-
-      function getMembers() { return state.stokvel.members; }
-
-      function getNextPayoutMember() {
-        const members = getMembers();
-        const index = state.stokvel.payoutIndex % members.length;
-        return members[index] || members[0];
-      }
-
-      function totalPool() { return state.stokvel.mainPool + state.stokvel.emergencyFund; }
-
-      function showToast(message) {
-        const stack = qs("#toastStack");
-        if (!stack) return;
-        const toast = document.createElement("div");
-        toast.className = "app-toast";
-        toast.textContent = message;
-        stack.appendChild(toast);
-        window.setTimeout(() => toast.remove(), 3400);
-      }
-
-      function setText(id, value) {
-        const node = qs("#" + id);
-        if (node) node.textContent = value;
-      }
-
-      function on(id, eventName, handler) {
-        const node = qs("#" + id);
-        if (node) node.addEventListener(eventName, handler);
-      }
-
-      function addActivity(icon, tone, title, detail, amount) {
-        state.activity.unshift({ icon, tone, title, detail, amount: amount || 0 });
-        state.activity = state.activity.slice(0, 8);
-      }
-
-      function payContribution() {
-        const emergencyAmount = state.stokvel.contribution * EMERGENCY_RATE;
-        const mainAmount = state.stokvel.contribution - emergencyAmount;
-        state.stokvel.emergencyFund += emergencyAmount;
-        state.stokvel.mainPool += mainAmount;
-        state.stokvel.memberContributions[state.activeMember] = (state.stokvel.memberContributions[state.activeMember] || 0) + state.stokvel.contribution;
-        addActivity("bi-plus-circle", "tile-lime", state.activeMember + " paid monthly contribution", money(mainAmount) + " to pool and " + money(emergencyAmount) + " to emergency", state.stokvel.contribution);
-        saveAndRender();
-        showToast(state.activeMember + " paid R250. R35 moved to emergency cover.");
-      }
-
-      function advancePayoutQueue() {
-        state.stokvel.payoutIndex = (state.stokvel.payoutIndex + 1) % getMembers().length;
-        state.stokvel.currentPayoutIndex = state.stokvel.payoutIndex;
-        addActivity("bi-person-check", "tile-violet", "Next beneficiary updated", getNextPayoutMember().name + " is now next in line", 0);
-        saveAndRender();
-        showToast("Next beneficiary is now " + getNextPayoutMember().name + ".");
-      }
-
-      function createTransaction(type, amount, reason) {
-        if (!Number.isFinite(amount) || amount <= 0) { showToast("Enter a valid amount first."); return; }
-        state.transactions.unshift({
-          id: "txn-" + Date.now(), type, amount, reason,
-          requestedBy: state.activeMember,
-          approvals: [state.activeMember],
-          status: "pending",
-          createdAt: today()
-        });
-        addActivity("bi-plus-square", "tile-blue", state.activeMember + " created " + type, reason, amount);
-        saveAndRender();
-        showToast("Request created. Every member must approve.");
-      }
-
-      function renderShell() {
-        const options = getMembers().map(member => `<option value="${member.name}">${member.name} · ${member.role}</option>`).join("");
-        qsa("[data-member-select]").forEach(select => {
-          select.innerHTML = options;
-          select.value = state.activeMember;
-        });
-
-        qsa("[data-mode-text]").forEach(node => {
-          node.textContent = state.currentMode === "business" ? "Business" : "Personal";
-        });
-
-        qsa("[data-nav]").forEach(link => {
-          link.classList.toggle("active", link.dataset.nav === pageName);
-        });
-
-        setText("activeMemberLabel", state.activeMember);
-        setText("memberCount", getMembers().length);
-        setText("heroPool", money(totalPool()));
-        setText("heroEmergency", money(state.stokvel.emergencyFund));
-        setText("heroNext", getNextPayoutMember().name);
-        setText("monthlyContribution", state.stokvel.contribution);
-        setText("emergencyContributionDetail", money(state.stokvel.contribution * EMERGENCY_RATE));
-        setText("mainContribution", money(state.stokvel.contribution - state.stokvel.contribution * EMERGENCY_RATE));
-      }
-
-      function renderMembers() {
-        const node = qs("#stokvelMembersList");
-        if (!node) return;
-        const nextMember = getNextPayoutMember().name;
-        node.innerHTML = getMembers().map(member => {
-          const paid = state.stokvel.memberContributions[member.name] || 0;
-          const isNext = member.name === nextMember;
-          return `
-            <div class="member-row">
-              <div class="member-avatar" style="background:${member.color}">${member.name.charAt(0).toUpperCase()}</div>
-              <div class="min-w-0">
-                <div class="fw-bold">${member.name}</div>
-                <small class="muted">${member.role} · Contributed ${money(paid)}</small>
-              </div>
-              <span class="pill ${isNext ? "pill-success" : ""}">${isNext ? "Next beneficiary" : "Member"}</span>
-            </div>
-          `;
-        }).join("");
-      }
-
-      function bindShell() {
-        qsa("[data-member-select]").forEach(select => {
-          select.addEventListener("change", event => {
-            state.activeMember = event.target.value;
-            saveAndRender();
-            showToast("Now acting as " + state.activeMember + ".");
-          });
-        });
-        qsa("[data-mode-toggle]").forEach(button => {
-          button.addEventListener("click", () => {
-            state.currentMode = state.currentMode === "business" ? "personal" : "business";
-            activeData = getActiveData();
-            saveAndRender();
-                        showToast("Switched to " + state.currentMode + " view.");
-          });
-        });
-      }
-
-      function bindForms() {
-        on("recordContributionBtn", "click", payContribution);
-        on("advancePayoutBtn", "click", advancePayoutQueue);
-        on("requestPayoutBtn", "click", () => {
-          const next = getNextPayoutMember().name;
-          createTransaction("Business payout", Math.min(1200, state.stokvel.mainPool), "Payout cycle for " + next);
-        });
-        on("addMemberBtn", "click", () => {
-          const input = qs("#newMemberName");
-          const roleInput = qs("#newMemberRole");
-          const name = input.value.trim();
-          if (!name) return showToast("Add a member name first.");
-          if (getMembers().some(member => member.name.toLowerCase() === name.toLowerCase())) {
-            return showToast("That member already exists.");
-          }
-          const colors = ["#0033a0", "#00a6a6", "#6cc24a", "#d4af37", "#ff6b5f", "#6750d8", "#102033"];
-          state.stokvel.members.push({ name, role: roleInput.value.trim() || "Member", color: colors[getMembers().length % colors.length] });
-          state.stokvel.memberContributions[name] = 0;
-          input.value = "";
-          roleInput.value = "";
-          addActivity("bi-person-plus", "tile-aqua", name + " joined the stokvel", "Member added to approval circle", 0);
-          saveAndRender();
-          showToast(name + " added to the stokvel.");
-        });
-        on("copyInviteBtn", "click", async () => {
-          const text = state.stokvel.inviteCode + " · " + location.href.replace(location.pathname.split("/").pop(), "stokvel.html");
-          try {
-            await navigator.clipboard.writeText(text);
-            showToast("Invite copied for WhatsApp.");
-          } catch (error) {
-            showToast("Invite code: " + state.stokvel.inviteCode);
-          }
-        });
-        on("resetDemoBtn", "click", () => {
-          state = clone(defaultState);
-          activeData = getActiveData();
-          saveAndRender();
-          showToast("Demo reset.");
-        });
-      }
-
-      function renderPage() {
-        activeData = getActiveData();
-        renderShell();
-        renderMembers();
-      }
-
-      function saveAndRender() {
-        saveState();
-        renderPage();
-      }
-
-      window.addEventListener("storage", event => {
-        if (event.key !== STORAGE_KEY) return;
-        state = loadState();
-        activeData = getActiveData();
-        renderPage();
-      });
-
-      document.addEventListener("DOMContentLoaded", () => {
-        renderPage();
-        bindShell();
-        bindForms();
-      });
-    })();
+    (function(){const STORAGE_KEY="moneyMattersUltimateStokvelState";const EMERGENCY_RATE=0.14;const DEFAULT_CONTRIBUTION=250;const baseMembers=[{name:"Thabo",role:"Chairperson",color:"#0033a0"},{name:"Priya",role:"Treasurer",color:"#00a6a6"},{name:"Lerato",role:"Member",color:"#6cc24a"},{name:"Sipho",role:"Member",color:"#d4af37"},{name:"Nandi",role:"Member",color:"#ff6b5f"}];const defaultState={currentMode:"business",activeMember:"Thabo",stokvel:{contribution:DEFAULT_CONTRIBUTION,mainPool:6450,emergencyFund:1050,payoutIndex:2,currentPayoutIndex:2,inviteCode:"MM-STOKVEL-250",members:baseMembers,memberContributions:{Thabo:1500,Priya:1500,Lerato:1500,Sipho:1500,Nandi:1500}},transactions:[{id:"txn-001",type:"Business payout",amount:1200,reason:"Buy stock for township weekend market",requestedBy:"Lerato",approvals:["Thabo","Priya","Lerato"],status:"pending",createdAt:"2026-05-23"},{id:"txn-002",type:"Supplier payment",amount:650,reason:"Bulk airtime reseller float",requestedBy:"Priya",approvals:["Thabo","Priya","Lerato","Sipho","Nandi"],status:"approved",createdAt:"2026-05-21",poolDeducted:!0}],repayments:[{id:"repay-001",member:"Sipho",amount:500,dueDate:"2026-06-23",paid:!1}],activity:[{icon:"bi-check2-circle",tone:"tile-lime",title:"Priya approved supplier payment",detail:"All members have visibility",amount:650},{icon:"bi-life-preserver",tone:"tile-coral",title:"Sipho emergency drawdown logged",detail:"Repayment due in one month",amount:500},{icon:"bi-phone",tone:"tile-aqua",title:"Mobile access enabled",detail:"Members can switch profiles on shared demo",amount:0}],businessData:{creditScore:742,subscriptions:[],incomingPayments:[],rent:{amount:1500,paid:!1},savings:8720,investments:5340},personalData:{creditScore:698,subscriptions:[],incomingPayments:[],rent:{amount:1100,paid:!0},savings:4200,investments:2100}};const clone=(v)=>JSON.parse(JSON.stringify(v));const qs=(s)=>document.querySelector(s);const qsa=(s)=>Array.from(document.querySelectorAll(s));const money=(v)=>"R"+Number(v||0).toLocaleString("en-ZA",{maximumFractionDigits:2});const today=()=>new Date().toISOString().slice(0,10);const pageName=document.body.dataset.page||"stokvel";let state=loadState();let activeData=getActiveData();function loadState(){const base=clone(defaultState);try{const saved=JSON.parse(localStorage.getItem(STORAGE_KEY));if(!saved)return base;const merged={...base,...saved,stokvel:{...base.stokvel,...(saved.stokvel||{}),members:(saved.stokvel&&saved.stokvel.members)||base.stokvel.members,memberContributions:{...base.stokvel.memberContributions,...((saved.stokvel&&saved.stokvel.memberContributions)||{})}},businessData:{...base.businessData,...(saved.businessData||{})},personalData:{...base.personalData,...(saved.personalData||{})},transactions:saved.transactions||base.transactions,repayments:saved.repayments||base.repayments,activity:saved.activity||base.activity};merged.stokvel.payoutIndex=Number.isFinite(merged.stokvel.payoutIndex)?merged.stokvel.payoutIndex:merged.stokvel.currentPayoutIndex||0;if(!merged.stokvel.members.some(m=>m.name===merged.activeMember))merged.activeMember=merged.stokvel.members[0].name;return merged}catch(e){return base}}function saveState(){localStorage.setItem(STORAGE_KEY,JSON.stringify(state))}function getActiveData(){return state.currentMode==="business"?state.businessData:state.personalData}function getMembers(){return state.stokvel.members}function getNextPayoutMember(){const members=getMembers();const index=state.stokvel.payoutIndex%members.length;return members[index]||members[0]}function totalPool(){return state.stokvel.mainPool+state.stokvel.emergencyFund}function showToast(m){const stack=qs("#toastStack");if(!stack)return;const toast=document.createElement("div");toast.className="app-toast";toast.textContent=m;stack.appendChild(toast);setTimeout(()=>toast.remove(),3400)}function setText(id,v){const n=qs("#"+id);if(n)n.textContent=v}function on(id,ev,h){const n=qs("#"+id);if(n)n.addEventListener(ev,h)}function addActivity(icon,tone,title,detail,amount){state.activity.unshift({icon,tone,title,detail,amount:amount||0});state.activity=state.activity.slice(0,8)}function payContribution(){const emAmt=state.stokvel.contribution*EMERGENCY_RATE;const mainAmt=state.stokvel.contribution-emAmt;state.stokvel.emergencyFund+=emAmt;state.stokvel.mainPool+=mainAmt;state.stokvel.memberContributions[state.activeMember]=(state.stokvel.memberContributions[state.activeMember]||0)+state.stokvel.contribution;addActivity("bi-plus-circle","tile-lime",state.activeMember+" paid monthly contribution",money(mainAmt)+" to pool and "+money(emAmt)+" to emergency",state.stokvel.contribution);saveAndRender();showToast(state.activeMember+" paid R250. R35 moved to emergency cover.")}function advancePayoutQueue(){state.stokvel.payoutIndex=(state.stokvel.payoutIndex+1)%getMembers().length;state.stokvel.currentPayoutIndex=state.stokvel.payoutIndex;addActivity("bi-person-check","tile-violet","Next beneficiary updated",getNextPayoutMember().name+" is now next in line",0);saveAndRender();showToast("Next beneficiary is now "+getNextPayoutMember().name+".")}function createTransaction(type,amount,reason){if(!Number.isFinite(amount)||amount<=0){showToast("Enter a valid amount first.");return}state.transactions.unshift({id:"txn-"+Date.now(),type,amount,reason,requestedBy:state.activeMember,approvals:[state.activeMember],status:"pending",createdAt:today()});addActivity("bi-plus-square","tile-blue",state.activeMember+" created "+type,reason,amount);saveAndRender();showToast("Request created. Every member must approve.")}function renderShell(){const opts=getMembers().map(m=>`<option value="${m.name}">${m.name} · ${m.role}</option>`).join("");qsa("[data-member-select]").forEach(s=>{s.innerHTML=opts;s.value=state.activeMember});qsa("[data-mode-text]").forEach(n=>{n.textContent=state.currentMode==="business"?"Business":"Personal"});qsa("[data-nav]").forEach(l=>{l.classList.toggle("active",l.dataset.nav===pageName)});setText("activeMemberLabel",state.activeMember);setText("memberCount",getMembers().length);setText("heroPool",money(totalPool()));setText("heroEmergency",money(state.stokvel.emergencyFund));setText("heroNext",getNextPayoutMember().name);setText("monthlyContribution",state.stokvel.contribution);setText("emergencyContributionDetail",money(state.stokvel.contribution*EMERGENCY_RATE));setText("mainContribution",money(state.stokvel.contribution-state.stokvel.contribution*EMERGENCY_RATE))}function renderMembers(){const node=qs("#stokvelMembersList");if(!node)return;const nextMember=getNextPayoutMember().name;node.innerHTML=getMembers().map(m=>{const paid=state.stokvel.memberContributions[m.name]||0;const isNext=m.name===nextMember;return`<div class="member-row"><div class="member-avatar" style="background:${m.color}">${m.name.charAt(0).toUpperCase()}</div><div class="min-w-0"><div class="fw-bold">${m.name}</div><small class="muted">${m.role} · Contributed ${money(paid)}</small></div><span class="pill ${isNext?"pill-success":""}">${isNext?"Next beneficiary":"Member"}</span></div>`}).join("")}function bindShell(){qsa("[data-member-select]").forEach(s=>{s.addEventListener("change",e=>{state.activeMember=e.target.value;saveAndRender();showToast("Now acting as "+state.activeMember+".")})});qsa("[data-mode-toggle]").forEach(b=>{b.addEventListener("click",()=>{state.currentMode=state.currentMode==="business"?"personal":"business";activeData=getActiveData();saveAndRender();showToast("Switched to "+state.currentMode+" view.")})})}function bindForms(){on("recordContributionBtn","click",payContribution);on("advancePayoutBtn","click",advancePayoutQueue);on("requestPayoutBtn","click",()=>{const next=getNextPayoutMember().name;createTransaction("Business payout",Math.min(1200,state.stokvel.mainPool),"Payout cycle for "+next)});on("addMemberBtn","click",()=>{const input=qs("#newMemberName");const roleInput=qs("#newMemberRole");const name=input.value.trim();if(!name)return showToast("Add a member name first.");if(getMembers().some(m=>m.name.toLowerCase()===name.toLowerCase()))return showToast("That member already exists.");const colors=["#0033a0","#00a6a6","#6cc24a","#d4af37","#ff6b5f","#6750d8","#102033"];state.stokvel.members.push({name,role:roleInput.value.trim()||"Member",color:colors[getMembers().length%colors.length]});state.stokvel.memberContributions[name]=0;input.value="";roleInput.value="";addActivity("bi-person-plus","tile-aqua",name+" joined the stokvel","Member added to approval circle",0);saveAndRender();showToast(name+" added to the stokvel.")});on("copyInviteBtn","click",async()=>{const text=state.stokvel.inviteCode+" · "+location.href.replace(location.pathname.split("/").pop(),"stokvel.html");try{await navigator.clipboard.writeText(text);showToast("Invite copied for WhatsApp.")}catch(e){showToast("Invite code: "+state.stokvel.inviteCode)}});on("resetDemoBtn","click",()=>{state=clone(defaultState);activeData=getActiveData();saveAndRender();showToast("Demo reset.")})}function renderPage(){activeData=getActiveData();renderShell();renderMembers()}function saveAndRender(){saveState();renderPage()}window.addEventListener("storage",e=>{if(e.key!==STORAGE_KEY)return;state=loadState();activeData=getActiveData();renderPage()});document.addEventListener("DOMContentLoaded",()=>{renderPage();bindShell();bindForms()})})();
+  </script>
+  <script>(function(){const vb=document.getElementById('voiceAssistantBtn');const vf=document.getElementById('voiceFeedback');let rec=null;if(vb){vb.addEventListener('click',()=>{if(!('webkitSpeechRecognition' in window)&&!('SpeechRecognition' in window)){vf.textContent='Speech not supported.';vf.style.display='block';setTimeout(()=>{vf.style.display='none'},3000);return}const SR=window.SpeechRecognition||window.webkitSpeechRecognition;rec=new SR();rec.continuous=!1;rec.interimResults=!1;rec.lang='en-ZA';rec.onstart=()=>{vb.classList.add('listening');vf.textContent='🎤 Listening...';vf.style.display='block'};rec.onresult=(e)=>{const t=e.results[0][0].transcript.toLowerCase();let r='Try saying: stokvel, payout, or help.';if(t.includes('stokvel'))r='Your stokvel group shares contributions and approves transactions together.';if(t.includes('payout')||t.includes('pay'))r='Click Pay R250 to contribute, or Request payout for the next beneficiary.';if(t.includes('help'))r='Manage stokvel members, contributions, and beneficiary queue here.';vf.textContent=r;if('speechSynthesis' in window){const u=new SpeechSynthesisUtterance(r);u.lang='en-ZA';window.speechSynthesis.cancel();window.speechSynthesis.speak(u)}};rec.onerror=()=>{vb.classList.remove('listening')};rec.onend=()=>{vb.classList.remove('listening');setTimeout(()=>{vf.style.display='none'},4000)};rec.start()})}})();
+  </script>
+  <script>
+    if('serviceWorker' in navigator){
+      navigator.serviceWorker.register('sw.js').then(()=>console.log('SW registered')).catch(()=>{});
+    }
   </script>
 </body>
 </html>
