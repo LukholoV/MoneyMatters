@@ -14,18 +14,12 @@
     .topbar{background:linear-gradient(135deg,var(--sb-blue-dark),var(--sb-blue));color:#fff}
     .brand i{color:var(--gold)}
     .hero-card{background:linear-gradient(135deg,var(--sb-blue-dark),var(--sb-blue));color:#fff;border-radius:16px;padding:25px}
-    .hero-stat-box{background:rgba(255,255,255,0.15);padding:12px;border-radius:10px;text-align:center}
-    .hero-stat-box strong{display:block;font-size:1.3rem}
-    .hero-stat-box span{font-size:0.7rem;opacity:0.8}
     .nav-block{background:var(--paper);border-radius:12px;padding:20px;text-align:center;box-shadow:0 10px 26px rgba(0,107,63,0.09);transition:transform 0.2s;display:block;color:var(--ink);height:100%}
     .nav-block:hover{transform:translateY(-3px)}
     .nav-block i{font-size:2rem;display:block;margin-bottom:8px}
     .nav-block strong{display:block;font-size:1rem}
     .nav-block small{color:var(--muted);font-size:0.75rem}
     .icon-aqua{color:var(--aqua)}.icon-gold{color:var(--gold)}.icon-coral{color:var(--coral)}.icon-purple{color:#9b59b6}
-    .metric-box{background:var(--soft);padding:12px;border-radius:8px;text-align:center}
-    .metric-box .value{font-size:1.4rem;font-weight:900;color:var(--sb-blue-dark)}
-    .metric-box .label{font-size:0.7rem;color:var(--muted)}
     .btn-green{background:var(--sb-blue);color:#fff;border:none;padding:12px;border-radius:8px;font-weight:700;width:100%}
     .btn-green:hover{background:var(--sb-blue-dark);color:#fff}
     .toast-stack{position:fixed;right:16px;bottom:80px;z-index:1080}
@@ -108,35 +102,21 @@
 
   <main class="container-fluid py-3" style="max-width:900px">
     <div class="hero-card mb-4 text-center text-md-start">
-      <span class="badge mb-2" style="background:rgba(255,255,255,0.2);font-size:0.7rem"><i class="bi bi-briefcase me-1"></i>BUSINESS</span>
-      <h1 class="fw-bold display-5 mb-1">Group finance, managed.</h1>
-      <p class="opacity-75">Track your stokvel contributions and group savings.</p>
-      <div class="row g-2 mt-3">
-        <div class="col-6 col-md-3"><div class="hero-stat-box"><strong id="heroPool">R0</strong><span>Total value</span></div></div>
-        <div class="col-6 col-md-3"><div class="hero-stat-box"><strong id="heroEmergency">R0</strong><span>Emergency</span></div></div>
-        <div class="col-6 col-md-3"><div class="hero-stat-box"><strong id="heroPending">0</strong><span>Pending</span></div></div>
-        <div class="col-6 col-md-3"><div class="hero-stat-box"><strong id="heroNext">-</strong><span>Next payout</span></div></div>
-      </div>
+      <span class="badge mb-2" style="background:rgba(255,255,255,0.2);font-size:0.7rem"><i class="bi bi-briefcase me-1"></i>BUSINESS INDEX</span>
+      <h1 class="fw-bold display-5 mb-1">Your Business Command Center</h1>
+      <p class="opacity-75">Manage your Spaza Shop inventory, secure assets in Vault, and oversee Landlord properties - all in one place.</p>
     </div>
 
     <div class="row g-3 mb-4">
       <div class="col-6 col-md-4">
-        <a href="spazashop.html" class="nav-block"><i class="bi bi-shop icon-aqua"></i><strong>Spaza Shop</strong><small>Retail management</small></a>
+        <a href="spazashop.html" class="nav-block"><i class="bi bi-shop icon-aqua"></i><strong>Spaza Shop</strong><small>Retail & inventory management</small></a>
       </div>
       <div class="col-6 col-md-4">
-        <a href="Vault.html" class="nav-block"><i class="bi bi-safe icon-coral"></i><strong>Vault</strong><small>Secure storage</small></a>
+        <a href="Vault.html" class="nav-block"><i class="bi bi-safe icon-coral"></i><strong>Vault</strong><small>Secure document & asset storage</small></a>
       </div>
       <div class="col-6 col-md-4">
-        <a href="landlord.html" class="nav-block"><i class="bi bi-building icon-gold"></i><strong>Landlord</strong><small>Property management</small></a>
+        <a href="landlord.html" class="nav-block"><i class="bi bi-building icon-gold"></i><strong>Landlord</strong><small>Property & tenant management</small></a>
       </div>
-    </div>
-
-    <h5 class="fw-bold mb-3">Quick overview</h5>
-    <div class="row g-2 mb-3">
-      <div class="col-6 col-md-3"><div class="metric-box"><div class="value" id="stokvelPayoutValue">R0</div><div class="label">Main pool</div></div></div>
-      <div class="col-6 col-md-3"><div class="metric-box"><div class="value" id="emergencyFundValue">R0</div><div class="label">Emergency</div></div></div>
-      <div class="col-6 col-md-3"><div class="metric-box"><div class="value" id="incomingPayments">R0</div><div class="label">Incoming</div></div></div>
-      <div class="col-6 col-md-3"><div class="metric-box"><div class="value" id="rentDueDisplay">R0</div><div class="label">Rent due</div></div></div>
     </div>
 
     <button class="btn btn-green btn-lg" id="payBtn"><i class="bi bi-plus-circle me-2"></i>Pay R250 Contribution</button>
@@ -170,32 +150,18 @@
     }
 
     const money=v=>"R"+Number(v||0).toLocaleString("en-ZA");
-    const setText=(id,v)=>{const n=document.getElementById(id);if(n)n.textContent=v};
     const STORAGE_KEY="moneyMattersUltimateStokvelState";
     let state;
     try{state=JSON.parse(localStorage.getItem(STORAGE_KEY))||{stokvel:{mainPool:6450,emergencyFund:1050,payoutIndex:2,members:[{name:"Thabo"},{name:"Priya"},{name:"Lerato"},{name:"Sipho"},{name:"Nandi"}]},transactions:[{status:"pending"},{status:"approved"}],businessData:{incomingPayments:[{amount:2100},{amount:1100}],rent:{amount:1500}},activity:[]}}catch(e){state={stokvel:{mainPool:0,emergencyFund:0,payoutIndex:0,members:[]},transactions:[],businessData:{incomingPayments:[],rent:{amount:0}},activity:[]}}
-
-    function render(){
-      setText('heroPool',money((state.stokvel.mainPool||0)+(state.stokvel.emergencyFund||0)));
-      setText('heroEmergency',money(state.stokvel.emergencyFund||0));
-      setText('heroPending',state.transactions.filter(t=>t.status!=="approved").length);
-      setText('heroNext',(state.stokvel.members||[])[state.stokvel.payoutIndex%(state.stokvel.members||[]).length]?.name||'-');
-      setText('stokvelPayoutValue',money(state.stokvel.mainPool||0));
-      setText('emergencyFundValue',money(state.stokvel.emergencyFund||0));
-      setText('incomingPayments',money((state.businessData.incomingPayments||[]).reduce((s,x)=>s+(x.amount||0),0)));
-      setText('rentDueDisplay',money(state.businessData.rent?.amount||0));
-    }
 
     document.getElementById('payBtn').addEventListener('click',()=>{
       state.stokvel.emergencyFund=(state.stokvel.emergencyFund||0)+35;
       state.stokvel.mainPool=(state.stokvel.mainPool||0)+215;
       localStorage.setItem(STORAGE_KEY,JSON.stringify(state));
-      render();
       const t=document.createElement('div');t.className='app-toast';t.textContent='R250 paid! R35 to emergency.';document.getElementById('toastStack').appendChild(t);setTimeout(()=>t.remove(),3000);
     });
 
     if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});
-    render();
   </script>
 </body>
 </html>
