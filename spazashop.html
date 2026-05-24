@@ -1,0 +1,1284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Supamarket Owner Control Room</title>
+  <style>
+    :root {
+      --green-900: #063d2d;
+      --green-800: #075b42;
+      --green-700: #087a55;
+      --green-600: #0aa66f;
+      --green-100: #dff7eb;
+      --blue-700: #0b5aa8;
+      --blue-100: #e8f3ff;
+      --ink: #10231d;
+      --muted: #60746d;
+      --line: #dce9e4;
+      --white: #ffffff;
+      --surface: #f6fbf8;
+      --warning: #bf7d08;
+      --danger: #b42318;
+      --shadow: 0 18px 42px rgba(6, 61, 45, 0.14);
+      --radius: 8px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background:
+        linear-gradient(135deg, rgba(6, 61, 45, 0.96), rgba(8, 122, 85, 0.82) 42%, rgba(11, 90, 168, 0.84)),
+        url("Gemini_Generated_Image_8f5c698f5c698f5c.png");
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      color: var(--ink);
+      font-family: "Segoe UI", Arial, sans-serif;
+      letter-spacing: 0;
+    }
+
+    button,
+    input,
+    select {
+      font: inherit;
+    }
+
+    button,
+    .loan-link {
+      min-height: 42px;
+      border: 0;
+      border-radius: var(--radius);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-weight: 800;
+      text-decoration: none;
+      transition: transform 0.16s ease, box-shadow 0.16s ease, background 0.16s ease;
+      touch-action: manipulation;
+      white-space: nowrap;
+    }
+
+    button:hover,
+    .loan-link:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 22px rgba(6, 61, 45, 0.18);
+    }
+
+    button:active,
+    .loan-link:active {
+      transform: translateY(1px) scale(0.99);
+    }
+
+    button:focus-visible,
+    a:focus-visible,
+    input:focus-visible,
+    select:focus-visible {
+      outline: 3px solid rgba(11, 90, 168, 0.35);
+      outline-offset: 2px;
+    }
+
+    .page {
+      width: min(1440px, 100%);
+      margin: 0 auto;
+      padding: 18px;
+    }
+
+    .app-shell {
+      min-height: calc(100vh - 36px);
+      background: rgba(255, 255, 255, 0.94);
+      border: 1px solid rgba(255, 255, 255, 0.68);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      border-radius: 14px;
+    }
+
+    .sidebar {
+      background: linear-gradient(180deg, var(--green-900), var(--green-800));
+      color: var(--white);
+      padding: 22px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-mark {
+      width: 44px;
+      height: 44px;
+      border-radius: 8px;
+      background: var(--white);
+      color: var(--green-800);
+      display: grid;
+      place-items: center;
+      font-weight: 900;
+      box-shadow: inset 0 -5px 0 rgba(10, 166, 111, 0.18);
+    }
+
+    .brand strong {
+      display: block;
+      font-size: 1rem;
+    }
+
+    .brand span {
+      color: rgba(255, 255, 255, 0.72);
+      font-size: 0.82rem;
+    }
+
+    .owner-card {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: var(--radius);
+      padding: 14px;
+    }
+
+    .owner-card small {
+      color: rgba(255, 255, 255, 0.72);
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .owner-card strong {
+      display: block;
+      font-size: 1.12rem;
+    }
+
+    .nav-list {
+      display: grid;
+      gap: 8px;
+    }
+
+    .nav-list a {
+      color: rgba(255, 255, 255, 0.86);
+      text-decoration: none;
+      padding: 11px 12px;
+      border-radius: var(--radius);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+    }
+
+    .nav-list a:hover,
+    .nav-list a.active {
+      color: var(--white);
+      background: rgba(255, 255, 255, 0.14);
+    }
+
+    .sidebar-footer {
+      margin-top: auto;
+      border-top: 1px solid rgba(255, 255, 255, 0.16);
+      padding-top: 16px;
+      font-size: 0.86rem;
+      color: rgba(255, 255, 255, 0.74);
+      line-height: 1.45;
+    }
+
+    .main {
+      background: var(--surface);
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+
+    .topbar {
+      background: var(--white);
+      border-bottom: 1px solid var(--line);
+      padding: 18px 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      position: sticky;
+      top: 0;
+      z-index: 5;
+    }
+
+    .topbar h1 {
+      margin: 0;
+      font-size: clamp(1.32rem, 2.5vw, 2.2rem);
+      color: var(--green-900);
+      line-height: 1.08;
+    }
+
+    .topbar p {
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
+
+    .owner-inputs {
+      display: grid;
+      grid-template-columns: minmax(170px, 1fr) auto;
+      gap: 8px;
+      align-items: end;
+      min-width: min(420px, 100%);
+    }
+
+    .field {
+      display: grid;
+      gap: 6px;
+    }
+
+    label {
+      color: var(--muted);
+      font-size: 0.78rem;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    input,
+    select {
+      width: 100%;
+      min-height: 42px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 9px 11px;
+      background: var(--white);
+      color: var(--ink);
+    }
+
+    .primary {
+      background: var(--green-700);
+      color: var(--white);
+      padding: 0 14px;
+    }
+
+    .secondary {
+      background: var(--blue-100);
+      color: var(--blue-700);
+      padding: 0 14px;
+    }
+
+    .ghost {
+      background: var(--white);
+      color: var(--green-800);
+      border: 1px solid var(--line);
+      padding: 0 12px;
+    }
+
+    .danger {
+      background: #fff0ee;
+      color: var(--danger);
+      border: 1px solid #ffd2cc;
+      padding: 0 12px;
+    }
+
+    .loan-link {
+      background: var(--blue-700);
+      color: var(--white);
+      padding: 0 16px;
+    }
+
+    .content {
+      padding: 22px;
+      display: grid;
+      gap: 18px;
+    }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .metric {
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 16px;
+      min-height: 112px;
+      display: grid;
+      align-content: space-between;
+    }
+
+    .metric small {
+      color: var(--muted);
+      font-weight: 800;
+      text-transform: uppercase;
+      font-size: 0.75rem;
+    }
+
+    .metric strong {
+      color: var(--green-900);
+      font-size: clamp(1.35rem, 2.2vw, 2rem);
+      margin-top: 8px;
+    }
+
+    .metric span {
+      color: var(--muted);
+      font-size: 0.86rem;
+    }
+
+    .board {
+      display: grid;
+      grid-template-columns: 1.25fr 0.75fr;
+      gap: 18px;
+      align-items: start;
+    }
+
+    .panel {
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    .panel-head {
+      padding: 16px;
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .panel-head h2 {
+      margin: 0;
+      color: var(--green-900);
+      font-size: 1.05rem;
+    }
+
+    .panel-head p {
+      margin: 4px 0 0;
+      color: var(--muted);
+      font-size: 0.86rem;
+    }
+
+    .panel-body {
+      padding: 16px;
+    }
+
+    .stock-form,
+    .credit-form {
+      display: grid;
+      grid-template-columns: 1.2fr 0.9fr repeat(3, 0.65fr) auto;
+      gap: 10px;
+      align-items: end;
+      margin-bottom: 14px;
+    }
+
+    .credit-form {
+      grid-template-columns: 1fr 1.1fr 0.75fr 0.85fr auto;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+    }
+
+    table {
+      width: 100%;
+      min-width: 820px;
+      border-collapse: collapse;
+      background: var(--white);
+    }
+
+    th,
+    td {
+      padding: 12px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: middle;
+      font-size: 0.92rem;
+    }
+
+    th {
+      background: #f1f8f4;
+      color: var(--green-900);
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0;
+    }
+
+    tr:last-child td {
+      border-bottom: 0;
+    }
+
+    .row-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+    }
+
+    .mini {
+      min-height: 34px;
+      padding: 0 10px;
+      font-size: 0.84rem;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 28px;
+      padding: 3px 9px;
+      border-radius: 999px;
+      font-weight: 800;
+      font-size: 0.78rem;
+      background: var(--green-100);
+      color: var(--green-800);
+      white-space: nowrap;
+    }
+
+    .pill.warn {
+      background: #fff4d7;
+      color: var(--warning);
+    }
+
+    .pill.bad {
+      background: #fff0ee;
+      color: var(--danger);
+    }
+
+    .side-stack {
+      display: grid;
+      gap: 18px;
+    }
+
+    .analysis-card {
+      border-left: 5px solid var(--green-600);
+      background: linear-gradient(90deg, #f2fff8, var(--white));
+      padding: 14px;
+      border-radius: var(--radius);
+      display: grid;
+      gap: 10px;
+    }
+
+    .analysis-card.blue {
+      border-left-color: var(--blue-700);
+      background: linear-gradient(90deg, #edf7ff, var(--white));
+    }
+
+    .analysis-card.warn {
+      border-left-color: var(--warning);
+      background: linear-gradient(90deg, #fff8e8, var(--white));
+    }
+
+    .analysis-card h3 {
+      margin: 0;
+      color: var(--green-900);
+      font-size: 0.98rem;
+    }
+
+    .analysis-card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.45;
+      font-size: 0.9rem;
+    }
+
+    .progress {
+      height: 10px;
+      border-radius: 999px;
+      background: #e5efea;
+      overflow: hidden;
+    }
+
+    .progress span {
+      display: block;
+      height: 100%;
+      width: 50%;
+      background: linear-gradient(90deg, var(--green-600), var(--blue-700));
+      border-radius: inherit;
+      transition: width 0.25s ease;
+    }
+
+    .timeline {
+      display: grid;
+      gap: 10px;
+    }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 86px 1fr;
+      gap: 10px;
+      align-items: start;
+      padding: 11px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fbfffc;
+    }
+
+    .timeline-item time {
+      color: var(--blue-700);
+      font-weight: 900;
+      font-size: 0.86rem;
+    }
+
+    .timeline-item strong {
+      display: block;
+      color: var(--green-900);
+      margin-bottom: 3px;
+    }
+
+    .timeline-item span {
+      color: var(--muted);
+      font-size: 0.86rem;
+    }
+
+    .scenario-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .scenario-card {
+      background: #f7fbf9;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 13px;
+      display: grid;
+      gap: 7px;
+    }
+
+    .scenario-card strong {
+      color: var(--green-900);
+      font-size: 1rem;
+    }
+
+    .scenario-card span {
+      color: var(--muted);
+      font-size: 0.84rem;
+      line-height: 1.35;
+    }
+
+    .scenario-card button {
+      width: 100%;
+      margin-top: 6px;
+    }
+
+    .toast {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      max-width: min(380px, calc(100vw - 40px));
+      background: var(--green-900);
+      color: var(--white);
+      padding: 13px 15px;
+      border-radius: var(--radius);
+      box-shadow: 0 16px 34px rgba(0, 0, 0, 0.22);
+      transform: translateY(18px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+      z-index: 20;
+      font-weight: 700;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 1180px) {
+      .app-shell {
+        grid-template-columns: 1fr;
+      }
+
+      .sidebar {
+        flex-direction: row;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+
+      .nav-list {
+        grid-template-columns: repeat(4, auto);
+      }
+
+      .sidebar-footer {
+        display: none;
+      }
+
+      .metrics {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .board {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 780px) {
+      .page {
+        padding: 0;
+      }
+
+      .app-shell {
+        min-height: 100vh;
+        border-radius: 0;
+      }
+
+      .topbar {
+        position: static;
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      .owner-inputs,
+      .stock-form,
+      .credit-form,
+      .scenario-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .content {
+        padding: 14px;
+      }
+
+      .metrics {
+        grid-template-columns: 1fr;
+      }
+
+      .panel-head {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      button,
+      .loan-link {
+        width: 100%;
+        white-space: normal;
+      }
+
+      .nav-list {
+        width: 100%;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 500px) {
+      .sidebar {
+        padding: 16px;
+      }
+
+      .brand,
+      .owner-card {
+        width: 100%;
+      }
+
+      .nav-list {
+        grid-template-columns: 1fr;
+      }
+
+      .timeline-item {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="app-shell">
+      <aside class="sidebar" aria-label="Shop dashboard navigation">
+        <div class="brand">
+          <div class="brand-mark">SP</div>
+          <div>
+            <strong>SpazaPilot</strong>
+            <span>Supamarket money desk</span>
+          </div>
+        </div>
+
+        <div class="owner-card">
+          <small>Owner signed in</small>
+          <strong id="ownerNameSide">Nomsa Dlamini</strong>
+          <span>KwaMashu Corner Supamarket</span>
+        </div>
+
+        <nav class="nav-list">
+          <a class="active" href="#overview">Dashboard</a>
+          <a href="#inventory">Inventory</a>
+          <a href="#credit">Credit Book</a>
+          <a href="#analysis">Risk</a>
+        </nav>
+
+        <div class="sidebar-footer">
+          Live simulation for an informal shop owner: count stock, track credit, predict cash pressure, and decide when growth finance makes sense.
+        </div>
+      </aside>
+
+      <main class="main">
+        <header class="topbar" id="overview">
+          <div>
+            <h1>Good morning, <span id="ownerNameTop">Nomsa Dlamini</span>.</h1>
+            <p>Today your shop is open, stocked, and being watched like a real business.</p>
+          </div>
+          <div class="owner-inputs">
+            <div class="field">
+              <label for="ownerNameInput">Owner name</label>
+              <input id="ownerNameInput" value="Nomsa Dlamini" autocomplete="name" />
+            </div>
+            <button class="primary" id="saveOwnerBtn" type="button">Update name</button>
+          </div>
+        </header>
+
+        <section class="content">
+          <div class="metrics" aria-label="Business summary">
+            <article class="metric">
+              <small>Stock at cost</small>
+              <strong id="stockCost">R0</strong>
+              <span id="stockMargin">Margin loading...</span>
+            </article>
+            <article class="metric">
+              <small>Expected sales value</small>
+              <strong id="retailValue">R0</strong>
+              <span id="stockUnits">0 units counted</span>
+            </article>
+            <article class="metric">
+              <small>Credit outstanding</small>
+              <strong id="creditOutstanding">R0</strong>
+              <span id="creditStatus">No overdue accounts</span>
+            </article>
+            <article class="metric">
+              <small>Current wealth</small>
+              <strong id="wealthValue">R0</strong>
+              <span id="wealthNote">Cash + stock + collectible credit</span>
+            </article>
+          </div>
+
+          <div class="board">
+            <section class="panel" id="inventory">
+              <div class="panel-head">
+                <div>
+                  <h2>Inventory count and stock cost</h2>
+                  <p>Add stock, count what is on shelf, sell items, or restock fast.</p>
+                </div>
+                <button class="secondary" id="autoCountBtn" type="button">Run shelf count</button>
+              </div>
+              <div class="panel-body">
+                <form class="stock-form" id="stockForm">
+                  <div class="field">
+                    <label for="itemName">Item</label>
+                    <input id="itemName" value="Amasi 2L" required />
+                  </div>
+                  <div class="field">
+                    <label for="itemCategory">Category</label>
+                    <select id="itemCategory">
+                      <option>Dairy</option>
+                      <option>Bread</option>
+                      <option>Maize meal</option>
+                      <option>Drinks</option>
+                      <option>Toiletries</option>
+                      <option>Snacks</option>
+                    </select>
+                  </div>
+                  <div class="field">
+                    <label for="itemQty">Qty</label>
+                    <input id="itemQty" type="number" value="16" min="1" />
+                  </div>
+                  <div class="field">
+                    <label for="itemCost">Cost R</label>
+                    <input id="itemCost" type="number" value="18" min="1" />
+                  </div>
+                  <div class="field">
+                    <label for="itemPrice">Sell R</label>
+                    <input id="itemPrice" type="number" value="27" min="1" />
+                  </div>
+                  <button class="primary" type="submit">Add stock</button>
+                </form>
+
+                <div class="table-wrap">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Item</th>
+                        <th>Category</th>
+                        <th>Count</th>
+                        <th>Cost value</th>
+                        <th>Sale value</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                    <tbody id="inventoryRows"></tbody>
+                  </table>
+                </div>
+              </div>
+            </section>
+
+            <aside class="side-stack" id="analysis">
+              <section class="panel">
+                <div class="panel-head">
+                  <div>
+                    <h2>Predictive business pulse</h2>
+                    <p>Uses current stock, cash, credit delays, and monthly costs.</p>
+                  </div>
+                </div>
+                <div class="panel-body">
+                  <div class="analysis-card">
+                    <h3>Risk score: <span id="riskScore">0</span>/100</h3>
+                    <div class="progress" aria-hidden="true"><span id="riskBar"></span></div>
+                    <p id="riskText">Calculating business pressure...</p>
+                  </div>
+                  <div class="analysis-card blue" style="margin-top: 12px;">
+                    <h3>Next 30 days prediction</h3>
+                    <p id="predictionText">Calculating sales, collections, and restock pressure...</p>
+                  </div>
+                  <div class="analysis-card warn" style="margin-top: 12px;">
+                    <h3>Loan signal</h3>
+                    <p id="loanText">Checking whether growth finance may help.</p>
+                    <a class="loan-link" id="loanLink" href="https://www.standardbank.co.za/southafrica/business/products-and-services/borrow-for-your-needs/business-loans" target="_blank" rel="noopener">Go to Standard Bank business loans</a>
+                  </div>
+                </div>
+              </section>
+
+              <section class="panel">
+                <div class="panel-head">
+                  <div>
+                    <h2>Owner decisions</h2>
+                    <p>Tap a scenario to simulate what happens.</p>
+                  </div>
+                </div>
+                <div class="panel-body">
+                  <div class="scenario-grid">
+                    <article class="scenario-card">
+                      <strong>Busy weekend</strong>
+                      <span>Sell fast-moving groceries and improve cash today.</span>
+                      <button class="primary mini" type="button" data-scenario="weekend">Simulate sales</button>
+                    </article>
+                    <article class="scenario-card">
+                      <strong>Restock basics</strong>
+                      <span>Buy bread, drinks, and maize meal before shelves look thin.</span>
+                      <button class="secondary mini" type="button" data-scenario="restock">Simulate restock</button>
+                    </article>
+                    <article class="scenario-card">
+                      <strong>Collect credit</strong>
+                      <span>Assume two customers pay what they owe this week.</span>
+                      <button class="ghost mini" type="button" data-scenario="collect">Simulate collection</button>
+                    </article>
+                  </div>
+                </div>
+              </section>
+            </aside>
+          </div>
+
+          <section class="panel" id="credit">
+            <div class="panel-head">
+              <div>
+                <h2>Customer credit book and follow-ups</h2>
+                <p>Track who took items on credit, payment dates, overdue risk, and reminder actions.</p>
+              </div>
+              <button class="secondary" id="smartReminderBtn" type="button">Send due reminders</button>
+            </div>
+            <div class="panel-body">
+              <form class="credit-form" id="creditForm">
+                <div class="field">
+                  <label for="customerName">Customer</label>
+                  <input id="customerName" value="Sipho M." required />
+                </div>
+                <div class="field">
+                  <label for="creditItems">Items taken</label>
+                  <input id="creditItems" value="Bread, airtime, cooking oil" required />
+                </div>
+                <div class="field">
+                  <label for="creditAmount">Amount R</label>
+                  <input id="creditAmount" type="number" value="142" min="1" />
+                </div>
+                <div class="field">
+                  <label for="dueDate">Expected date</label>
+                  <input id="dueDate" type="date" />
+                </div>
+                <button class="primary" type="submit">Add credit</button>
+              </form>
+
+              <div class="table-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Customer</th>
+                      <th>Items</th>
+                      <th>Amount</th>
+                      <th>Expected payment</th>
+                      <th>Follow-up</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody id="creditRows"></tbody>
+                </table>
+              </div>
+            </div>
+          </section>
+
+          <section class="panel">
+            <div class="panel-head">
+              <div>
+                <h2>Follow-up calendar</h2>
+                <p>The owner can see who needs a call, WhatsApp, or friendly visit.</p>
+              </div>
+            </div>
+            <div class="panel-body">
+              <div class="timeline" id="timeline"></div>
+            </div>
+          </section>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    const money = new Intl.NumberFormat("en-ZA", {
+      style: "currency",
+      currency: "ZAR",
+      maximumFractionDigits: 0
+    });
+
+    const today = new Date("2026-05-24T08:00:00");
+    const state = {
+      cash: 12680,
+      monthlyCosts: 18800,
+      inventory: [
+        { id: 1, item: "Albany bread loaf", category: "Bread", qty: 32, cost: 13, price: 18, min: 18 },
+        { id: 2, item: "Iwisa maize meal 10kg", category: "Maize meal", qty: 11, cost: 79, price: 104, min: 10 },
+        { id: 3, item: "Coca-Cola 2L", category: "Drinks", qty: 24, cost: 17, price: 25, min: 20 },
+        { id: 4, item: "Sunfoil cooking oil 2L", category: "Groceries", qty: 9, cost: 48, price: 68, min: 12 },
+        { id: 5, item: "Amasi 2L", category: "Dairy", qty: 14, cost: 18, price: 27, min: 10 },
+        { id: 6, item: "Prepaid airtime R20", category: "Airtime", qty: 50, cost: 19, price: 20, min: 30 }
+      ],
+      credits: [
+        { id: 1, name: "Ma Dube", items: "Maize meal, soap, bread", amount: 286, due: "2026-05-22", reminded: false },
+        { id: 2, name: "Thabiso N.", items: "Electricity token, cooldrink", amount: 175, due: "2026-05-25", reminded: false },
+        { id: 3, name: "Zanele K.", items: "Nappies, milk, sugar", amount: 391, due: "2026-05-31", reminded: true },
+        { id: 4, name: "Bra Mike", items: "Airtime, bread, candles", amount: 89, due: "2026-06-03", reminded: false }
+      ]
+    };
+
+    const els = {
+      ownerNameTop: document.querySelector("#ownerNameTop"),
+      ownerNameSide: document.querySelector("#ownerNameSide"),
+      ownerNameInput: document.querySelector("#ownerNameInput"),
+      stockCost: document.querySelector("#stockCost"),
+      retailValue: document.querySelector("#retailValue"),
+      stockUnits: document.querySelector("#stockUnits"),
+      stockMargin: document.querySelector("#stockMargin"),
+      creditOutstanding: document.querySelector("#creditOutstanding"),
+      creditStatus: document.querySelector("#creditStatus"),
+      wealthValue: document.querySelector("#wealthValue"),
+      wealthNote: document.querySelector("#wealthNote"),
+      inventoryRows: document.querySelector("#inventoryRows"),
+      creditRows: document.querySelector("#creditRows"),
+      timeline: document.querySelector("#timeline"),
+      riskScore: document.querySelector("#riskScore"),
+      riskBar: document.querySelector("#riskBar"),
+      riskText: document.querySelector("#riskText"),
+      predictionText: document.querySelector("#predictionText"),
+      loanText: document.querySelector("#loanText"),
+      toast: document.querySelector("#toast")
+    };
+
+    document.querySelector("#dueDate").value = toDateValue(daysFromNow(7));
+
+    function daysFromNow(days) {
+      const date = new Date(today);
+      date.setDate(date.getDate() + days);
+      return date;
+    }
+
+    function toDateValue(date) {
+      return date.toISOString().slice(0, 10);
+    }
+
+    function daysUntil(dateText) {
+      const target = new Date(`${dateText}T12:00:00`);
+      return Math.round((target - today) / 86400000);
+    }
+
+    function showToast(message) {
+      els.toast.textContent = message;
+      els.toast.classList.add("show");
+      window.clearTimeout(showToast.timer);
+      showToast.timer = window.setTimeout(() => els.toast.classList.remove("show"), 2800);
+    }
+
+    function getTotals() {
+      const stockCost = state.inventory.reduce((sum, item) => sum + item.qty * item.cost, 0);
+      const retailValue = state.inventory.reduce((sum, item) => sum + item.qty * item.price, 0);
+      const units = state.inventory.reduce((sum, item) => sum + item.qty, 0);
+      const credit = state.credits.reduce((sum, item) => sum + item.amount, 0);
+      const overdue = state.credits.filter(item => daysUntil(item.due) < 0);
+      const lowStock = state.inventory.filter(item => item.qty <= item.min);
+      const collectibleCredit = credit * 0.78;
+      const wealth = state.cash + stockCost + collectibleCredit;
+      const grossMargin = retailValue ? ((retailValue - stockCost) / retailValue) * 100 : 0;
+      return { stockCost, retailValue, units, credit, overdue, lowStock, wealth, grossMargin };
+    }
+
+    function stockStatus(item) {
+      if (item.qty <= Math.max(2, Math.floor(item.min * 0.45))) return ["Critical", "bad"];
+      if (item.qty <= item.min) return ["Restock soon", "warn"];
+      return ["Healthy", ""];
+    }
+
+    function creditStatus(credit) {
+      const days = daysUntil(credit.due);
+      if (days < 0) return [`${Math.abs(days)} days overdue`, "bad"];
+      if (days === 0) return ["Due today", "warn"];
+      if (days <= 3) return [`Due in ${days} days`, "warn"];
+      return [`Due in ${days} days`, ""];
+    }
+
+    function renderInventory() {
+      els.inventoryRows.innerHTML = state.inventory.map(item => {
+        const [status, tone] = stockStatus(item);
+        return `
+          <tr>
+            <td><strong>${item.item}</strong></td>
+            <td>${item.category}</td>
+            <td>${item.qty}</td>
+            <td>${money.format(item.qty * item.cost)}</td>
+            <td>${money.format(item.qty * item.price)}</td>
+            <td><span class="pill ${tone}">${status}</span></td>
+            <td>
+              <div class="row-actions">
+                <button class="ghost mini" type="button" data-action="sell" data-id="${item.id}">Sell 1</button>
+                <button class="secondary mini" type="button" data-action="restock" data-id="${item.id}">+5</button>
+                <button class="danger mini" type="button" data-action="remove" data-id="${item.id}">Remove</button>
+              </div>
+            </td>
+          </tr>
+        `;
+      }).join("");
+    }
+
+    function renderCredits() {
+      els.creditRows.innerHTML = state.credits.map(item => {
+        const [status, tone] = creditStatus(item);
+        return `
+          <tr>
+            <td><strong>${item.name}</strong></td>
+            <td>${item.items}</td>
+            <td>${money.format(item.amount)}</td>
+            <td>${new Date(`${item.due}T12:00:00`).toLocaleDateString("en-ZA", { day: "numeric", month: "short", year: "numeric" })}</td>
+            <td><span class="pill ${tone}">${status}${item.reminded ? " - reminded" : ""}</span></td>
+            <td>
+              <div class="row-actions">
+                <button class="secondary mini" type="button" data-credit="remind" data-id="${item.id}">Reminder</button>
+                <button class="primary mini" type="button" data-credit="paid" data-id="${item.id}">Paid</button>
+              </div>
+            </td>
+          </tr>
+        `;
+      }).join("");
+    }
+
+    function renderTimeline() {
+      const sorted = [...state.credits].sort((a, b) => new Date(a.due) - new Date(b.due));
+      els.timeline.innerHTML = sorted.map(item => {
+        const [status, tone] = creditStatus(item);
+        return `
+          <div class="timeline-item">
+            <time>${new Date(`${item.due}T12:00:00`).toLocaleDateString("en-ZA", { day: "numeric", month: "short" })}</time>
+            <div>
+              <strong>${item.name} - ${money.format(item.amount)}</strong>
+              <span>${item.items}. <span class="pill ${tone}">${status}</span></span>
+            </div>
+          </div>
+        `;
+      }).join("");
+    }
+
+    function renderAnalysis() {
+      const totals = getTotals();
+      const overdueRatio = totals.credit ? totals.overdue.reduce((sum, item) => sum + item.amount, 0) / totals.credit : 0;
+      const cashCover = state.cash / state.monthlyCosts;
+      const lowStockRatio = totals.lowStock.length / Math.max(1, state.inventory.length);
+      const risk = Math.min(100, Math.round(24 + overdueRatio * 34 + Math.max(0, 1 - cashCover) * 30 + lowStockRatio * 22));
+      const expectedSales = Math.round(totals.retailValue * 0.42);
+      const expectedCollections = Math.round(totals.credit * 0.58);
+      const restockNeed = totals.lowStock.reduce((sum, item) => sum + Math.max(0, item.min + 8 - item.qty) * item.cost, 0);
+      const monthEndCash = state.cash + expectedSales + expectedCollections - state.monthlyCosts - restockNeed;
+
+      els.riskScore.textContent = risk;
+      els.riskBar.style.width = `${risk}%`;
+      els.riskText.textContent = risk > 72
+        ? "High pressure: overdue credit and thin cash cover could make restocking difficult."
+        : risk > 48
+          ? "Moderate pressure: the shop can trade, but collections and key restocks need attention."
+          : "Healthy pressure: cash, stock and collections are working together.";
+      els.predictionText.textContent = `Projected month-end cash is ${money.format(monthEndCash)} after expected sales of ${money.format(expectedSales)}, likely credit collections of ${money.format(expectedCollections)}, operating costs of ${money.format(state.monthlyCosts)}, and restock needs of ${money.format(restockNeed)}.`;
+      els.loanText.textContent = risk > 45 || restockNeed > 1500
+        ? `You might consider a small working-capital loan if you can use it for fast-moving stock only. Current calculated restock gap is ${money.format(restockNeed)}.`
+        : "A loan is not urgent right now. Keep collecting credit and restock from cash unless a supplier discount appears.";
+    }
+
+    function renderMetrics() {
+      const totals = getTotals();
+      els.stockCost.textContent = money.format(totals.stockCost);
+      els.retailValue.textContent = money.format(totals.retailValue);
+      els.stockUnits.textContent = `${totals.units} units counted across ${state.inventory.length} lines`;
+      els.stockMargin.textContent = `${totals.grossMargin.toFixed(1)}% gross margin if sold at shelf price`;
+      els.creditOutstanding.textContent = money.format(totals.credit);
+      els.creditStatus.textContent = totals.overdue.length ? `${totals.overdue.length} overdue account(s) need follow-up` : "No overdue accounts";
+      els.wealthValue.textContent = money.format(totals.wealth);
+      els.wealthNote.textContent = `${money.format(state.cash)} cash + costed stock + likely credit`;
+    }
+
+    function renderAll() {
+      renderInventory();
+      renderCredits();
+      renderTimeline();
+      renderMetrics();
+      renderAnalysis();
+    }
+
+    document.querySelector("#saveOwnerBtn").addEventListener("click", () => {
+      const name = els.ownerNameInput.value.trim() || "Shop Owner";
+      els.ownerNameTop.textContent = name;
+      els.ownerNameSide.textContent = name;
+      showToast(`Name updated. Welcome back, ${name}.`);
+    });
+
+    document.querySelector("#stockForm").addEventListener("submit", event => {
+      event.preventDefault();
+      const qty = Number(document.querySelector("#itemQty").value);
+      const cost = Number(document.querySelector("#itemCost").value);
+      const price = Number(document.querySelector("#itemPrice").value);
+      state.inventory.unshift({
+        id: Date.now(),
+        item: document.querySelector("#itemName").value.trim(),
+        category: document.querySelector("#itemCategory").value,
+        qty,
+        cost,
+        price,
+        min: Math.max(5, Math.round(qty * 0.45))
+      });
+      showToast("Stock added and business totals recalculated.");
+      renderAll();
+    });
+
+    document.querySelector("#inventoryRows").addEventListener("click", event => {
+      const button = event.target.closest("button");
+      if (!button) return;
+      const id = Number(button.dataset.id);
+      const item = state.inventory.find(stock => stock.id === id);
+      if (!item && button.dataset.action !== "remove") return;
+
+      if (button.dataset.action === "sell") {
+        if (item.qty < 1) return showToast(`${item.item} is out of stock.`);
+        item.qty -= 1;
+        state.cash += item.price;
+        showToast(`Sold 1 ${item.item}. Cash increased by ${money.format(item.price)}.`);
+      }
+
+      if (button.dataset.action === "restock") {
+        item.qty += 5;
+        state.cash -= item.cost * 5;
+        showToast(`Restocked ${item.item}. Cash used: ${money.format(item.cost * 5)}.`);
+      }
+
+      if (button.dataset.action === "remove") {
+        state.inventory = state.inventory.filter(stock => stock.id !== id);
+        showToast("Inventory line removed.");
+      }
+
+      renderAll();
+    });
+
+    document.querySelector("#autoCountBtn").addEventListener("click", () => {
+      state.inventory = state.inventory.map(item => ({
+        ...item,
+        qty: Math.max(0, item.qty + Math.floor(Math.random() * 5) - 2)
+      }));
+      showToast("Shelf count simulated. Small count differences were applied.");
+      renderAll();
+    });
+
+    document.querySelector("#creditForm").addEventListener("submit", event => {
+      event.preventDefault();
+      state.credits.unshift({
+        id: Date.now(),
+        name: document.querySelector("#customerName").value.trim(),
+        items: document.querySelector("#creditItems").value.trim(),
+        amount: Number(document.querySelector("#creditAmount").value),
+        due: document.querySelector("#dueDate").value,
+        reminded: false
+      });
+      showToast("Credit customer added with expected payment date.");
+      renderAll();
+    });
+
+    document.querySelector("#creditRows").addEventListener("click", event => {
+      const button = event.target.closest("button");
+      if (!button) return;
+      const id = Number(button.dataset.id);
+      const item = state.credits.find(credit => credit.id === id);
+      if (!item) return;
+
+      if (button.dataset.credit === "remind") {
+        item.reminded = true;
+        showToast(`Reminder prepared for ${item.name}: payment of ${money.format(item.amount)} expected on ${item.due}.`);
+      }
+
+      if (button.dataset.credit === "paid") {
+        state.cash += item.amount;
+        state.credits = state.credits.filter(credit => credit.id !== id);
+        showToast(`${item.name} marked paid. Cash increased by ${money.format(item.amount)}.`);
+      }
+
+      renderAll();
+    });
+
+    document.querySelector("#smartReminderBtn").addEventListener("click", () => {
+      let count = 0;
+      state.credits.forEach(item => {
+        if (daysUntil(item.due) <= 3) {
+          item.reminded = true;
+          count += 1;
+        }
+      });
+      showToast(count ? `${count} follow-up reminders prepared for due and overdue customers.` : "No urgent reminders needed today.");
+      renderAll();
+    });
+
+    document.querySelectorAll("[data-scenario]").forEach(button => {
+      button.addEventListener("click", () => {
+        if (button.dataset.scenario === "weekend") {
+          state.inventory.forEach(item => {
+            const sold = Math.min(item.qty, item.category === "Bread" || item.category === "Drinks" ? 6 : 2);
+            item.qty -= sold;
+            state.cash += sold * item.price;
+          });
+          showToast("Busy weekend simulated. Fast-moving stock sold and cash increased.");
+        }
+
+        if (button.dataset.scenario === "restock") {
+          state.inventory.forEach(item => {
+            if (item.qty <= item.min) {
+              const buy = item.min + 8 - item.qty;
+              item.qty += buy;
+              state.cash -= buy * item.cost;
+            }
+          });
+          showToast("Restock simulation completed for low-stock basics.");
+        }
+
+        if (button.dataset.scenario === "collect") {
+          const paid = state.credits.slice(0, 2);
+          state.cash += paid.reduce((sum, item) => sum + item.amount, 0);
+          state.credits = state.credits.slice(2);
+          showToast("Credit collection simulated. Two customer balances were paid.");
+        }
+
+        renderAll();
+      });
+    });
+
+    renderAll();
+  </script>
+</body>
+</html>
