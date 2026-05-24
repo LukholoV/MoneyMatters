@@ -22,7 +22,7 @@
     .nav-block i{font-size:2rem;display:block;margin-bottom:8px}
     .nav-block strong{display:block;font-size:1rem}
     .nav-block small{color:var(--muted);font-size:0.75rem}
-    .icon-aqua{color:var(--aqua)}.icon-gold{color:var(--gold)}.icon-coral{color:var(--coral)}
+    .icon-aqua{color:var(--aqua)}.icon-gold{color:var(--gold)}.icon-coral{color:var(--coral)}.icon-purple{color:#9b59b6}
     .metric-box{background:var(--soft);padding:12px;border-radius:8px;text-align:center}
     .metric-box .value{font-size:1.4rem;font-weight:900;color:var(--sb-blue-dark)}
     .metric-box .label{font-size:0.7rem;color:var(--muted)}
@@ -34,6 +34,55 @@
     .mobile-nav a{color:var(--muted);font-size:0.65rem;font-weight:700}
     .mobile-nav a i{font-size:1.1rem}
     @media(min-width:768px){.mobile-nav{display:none}}
+    
+    /* Hamburger menu styles for mobile */
+    .hamburger-menu {
+      display: none;
+      position: relative;
+    }
+    @media (max-width: 767px) {
+      .desktop-nav-links {
+        display: none;
+      }
+      .hamburger-menu {
+        display: block;
+      }
+      .hamburger-btn {
+        background: rgba(255,255,255,0.15);
+        border: none;
+        color: white;
+        padding: 8px 12px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 1.2rem;
+      }
+      .hamburger-dropdown {
+        display: none;
+        position: absolute;
+        top: 50px;
+        right: 0;
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        min-width: 200px;
+        z-index: 1000;
+        overflow: hidden;
+      }
+      .hamburger-dropdown a {
+        display: block;
+        padding: 12px 20px;
+        color: var(--ink);
+        text-decoration: none;
+        border-bottom: 1px solid #eee;
+        font-weight: 600;
+      }
+      .hamburger-dropdown a:hover {
+        background: var(--soft);
+      }
+      .hamburger-dropdown.show {
+        display: block;
+      }
+    }
   </style>
 </head>
 <body>
@@ -41,7 +90,18 @@
     <div class="container-fluid">
       <div class="d-flex justify-content-between align-items-center">
         <a class="brand d-flex align-items-center gap-2 fw-bold fs-5" href="MainMenu.html"><i class="bi bi-bank2 fs-3"></i>MoneyMatters</a>
-        <a href="MainMenu.html" class="btn btn-sm text-white" style="background:rgba(255,255,255,0.15)"><i class="bi bi-list me-1"></i>Menu</a>
+        <div class="desktop-nav-links">
+          <a href="MainMenu.html" class="btn btn-sm text-white" style="background:rgba(255,255,255,0.15)"><i class="bi bi-list me-1"></i>Menu</a>
+        </div>
+        <div class="hamburger-menu">
+          <button class="hamburger-btn" id="hamburgerBtn"><i class="bi bi-list fs-4"></i></button>
+          <div class="hamburger-dropdown" id="hamburgerDropdown">
+            <a href="MainMenu.html"><i class="bi bi-grid me-2"></i>Main Menu</a>
+            <a href="spazashop.html"><i class="bi bi-shop me-2"></i>Spaza Shop</a>
+            <a href="Vault.html"><i class="bi bi-safe me-2"></i>Vault</a>
+            <a href="landlord.html"><i class="bi bi-building me-2"></i>Landlord</a>
+          </div>
+        </div>
       </div>
     </div>
   </header>
@@ -61,13 +121,13 @@
 
     <div class="row g-3 mb-4">
       <div class="col-6 col-md-4">
-        <a href="stokvel.html" class="nav-block"><i class="bi bi-people-fill icon-aqua"></i><strong>Stokvel</strong><small>Group savings</small></a>
-      </div>
-      <div class="col-6 col-md-4">
-        <a href="rentalsandrent.html" class="nav-block"><i class="bi bi-house-door icon-gold"></i><strong>Rentals</strong><small>Property tracking</small></a>
+        <a href="spazashop.html" class="nav-block"><i class="bi bi-shop icon-aqua"></i><strong>Spaza Shop</strong><small>Retail management</small></a>
       </div>
       <div class="col-6 col-md-4">
         <a href="Vault.html" class="nav-block"><i class="bi bi-safe icon-coral"></i><strong>Vault</strong><small>Secure storage</small></a>
+      </div>
+      <div class="col-6 col-md-4">
+        <a href="landlord.html" class="nav-block"><i class="bi bi-building icon-gold"></i><strong>Landlord</strong><small>Property management</small></a>
       </div>
     </div>
 
@@ -85,7 +145,7 @@
   <nav class="mobile-nav fixed-bottom d-md-none">
     <div class="row g-0 text-center py-2">
       <div class="col-4"><a href="BusinessIndex.html" class="d-flex flex-column align-items-center"><i class="bi bi-house"></i>Home</a></div>
-      <div class="col-4"><a href="stokvel.html" class="d-flex flex-column align-items-center"><i class="bi bi-people"></i>Stokvel</a></div>
+      <div class="col-4"><a href="spazashop.html" class="d-flex flex-column align-items-center"><i class="bi bi-shop"></i>Spaza</a></div>
       <div class="col-4"><a href="MainMenu.html" class="d-flex flex-column align-items-center"><i class="bi bi-list"></i>Menu</a></div>
     </div>
   </nav>
@@ -94,6 +154,21 @@
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
   <script>
+    // Hamburger menu toggle
+    const hamburgerBtn = document.getElementById('hamburgerBtn');
+    const hamburgerDropdown = document.getElementById('hamburgerDropdown');
+    if (hamburgerBtn) {
+      hamburgerBtn.addEventListener('click', () => {
+        hamburgerDropdown.classList.toggle('show');
+      });
+      // Close dropdown when clicking outside
+      document.addEventListener('click', (e) => {
+        if (!hamburgerBtn.contains(e.target) && !hamburgerDropdown.contains(e.target)) {
+          hamburgerDropdown.classList.remove('show');
+        }
+      });
+    }
+
     const money=v=>"R"+Number(v||0).toLocaleString("en-ZA");
     const setText=(id,v)=>{const n=document.getElementById(id);if(n)n.textContent=v};
     const STORAGE_KEY="moneyMattersUltimateStokvelState";
