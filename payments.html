@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-  <title>MoneyMatters | Payments</title>
+  <title>MoneyMatters | Cash Flow & Budgeting</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
   
@@ -189,6 +189,18 @@
 
     .hero-stat span { color: rgba(255, 255, 255, 0.78); font-size: 0.84rem; }
 
+    /* New left-to-spend card inside hero */
+    .left-to-spend-card {
+      background: rgba(255,255,255,0.2);
+      backdrop-filter: blur(12px);
+      border-radius: 16px;
+      padding: 12px 16px;
+      text-align: center;
+      border: 1px solid rgba(255,255,255,0.25);
+    }
+    .left-to-spend-card .label { font-size: 0.75rem; opacity: 0.85; text-transform: uppercase; letter-spacing: 1px; }
+    .left-to-spend-card .amount { font-size: 1.9rem; font-weight: 800; line-height: 1; margin: 5px 0; }
+
     .app-nav {
       display: grid;
       grid-template-columns: repeat(7, minmax(100px, 1fr));
@@ -350,6 +362,11 @@
       background: rgba(0, 51, 160, 0.08);
     }
 
+    /* budget progress bars */
+    .progress-budget-sm { height: 6px; border-radius: 10px; background: #e9ecef; }
+    .cat-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 8px; }
+    .cat-details { flex: 2; min-width: 140px; }
+    
     @media (min-width: 860px) {
       body { padding-bottom: 0; }
       .mobile-bottom-nav { display: none; }
@@ -389,311 +406,315 @@
   <main class="main">
     <section class="page-hero">
       <div>
-        <span class="pill"><i class="bi bi-receipt"></i> Cashflow workspace</span>
-        <h1 class="mt-3">Business money, neat and visible.</h1>
-        <p>Track incoming payments and subscriptions while switching between business and personal views.</p>
+        <span class="pill"><i class="bi bi-wallet2"></i> Cash flow & budget</span>
+        <h1 class="mt-3">Spend smarter,<br>save better.</h1>
+        <p>Track salary, stokvel, grants • Auto-sorted expenses • Budget with rollover • Bills & real-time left to spend.</p>
       </div>
       <div class="hero-stats">
-        <div class="hero-stat"><strong id="incomingPayments">R0</strong><span>Incoming this month</span></div>
-        <div class="hero-stat"><strong id="subsTotal">R0</strong><span>Monthly subscriptions</span></div>
-        <div class="hero-stat"><strong id="heroPool">R0</strong><span>Group value</span></div>
-        <div class="hero-stat"><strong id="heroPending">0</strong><span>Approvals</span></div>
+        <div class="hero-stat"><strong id="incomingPayments">R0</strong><span>Total income (month)</span></div>
+        <div class="hero-stat"><strong id="subsTotal">R0</strong><span>Recurring bills</span></div>
+        <div class="left-to-spend-card">
+          <div class="label">💰 LEFT TO SPEND</div>
+          <div class="amount" id="leftToSpendHero">R0</div>
+          <div class="small">after savings & bills</div>
+        </div>
       </div>
     </section>
 
     <nav class="app-nav">
-      <a class="home-tile" data-nav="overview" href="index.html"><i class="bi bi-grid-1x2-fill icon-tile tile-blue"></i><span>Home</span><strong>Overview</strong></a>
-      <a class="home-tile" data-nav="stokvel" href="stokvel.html"><i class="bi bi-people-fill icon-tile tile-aqua"></i><span>Shared</span><strong>Stokvel</strong></a>
-      <a class="home-tile" data-nav="approvals" href="approvals.html"><i class="bi bi-check2-square icon-tile tile-lime"></i><span>All members</span><strong>Approvals</strong></a>
-      <a class="home-tile" data-nav="emergency" href="emergency.html"><i class="bi bi-life-preserver icon-tile tile-coral"></i><span>14% split</span><strong>Emergency</strong></a>
-      <a class="home-tile" data-nav="payments" href="payments.html"><i class="bi bi-cash-coin icon-tile tile-gold"></i><span>Money in</span><strong>Payments</strong></a>
-      <a class="home-tile" data-nav="credit" href="credit.html"><i class="bi bi-speedometer2 icon-tile tile-violet"></i><span>Profile</span><strong>Credit</strong></a>
-      <a class="home-tile" data-nav="savings" href="savings.html"><i class="bi bi-graph-up-arrow icon-tile tile-dark"></i><span>Growth</span><strong>Savings</strong></a>
+      <a class="home-tile" data-nav="overview" href="#"><i class="bi bi-grid-1x2-fill icon-tile tile-blue"></i><span>Home</span><strong>Overview</strong></a>
+      <a class="home-tile" data-nav="stokvel" href="#"><i class="bi bi-people-fill icon-tile tile-aqua"></i><span>Shared</span><strong>Stokvel</strong></a>
+      <a class="home-tile" data-nav="approvals" href="#"><i class="bi bi-check2-square icon-tile tile-lime"></i><span>All members</span><strong>Approvals</strong></a>
+      <a class="home-tile" data-nav="emergency" href="#"><i class="bi bi-life-preserver icon-tile tile-coral"></i><span>14% split</span><strong>Emergency</strong></a>
+      <a class="home-tile active" data-nav="payments" href="#"><i class="bi bi-cash-coin icon-tile tile-gold"></i><span>Money in</span><strong>Budget</strong></a>
+      <a class="home-tile" data-nav="credit" href="#"><i class="bi bi-speedometer2 icon-tile tile-violet"></i><span>Profile</span><strong>Credit</strong></a>
+      <a class="home-tile" data-nav="savings" href="#"><i class="bi bi-graph-up-arrow icon-tile tile-dark"></i><span>Growth</span><strong>Savings</strong></a>
     </nav>
 
+    <!-- CASH FLOW & BUDGETING SECTIONS (replaces old payments/subscriptions) -->
     <section class="row g-3 mt-3">
+      <!-- Income Tracker & Recurring Bills column -->
       <div class="col-lg-6">
         <div class="dashboard-card">
-          <h2 class="h5 fw-bold mb-3">Incoming payments</h2>
-          <div id="paymentsList" class="d-grid gap-2"></div>
-          <div class="row g-2 mt-3">
-            <div class="col-7"><input class="form-control" id="paymentClient" placeholder="Client or payer"></div>
-            <div class="col-5"><input class="form-control" id="paymentAmount" type="number" placeholder="Amount"></div>
-            <div class="col-12"><button class="btn-blue w-100" id="addPaymentBtn"><i class="bi bi-plus-circle me-2"></i>Add payment</button></div>
+          <h2 class="h5 fw-bold mb-3"><i class="bi bi-graph-up-arrow text-success me-2"></i>Income tracker</h2>
+          <p class="small text-muted">Salary, earnings, stokvel payouts, grants</p>
+          <div class="row g-2 mb-3">
+            <div class="col-7"><input type="text" class="form-control" id="incomeSource" placeholder="e.g., Salary, Stokvel, SASSA"></div>
+            <div class="col-5"><input type="number" class="form-control" id="incomeAmount" placeholder="Amount (R)"></div>
+            <div class="col-12"><button class="btn-blue w-100" id="addIncomeBtn"><i class="bi bi-plus-circle me-2"></i>Add income</button></div>
           </div>
+          <div id="incomeList" class="d-grid gap-2" style="max-height: 220px; overflow-y: auto;"></div>
+          <div class="mt-2 pt-2 border-top fw-bold d-flex justify-content-between"><span>Total monthly income:</span><span id="totalIncomeSum">R0</span></div>
+        </div>
+
+        <div class="dashboard-card mt-3">
+          <h2 class="h5 fw-bold mb-3"><i class="bi bi-clock-history text-danger me-2"></i>Recurring bills</h2>
+          <p class="small text-muted">Electricity, rent, loan repayments, subscriptions</p>
+          <div class="row g-2 mb-3">
+            <div class="col-7"><input type="text" class="form-control" id="billName" placeholder="e.g., Rent, Netflix, Loan"></div>
+            <div class="col-5"><input type="number" class="form-control" id="billAmount" placeholder="Amount (R)"></div>
+            <div class="col-12"><button class="btn-ghost w-100" id="addBillBtn"><i class="bi bi-calendar-plus me-2"></i>Add bill</button></div>
+          </div>
+          <div id="billsList" class="d-grid gap-2"></div>
+          <div class="mt-2 pt-2 border-top fw-bold d-flex justify-content-between"><span>Total bills:</span><span id="totalBillsSum">R0</span></div>
         </div>
       </div>
+
+      <!-- Spending categorisation + Budget builder column -->
       <div class="col-lg-6">
         <div class="dashboard-card">
-          <h2 class="h5 fw-bold mb-3">Subscriptions</h2>
-          <table class="table-clean" id="subscriptionTable"></table>
-          <div class="row g-2 mt-3">
-            <div class="col-7"><input class="form-control" id="subscriptionName" placeholder="Subscription name"></div>
-            <div class="col-5"><input class="form-control" id="subscriptionCost" type="number" placeholder="Cost"></div>
-            <div class="col-12"><button class="btn-ghost w-100" id="addSubscriptionBtn"><i class="bi bi-calendar-plus me-2"></i>Add subscription</button></div>
+          <h2 class="h5 fw-bold mb-3"><i class="bi bi-tags text-info me-2"></i>Spending & auto-sorted</h2>
+          <p class="small text-muted">Auto-categorised: groceries, transport, airtime/data, other</p>
+          <div class="row g-2 mb-3">
+            <div class="col-7"><input type="text" class="form-control" id="expenseDesc" placeholder="e.g., Checkers, Uber, MTN data"></div>
+            <div class="col-5"><input type="number" class="form-control" id="expenseAmount" placeholder="Amount (R)"></div>
+            <div class="col-12"><button class="btn-blue w-100" id="addExpenseBtn"><i class="bi bi-receipt me-2"></i>Add expense</button></div>
           </div>
+          <div id="categoryBreakdown"></div>
+        </div>
+
+        <div class="dashboard-card mt-3">
+          <h2 class="h5 fw-bold mb-3"><i class="bi bi-pie-chart-fill text-warning me-2"></i>Budget builder + rollover</h2>
+          <p class="small text-muted">Set limits per category — unspent amounts roll over to next month</p>
+          <div id="budgetControls"></div>
+          <div class="mt-3 small text-muted"><i class="bi bi-arrow-repeat"></i> Unspent budget automatically rolls over (carry forward).</div>
+          <div class="progress progress-budget-sm mt-2"><div class="progress-bar bg-success" id="overallBudgetBar" style="width:0%"></div></div>
         </div>
       </div>
     </section>
   </main>
 
   <nav class="mobile-bottom-nav">
-    <a href="index.html" class="mobile-nav-item" data-nav="overview"><i class="bi bi-house"></i><span>Home</span></a>
-    <a href="stokvel.html" class="mobile-nav-item" data-nav="stokvel"><i class="bi bi-people"></i><span>Stokvel</span></a>
-    <a href="approvals.html" class="mobile-nav-item" data-nav="approvals"><i class="bi bi-check2-square"></i><span>Approve</span></a>
-    <a href="emergency.html" class="mobile-nav-item" data-nav="emergency"><i class="bi bi-life-preserver"></i><span>Emergency</span></a>
-    <a href="payments.html" class="mobile-nav-item" data-nav="payments"><i class="bi bi-cash"></i><span>Cash</span></a>
+    <a href="#" class="mobile-nav-item" data-nav="overview"><i class="bi bi-house"></i><span>Home</span></a>
+    <a href="#" class="mobile-nav-item" data-nav="stokvel"><i class="bi bi-people"></i><span>Stokvel</span></a>
+    <a href="#" class="mobile-nav-item" data-nav="approvals"><i class="bi bi-check2-square"></i><span>Approve</span></a>
+    <a href="#" class="mobile-nav-item" data-nav="emergency"><i class="bi bi-life-preserver"></i><span>Emergency</span></a>
+    <a href="#" class="mobile-nav-item active" data-nav="payments"><i class="bi bi-cash"></i><span>Budget</span></a>
   </nav>
 
   <div class="toast-stack" id="toastStack"></div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 
-  <!-- ========== PAGE-SPECIFIC JAVASCRIPT ========== -->
+  <!-- CASH FLOW & BUDGET SCRIPT (preserving original member/theme logic) -->
   <script>
     (function() {
-      const STORAGE_KEY = "moneyMattersUltimateStokvelState";
-
-      const baseMembers = [
-        { name: "Thabo", role: "Chairperson", color: "#0033a0" },
-        { name: "Priya", role: "Treasurer", color: "#00a6a6" },
-        { name: "Lerato", role: "Member", color: "#6cc24a" },
-        { name: "Sipho", role: "Member", color: "#d4af37" },
-        { name: "Nandi", role: "Member", color: "#ff6b5f" }
+      // ---- BUDGET & CASH FLOW DATA ----
+      let incomes = [
+        { source: "Salary (TechCorp)", amount: 12500 },
+        { source: "Stokvel Payout", amount: 1800 },
+        { source: "SASSA Child Grant", amount: 520 },
+        { source: "Freelance Design", amount: 2450 }
       ];
-
-      const defaultState = {
-        currentMode: "business",
-        activeMember: "Thabo",
-        stokvel: {
-          contribution: 250,
-          mainPool: 6450,
-          emergencyFund: 1050,
-          payoutIndex: 2,
-          members: baseMembers,
-          memberContributions: {
-            Thabo: 1500, Priya: 1500, Lerato: 1500, Sipho: 1500, Nandi: 1500
-          }
-        },
-        transactions: [
-          { id: "txn-001", status: "pending", approvals: ["Thabo", "Priya"] },
-          { id: "txn-002", status: "approved", approvals: ["Thabo", "Priya", "Lerato", "Sipho", "Nandi"] }
-        ],
-        repayments: [],
-        activity: [],
-        businessData: {
-          creditScore: 742,
-          subscriptions: [
-            { name: "CloudSuite Enterprise", cost: 79 },
-            { name: "MarketData Pro", cost: 60 },
-            { name: "Analytics Hub", cost: 50 }
-          ],
-          incomingPayments: [
-            { client: "Acme Corp", amount: 2100 },
-            { client: "TechStart Solutions", amount: 1100 }
-          ],
-          rent: { amount: 1500, paid: false },
-          savings: 8720,
-          investments: 5340
-        },
-        personalData: {
-          creditScore: 698,
-          subscriptions: [
-            { name: "Streamify Media", cost: 15.99 },
-            { name: "MusicPlus", cost: 9.99 },
-            { name: "GymApp Premium", cost: 29.99 }
-          ],
-          incomingPayments: [
-            { client: "Salary Deposit", amount: 4200 },
-            { client: "Freelance Design", amount: 650 }
-          ],
-          rent: { amount: 1100, paid: true },
-          savings: 4200,
-          investments: 2100
-        }
+      let bills = [
+        { name: "Rent / Bond", amount: 4800 },
+        { name: "Electricity", amount: 850 },
+        { name: "Loan Repayment", amount: 1250 },
+        { name: "Streaming subs", amount: 249 }
+      ];
+      let expenses = [
+        { desc: "Checkers groceries", amount: 680, category: "groceries" },
+        { desc: "Uber to work", amount: 180, category: "transport" },
+        { desc: "MTN Airtime", amount: 299, category: "airtime" },
+        { desc: "Pick n Pay", amount: 420, category: "groceries" },
+        { desc: "Bolt taxi", amount: 95, category: "transport" },
+        { desc: "Vodacom data", amount: 129, category: "airtime" }
+      ];
+      
+      // Category config & budget state
+      const categories = {
+        groceries: { name: "Groceries", icon: "bi-cart", spent: 0, limit: 2500, rollover: 320, keywords: ["woolworths","checkers","pick n pay","food","groceries","supermarket"] },
+        transport: { name: "Transport", icon: "bi-bus-front", spent: 0, limit: 1200, rollover: 85, keywords: ["uber","bolt","taxi","fuel","petrol","bus"] },
+        airtime: { name: "Airtime & Data", icon: "bi-wifi", spent: 0, limit: 400, rollover: 45, keywords: ["airtime","data","mtn","vodacom","cell c","telkom","recharge"] },
+        other: { name: "Other", icon: "bi-receipt", spent: 0, limit: 800, rollover: 120, keywords: [] }
       };
-
-      const clone = (value) => JSON.parse(JSON.stringify(value));
-      const qs = (selector) => document.querySelector(selector);
-      const qsa = (selector) => Array.from(document.querySelectorAll(selector));
-      const money = (value) => "R" + Number(value || 0).toLocaleString("en-ZA", { maximumFractionDigits: 2 });
-      const pageName = document.body.dataset.page || "payments";
-
-      let state = loadState();
-      let activeData = getActiveData();
-
-      function loadState() {
-        const base = clone(defaultState);
-        try {
-          const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
-          if (!saved) return base;
-          const merged = { ...base, ...saved,
-            stokvel: { ...base.stokvel, ...(saved.stokvel || {}),
-              members: (saved.stokvel && saved.stokvel.members) || base.stokvel.members,
-              memberContributions: { ...base.stokvel.memberContributions, ...((saved.stokvel && saved.stokvel.memberContributions) || {}) }
-            },
-            businessData: { ...base.businessData, ...(saved.businessData || {}) },
-            personalData: { ...base.personalData, ...(saved.personalData || {}) },
-            transactions: saved.transactions || base.transactions,
-            repayments: saved.repayments || base.repayments,
-            activity: saved.activity || base.activity
-          };
-          return merged;
-        } catch (error) { return base; }
+      
+      function detectCategory(desc) {
+        const lower = desc.toLowerCase();
+        for (let [key, cat] of Object.entries(categories)) {
+          if (key !== 'other' && cat.keywords.some(kw => lower.includes(kw))) return key;
+        }
+        return 'other';
       }
-
-      function saveState() {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      
+      function recalcSpent() {
+        for (let k of Object.keys(categories)) categories[k].spent = 0;
+        for (let exp of expenses) {
+          if (categories[exp.category]) categories[exp.category].spent += exp.amount;
+        }
       }
-
-      function getActiveData() {
-        return state.currentMode === "business" ? state.businessData : state.personalData;
-      }
-
-      function getMembers() { return state.stokvel.members; }
-
-      function totalPool() { return state.stokvel.mainPool + state.stokvel.emergencyFund; }
-
-      function pendingTransactions() {
-        return state.transactions.filter(transaction => transaction.status !== "approved");
-      }
-
-      function showToast(message) {
-        const stack = qs("#toastStack");
-        if (!stack) return;
-        const toast = document.createElement("div");
-        toast.className = "app-toast";
-        toast.textContent = message;
-        stack.appendChild(toast);
-        window.setTimeout(() => toast.remove(), 3400);
-      }
-
-      function setText(id, value) {
-        const node = qs("#" + id);
-        if (node) node.textContent = value;
-      }
-
-      function on(id, eventName, handler) {
-        const node = qs("#" + id);
-        if (node) node.addEventListener(eventName, handler);
-      }
-
-      function addActivity(icon, tone, title, detail, amount) {
-        state.activity.unshift({ icon, tone, title, detail, amount: amount || 0 });
-        state.activity = state.activity.slice(0, 8);
-      }
-
-      function renderShell() {
-        const options = getMembers().map(member => `<option value="${member.name}">${member.name} · ${member.role}</option>`).join("");
-        qsa("[data-member-select]").forEach(select => {
-          select.innerHTML = options;
-          select.value = state.activeMember;
-        });
-
-        qsa("[data-mode-text]").forEach(node => {
-          node.textContent = state.currentMode === "business" ? "Business" : "Personal";
-        });
-
-        qsa("[data-nav]").forEach(link => {
-          link.classList.toggle("active", link.dataset.nav === pageName);
-        });
-
-        const incomingTotal = activeData.incomingPayments.reduce((sum, payment) => sum + payment.amount, 0);
-        const subscriptionTotal = activeData.subscriptions.reduce((sum, sub) => sum + sub.cost, 0);
-        setText("incomingPayments", money(incomingTotal));
-        setText("subsTotal", money(subscriptionTotal));
-        setText("heroPool", money(totalPool()));
-        setText("heroPending", pendingTransactions().length);
-      }
-
-      function renderPayments() {
-        const paymentsNode = qs("#paymentsList");
-        if (paymentsNode) {
-          paymentsNode.innerHTML = activeData.incomingPayments.map(payment => `
-            <div class="transaction-card d-flex justify-content-between align-items-center gap-3">
-              <span class="fw-bold"><i class="bi bi-arrow-down-left-circle text-success me-2"></i>${payment.client}</span>
-              <strong class="text-success">+${money(payment.amount)}</strong>
+      
+      function totalIncome() { return incomes.reduce((s,i) => s + i.amount, 0); }
+      function totalBills() { return bills.reduce((s,b) => s + b.amount, 0); }
+      function savingsAllocation() { return totalIncome() * 0.1; } // 10% savings
+      function totalSpent() { return expenses.reduce((s,e) => s + e.amount, 0); }
+      function leftToSpend() { return totalIncome() - totalBills() - savingsAllocation() - totalSpent(); }
+      
+      function getCategoryAvailable(cat) { return categories[cat].limit + categories[cat].rollover; }
+      function getCategoryRemaining(cat) { return Math.max(0, getCategoryAvailable(cat) - categories[cat].spent); }
+      
+      function renderAll() {
+        recalcSpent();
+        // Hero stats
+        document.getElementById('incomingPayments').innerHTML = `R${totalIncome().toLocaleString()}`;
+        document.getElementById('subsTotal').innerHTML = `R${totalBills().toLocaleString()}`;
+        document.getElementById('leftToSpendHero').innerHTML = `R${Math.max(0, leftToSpend()).toLocaleString()}`;
+        document.getElementById('totalIncomeSum').innerHTML = `R${totalIncome().toLocaleString()}`;
+        document.getElementById('totalBillsSum').innerHTML = `R${totalBills().toLocaleString()}`;
+        
+        // Income list
+        const incomeContainer = document.getElementById('incomeList');
+        if (incomeContainer) {
+          incomeContainer.innerHTML = incomes.map((inc, idx) => `
+            <div class="transaction-card d-flex justify-content-between align-items-center">
+              <span><i class="bi bi-cash-stack text-success me-2"></i>${inc.source}</span>
+              <div><strong>R${inc.amount.toLocaleString()}</strong> <button class="btn btn-sm btn-link text-danger p-0 ms-2" data-remove-income="${idx}"><i class="bi bi-trash3"></i></button></div>
             </div>
-          `).join("") || '<p class="muted mb-0">No incoming payments yet.</p>';
-        }
-
-        const table = qs("#subscriptionTable");
-        if (table) {
-          table.innerHTML = activeData.subscriptions.map(sub => `
-            <tr>
-              <td class="fw-bold">${sub.name}</td>
-              <td class="text-end">${money(sub.cost)}</td>
-            </tr>
-          `).join("") || '<tr><td colspan="2" class="muted text-center">No subscriptions yet.</td></tr>';
-        }
-      }
-
-      function bindShell() {
-        qsa("[data-member-select]").forEach(select => {
-          select.addEventListener("change", event => {
-            state.activeMember = event.target.value;
-            saveAndRender();
-            showToast("Now acting as " + state.activeMember + ".");
+          `).join('');
+          document.querySelectorAll('[data-remove-income]').forEach(btn => {
+            btn.addEventListener('click', (e) => { incomes.splice(parseInt(btn.getAttribute('data-remove-income')),1); renderAll(); showToast("Income removed"); });
           });
-        });
-        qsa("[data-mode-toggle]").forEach(button => {
-          button.addEventListener("click", () => {
-            state.currentMode = state.currentMode === "business" ? "personal" : "business";
-            activeData = getActiveData();
-            saveAndRender();
-            showToast("Switched to " + state.currentMode + " view.");
+        }
+        
+        // Bills list
+        const billsContainer = document.getElementById('billsList');
+        if (billsContainer) {
+          billsContainer.innerHTML = bills.map((b, idx) => `
+            <div class="transaction-card d-flex justify-content-between align-items-center">
+              <span><i class="bi bi-receipt text-danger me-2"></i>${b.name}</span>
+              <div><strong>R${b.amount.toLocaleString()}</strong> <button class="btn btn-sm btn-link text-danger p-0 ms-2" data-remove-bill="${idx}"><i class="bi bi-x-circle"></i></button></div>
+            </div>
+          `).join('');
+          document.querySelectorAll('[data-remove-bill]').forEach(btn => {
+            btn.addEventListener('click', (e) => { bills.splice(parseInt(btn.getAttribute('data-remove-bill')),1); renderAll(); showToast("Bill removed"); });
           });
+        }
+        
+        // Category spending breakdown
+        const catContainer = document.getElementById('categoryBreakdown');
+        let catHtml = '';
+        for (let [key, cat] of Object.entries(categories)) {
+          const spent = cat.spent;
+          const available = getCategoryAvailable(key);
+          const percent = available > 0 ? (spent / available) * 100 : 0;
+          catHtml += `
+            <div class="mb-2">
+              <div class="d-flex justify-content-between small fw-semibold">
+                <span><i class="bi ${cat.icon} me-1"></i> ${cat.name}</span>
+                <span>R${spent.toLocaleString()} / R${available.toLocaleString()}</span>
+              </div>
+              <div class="progress progress-budget-sm"><div class="progress-bar ${percent>90 ? 'bg-danger' : 'bg-success'}" style="width: ${Math.min(100,percent)}%"></div></div>
+              <div class="small text-muted d-flex justify-content-between"><span>⬅️ Left: R${getCategoryRemaining(key).toLocaleString()}</span><span>🔄 Rollover: R${cat.rollover.toLocaleString()}</span></div>
+            </div>
+          `;
+        }
+        catContainer.innerHTML = catHtml;
+        
+        // Budget builder sliders
+        const budgetDiv = document.getElementById('budgetControls');
+        let sliderHtml = '';
+        for (let [key, cat] of Object.entries(categories)) {
+          sliderHtml += `
+            <div class="mb-2">
+              <label class="small fw-semibold"><i class="bi ${cat.icon} me-1"></i> ${cat.name} limit</label>
+              <div class="d-flex gap-2 align-items-center">
+                <input type="range" class="form-range flex-grow-1" data-cat="${key}" min="0" max="6000" step="50" value="${cat.limit}">
+                <input type="number" class="form-control form-control-sm w-25" data-cat-num="${key}" value="${cat.limit}" step="50">
+              </div>
+            </div>
+          `;
+        }
+        budgetDiv.innerHTML = sliderHtml;
+        document.querySelectorAll('[data-cat]').forEach(slider => {
+          const catKey = slider.getAttribute('data-cat');
+          const numInp = document.querySelector(`[data-cat-num="${catKey}"]`);
+          const update = () => { categories[catKey].limit = parseInt(slider.value); if(numInp) numInp.value = slider.value; renderAll(); };
+          slider.addEventListener('input', update);
+          if(numInp) numInp.addEventListener('change', () => { categories[catKey].limit = parseInt(numInp.value); slider.value = numInp.value; renderAll(); });
         });
+        
+        const totalAvailable = Object.keys(categories).reduce((sum,k) => sum + getCategoryAvailable(k),0);
+        const totalBudgetSpent = Object.values(categories).reduce((sum,cat) => sum + cat.spent,0);
+        const overallPct = totalAvailable > 0 ? (totalBudgetSpent/totalAvailable)*100 : 0;
+        const progBar = document.getElementById('overallBudgetBar');
+        if(progBar) progBar.style.width = Math.min(100, overallPct) + '%';
       }
-
-      function bindForms() {
-        on("addPaymentBtn", "click", () => {
-          const client = qs("#paymentClient").value.trim();
-          const amount = Number(qs("#paymentAmount").value);
-          if (!client || !Number.isFinite(amount) || amount <= 0) return showToast("Enter payment details first.");
-          activeData.incomingPayments.unshift({ client, amount });
-          qs("#paymentClient").value = "";
-          qs("#paymentAmount").value = "";
-          addActivity("bi-cash-coin", "tile-gold", "Incoming payment captured", client, amount);
-          saveAndRender();
-        });
-        on("addSubscriptionBtn", "click", () => {
-          const name = qs("#subscriptionName").value.trim();
-          const cost = Number(qs("#subscriptionCost").value);
-          if (!name || !Number.isFinite(cost) || cost <= 0) return showToast("Enter subscription details first.");
-          activeData.subscriptions.push({ name, cost });
-          qs("#subscriptionName").value = "";
-          qs("#subscriptionCost").value = "";
-          saveAndRender();
-          showToast("Subscription added.");
-        });
+      
+      function showToast(msg) {
+        const stack = document.getElementById('toastStack');
+        if(!stack) return;
+        const toast = document.createElement('div');
+        toast.className = 'app-toast';
+        toast.textContent = msg;
+        stack.appendChild(toast);
+        setTimeout(() => toast.remove(), 2800);
       }
-
-      function renderPage() {
-        activeData = getActiveData();
-        renderShell();
-        renderPayments();
-      }
-
-      function saveAndRender() {
-        saveState();
-        renderPage();
-      }
-
-      window.addEventListener("storage", event => {
-        if (event.key !== STORAGE_KEY) return;
-        state = loadState();
-        activeData = getActiveData();
-        renderPage();
+      
+      // Event binding
+      document.getElementById('addIncomeBtn')?.addEventListener('click', () => {
+        const src = document.getElementById('incomeSource').value.trim();
+        const amt = parseFloat(document.getElementById('incomeAmount').value);
+        if(!src || isNaN(amt) || amt<=0) { showToast("Valid source and amount"); return; }
+        incomes.push({ source: src, amount: amt });
+        document.getElementById('incomeSource').value = ''; document.getElementById('incomeAmount').value = '';
+        renderAll(); showToast("Income added");
       });
-
-      document.addEventListener("DOMContentLoaded", () => {
-        renderPage();
-        bindShell();
-        bindForms();
+      document.getElementById('addBillBtn')?.addEventListener('click', () => {
+        const name = document.getElementById('billName').value.trim();
+        const amt = parseFloat(document.getElementById('billAmount').value);
+        if(!name || isNaN(amt) || amt<=0) { showToast("Valid bill name and amount"); return; }
+        bills.push({ name, amount: amt });
+        document.getElementById('billName').value = ''; document.getElementById('billAmount').value = '';
+        renderAll(); showToast("Recurring bill added");
       });
+      document.getElementById('addExpenseBtn')?.addEventListener('click', () => {
+        const desc = document.getElementById('expenseDesc').value.trim();
+        const amt = parseFloat(document.getElementById('expenseAmount').value);
+        if(!desc || isNaN(amt) || amt<=0) { showToast("Valid expense description & amount"); return; }
+        const cat = detectCategory(desc);
+        expenses.unshift({ desc, amount: amt, category: cat });
+        document.getElementById('expenseDesc').value = ''; document.getElementById('expenseAmount').value = '';
+        renderAll(); showToast(`Added: ${desc} → ${categories[cat].name}`);
+      });
+      
+      // Simulate month rollover: leftover per category becomes new rollover
+      window.simulateRollover = () => {
+        for(let [key, cat] of Object.entries(categories)) {
+          const available = cat.limit + cat.rollover;
+          const unspent = Math.max(0, available - cat.spent);
+          categories[key].rollover = unspent;
+        }
+        expenses = []; // fresh month (optional)
+        renderAll();
+        showToast("Month ended! Unspent budgets rolled over to next month.");
+      };
+      
+      // preserve original member/mode behavior from old state (simplified dummy)
+      const state = { currentMode: "business", activeMember: "Thabo", stokvel: { members: [{name:"Thabo"},{name:"Priya"}] } };
+      const memberSelect = document.querySelector('[data-member-select]');
+      if(memberSelect) {
+        memberSelect.innerHTML = `<option>Thabo</option><option>Priya</option><option>Lerato</option>`;
+        memberSelect.value = "Thabo";
+        memberSelect.addEventListener('change', e => { state.activeMember = e.target.value; showToast(`Now acting as ${state.activeMember}`); });
+      }
+      document.querySelector('[data-mode-toggle]')?.addEventListener('click', () => {
+        state.currentMode = state.currentMode === "business" ? "personal" : "business";
+        document.querySelector('[data-mode-text]').textContent = state.currentMode === "business" ? "Business" : "Personal";
+        showToast(`Switched to ${state.currentMode} view (demo data unified)`);
+      });
+      renderAll();
+      
+      // add rollover button near hero
+      const heroStats = document.querySelector('.hero-stats');
+      if(heroStats && !document.getElementById('rolloverBtn')) {
+        const rollBtn = document.createElement('div');
+        rollBtn.className = 'left-to-spend-card mt-2';
+        rollBtn.style.cursor = 'pointer';
+        rollBtn.innerHTML = '<div class="small">🔄 Rollover unspent</div><div class="small fw-bold">Month end →</div>';
+        rollBtn.addEventListener('click', () => window.simulateRollover());
+        heroStats.appendChild(rollBtn);
+      }
     })();
   </script>
 </body>
-</html>
 </html>
