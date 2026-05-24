@@ -3,475 +3,151 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-  <title>MoneyMatters | Cash Flow & Budgeting</title>
+  <title>MoneyMatters | Payments</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
   <link rel="manifest" href="manifest.json">
   <style>
-    :root {
-  --sb-blue: #006b3f;
-  --sb-blue-light: #008f54;
-  --sb-blue-dark: #004d2c;
-  --ink: #102033;
-  --muted: #64748b;
-  --paper: #ffffff;
-  --soft: #f3f7fb;
-  --line: rgba(16, 32, 51, 0.1);
-  --aqua: #00a86b;
-  --lime: #6cc24a;
-  --gold: #d4af37;
-  --coral: #ff6b5f;
-  --violet: #6750d8;
-  --shadow: 0 18px 45px rgba(0, 107, 63, 0.13);
-  --shadow-sm: 0 10px 26px rgba(0, 107, 63, 0.09);
-  --transition: 180ms ease;
-}
-
-    * { box-sizing: border-box; }
-
-    body {
-      margin: 0; min-height: 100vh;
-      background: radial-gradient(circle at top left, rgba(0, 166, 166, 0.12), transparent 34rem),
-                  linear-gradient(135deg, rgba(0, 51, 160, 0.08), rgba(108, 194, 74, 0.05)), var(--soft);
-      color: var(--ink); font-family: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-      overflow-x: hidden; padding-bottom: 82px;
-    }
-
-    button, input, select, textarea { font: inherit; }
-    a { color: inherit; }
-
-    .topbar { position: sticky; top: 0; z-index: 1020; background: linear-gradient(135deg, var(--sb-blue-dark), var(--sb-blue)); color: #fff; box-shadow: 0 8px 28px rgba(0, 31, 102, 0.18); }
-    .topbar-inner { width: min(1180px, calc(100% - 28px)); margin: 0 auto; min-height: 72px; display: flex; align-items: center; justify-content: space-between; gap: 14px; }
-    .brand { display: flex; align-items: center; gap: 12px; color: #fff; text-decoration: none; font-weight: 850; }
-    .brand i, .icon-tile { display: grid; place-items: center; }
-    .brand i { width: 42px; height: 42px; border-radius: 8px; background: rgba(255, 255, 255, 0.15); font-size: 1.35rem; }
-    .toolbar { display: flex; align-items: center; gap: 10px; }
-    .member-select { min-width: 172px; border: 1px solid rgba(255, 255, 255, 0.28); color: #fff; background-color: rgba(255, 255, 255, 0.12); border-radius: 8px; padding: 9px 12px; }
-    .member-select option { color: var(--ink); background: #fff; }
-    .btn-soft, .btn-blue, .btn-ghost { border: 0; border-radius: 8px; font-weight: 780; min-height: 42px; padding: 9px 14px; transition: transform var(--transition), box-shadow var(--transition), background var(--transition); }
-    .btn-soft { background: #fff; color: var(--sb-blue); box-shadow: 0 8px 22px rgba(0, 0, 0, 0.12); }
-    .btn-blue { background: var(--sb-blue); color: #fff; box-shadow: 0 12px 24px rgba(0, 51, 160, 0.2); }
-    .btn-ghost { background: rgba(0, 51, 160, 0.08); color: var(--sb-blue); }
-    .btn-soft:hover, .btn-blue:hover, .btn-ghost:hover, .dashboard-card:hover, .home-tile:hover, .transaction-card:hover { transform: translateY(-3px); }
-    .btn-blue:hover { background: var(--sb-blue-dark); color: #fff; }
-    .main { width: min(1180px, calc(100% - 28px)); margin: 22px auto 38px; }
-
-    .page-hero { overflow: hidden; border-radius: 8px; min-height: 252px; background: linear-gradient(90deg, rgba(0, 31, 102, 0.96), rgba(0, 51, 160, 0.74), rgba(0, 166, 166, 0.48)), url("https://images.unsplash.com/photo-1554224154-26032ffc0d07?auto=format&fit=crop&w=1600&q=80") center/cover; color: #fff; padding: clamp(22px, 4vw, 42px); display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(260px, 0.7fr); gap: 24px; align-items: end; box-shadow: var(--shadow); }
-    .page-hero h1 { margin: 0; font-size: clamp(2rem, 5vw, 4.6rem); line-height: 0.95; font-weight: 900; }
-    .page-hero p { max-width: 660px; margin: 14px 0 0; color: rgba(255, 255, 255, 0.86); font-size: clamp(0.98rem, 2vw, 1.12rem); }
-    .hero-stats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
-    .hero-stat { min-height: 106px; padding: 14px; border-radius: 8px; background: rgba(255, 255, 255, 0.14); border: 1px solid rgba(255, 255, 255, 0.18); backdrop-filter: blur(10px); }
-    .hero-stat strong { display: block; font-size: clamp(1.3rem, 3vw, 1.8rem); line-height: 1.05; }
-    .hero-stat span { color: rgba(255, 255, 255, 0.78); font-size: 0.84rem; }
-    .left-to-spend-card { background: rgba(255,255,255,0.2); backdrop-filter: blur(12px); border-radius: 16px; padding: 12px 16px; text-align: center; border: 1px solid rgba(255,255,255,0.25); }
-    .left-to-spend-card .label { font-size: 0.75rem; opacity: 0.85; text-transform: uppercase; letter-spacing: 1px; }
-    .left-to-spend-card .amount { font-size: 1.9rem; font-weight: 800; line-height: 1; margin: 5px 0; }
-
-    .app-nav { display: grid; grid-template-columns: repeat(8, minmax(100px, 1fr)); gap: 12px; margin: 18px 0 8px; }
-    .home-tile { aspect-ratio: 1 / 1; border: 1px solid var(--line); background: var(--paper); border-radius: 8px; text-decoration: none; display: flex; flex-direction: column; justify-content: space-between; padding: 13px; box-shadow: var(--shadow-sm); transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition); min-width: 0; }
-    .home-tile:hover, .home-tile.active { border-color: rgba(0, 51, 160, 0.45); box-shadow: 0 18px 35px rgba(0, 51, 160, 0.17); }
-    .icon-tile { width: 42px; height: 42px; border-radius: 8px; color: #fff; font-size: 1.25rem; }
-    .home-tile span { font-size: 0.83rem; color: var(--muted); font-weight: 750; line-height: 1.1; }
-    .home-tile strong { font-size: clamp(1rem, 2vw, 1.32rem); line-height: 1.05; }
-    .tile-blue { background: var(--sb-blue); }
-    .tile-aqua { background: var(--aqua); }
-    .tile-lime { background: var(--lime); }
-    .tile-gold { background: var(--gold); }
-    .tile-coral { background: var(--coral); }
-    .tile-violet { background: var(--violet); }
-    .tile-dark { background: var(--ink); }
-
-    .dashboard-card, .transaction-card { background: var(--paper); border: 1px solid var(--line); border-radius: 8px; box-shadow: var(--shadow-sm); transition: transform var(--transition), box-shadow var(--transition); }
-    .dashboard-card { padding: 18px; height: 100%; }
-    .transaction-card { padding: 15px; }
-    .muted { color: var(--muted); }
-    .pill { display: inline-flex; align-items: center; gap: 6px; min-height: 28px; border-radius: 999px; background: rgba(0, 51, 160, 0.08); color: var(--sb-blue-dark); font-weight: 800; font-size: 0.78rem; padding: 5px 9px; white-space: nowrap; }
-    .table-clean { width: 100%; border-collapse: separate; border-spacing: 0 8px; }
-    .table-clean td { background: #f8fafc; padding: 12px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
-    .table-clean td:first-child { border-left: 1px solid var(--line); border-radius: 8px 0 0 8px; }
-    .table-clean td:last-child { border-right: 1px solid var(--line); border-radius: 0 8px 8px 0; }
-
-    .voice-assistant{position:fixed;bottom:100px;right:20px;width:56px;height:56px;border-radius:50%;background:var(--gold);color:var(--sb-blue-dark);border:none;font-size:1.4rem;z-index:1040;box-shadow:0 8px 24px rgba(0,0,0,0.2);cursor:pointer;display:grid;place-items:center}.voice-assistant.listening{background:var(--coral);animation:pulse 1s infinite}.voice-feedback{display:none;position:fixed;bottom:165px;right:20px;background:var(--ink);color:#fff;padding:12px 16px;border-radius:12px;font-size:.85rem;z-index:1040;max-width:250px;box-shadow:var(--shadow)}@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(255,107,95,0.5)}50%{box-shadow:0 0 0 15px rgba(255,107,95,0)}}
-
-    .toast-stack { position: fixed; right: 16px; bottom: 88px; z-index: 1080; display: grid; gap: 10px; width: min(340px, calc(100% - 32px)); }
-    .app-toast { background: var(--ink); color: #fff; border-radius: 8px; padding: 12px 14px; box-shadow: var(--shadow); animation: toastIn 220ms ease both; font-weight: 700; }
-    @keyframes toastIn { from { transform: translateY(12px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-
-    .mobile-bottom-nav { position: fixed; left: 0; right: 0; bottom: 0; z-index: 1030; min-height: 72px; padding: 7px 8px calc(7px + env(safe-area-inset-bottom)); display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 6px; background: rgba(255, 255, 255, 0.96); border-top: 1px solid var(--line); box-shadow: 0 -12px 28px rgba(16, 32, 51, 0.08); backdrop-filter: blur(14px); }
-    .mobile-nav-item { min-width: 0; min-height: 55px; border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 2px; text-decoration: none; color: var(--muted); font-size: 0.7rem; font-weight: 750; }
-    .mobile-nav-item i { font-size: 1.18rem; }
-    .mobile-nav-item.active { color: var(--sb-blue); background: rgba(0, 51, 160, 0.08); }
-    .progress-budget-sm { height: 6px; border-radius: 10px; background: #e9ecef; }
-    .cat-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 8px; }
-    .cat-details { flex: 2; min-width: 140px; }
-
-    @media (min-width: 860px) { body { padding-bottom: 0; } .mobile-bottom-nav { display: none; } }
-    @media (max-width: 1040px) { .app-nav { grid-template-columns: repeat(4, minmax(110px, 1fr)); } .page-hero { grid-template-columns: 1fr; } }
-    @media (max-width: 720px) { .topbar-inner { align-items: stretch; flex-direction: column; padding: 12px 0; } .toolbar { display: grid; grid-template-columns: 1fr auto; } .member-select { width: 100%; min-width: 0; } .app-nav { grid-template-columns: repeat(2, minmax(0, 1fr)); } .hero-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-    @media (max-width: 420px) { .main, .topbar-inner { width: min(100% - 20px, 1180px); } .page-hero { padding: 20px; } .hero-stats { grid-template-columns: 1fr; } }
+    :root{--sb-blue:#006b3f;--sb-blue-dark:#004d2c;--aqua:#00a86b;--gold:#d4af37;--violet:#6750d8;--coral:#ff6b5f;--ink:#102033;--muted:#64748b;--paper:#ffffff;--soft:#f3f7fb;--line:rgba(16,32,51,0.1);--shadow-sm:0 10px 26px rgba(0,107,63,0.09)}
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{min-height:100vh;background:radial-gradient(circle at top left,rgba(0,166,166,0.12),transparent 34rem),linear-gradient(135deg,rgba(0,51,160,0.08),rgba(108,194,74,0.05)),var(--soft);color:var(--ink);font-family:"Segoe UI",system-ui,sans-serif;padding-bottom:70px}
+    a{color:inherit;text-decoration:none}
+    .topbar{position:sticky;top:0;z-index:1020;background:linear-gradient(135deg,var(--sb-blue-dark),var(--sb-blue));color:#fff;padding:14px 20px;display:flex;align-items:center;justify-content:space-between}
+    .brand{display:flex;align-items:center;gap:10px;font-weight:850;font-size:1.2rem}
+    .brand i{font-size:1.5rem;color:var(--gold)}
+    .btn-menu{background:rgba(255,255,255,0.15);color:#fff;border:none;padding:8px 16px;border-radius:8px;font-weight:700;cursor:pointer;font-size:0.9rem}
+    .main{max-width:1000px;margin:0 auto;padding:20px}
+    .hero-card{background:linear-gradient(135deg,var(--sb-blue-dark),var(--sb-blue));color:#fff;border-radius:16px;padding:25px;margin-bottom:20px}
+    .hero-badge{background:rgba(255,255,255,0.2);padding:5px 12px;border-radius:20px;font-size:0.75rem;font-weight:700;display:inline-block;margin-bottom:8px}
+    .hero-title{font-size:1.8rem;font-weight:900;margin-bottom:3px}
+    .hero-subtitle{opacity:0.85;font-size:0.85rem}
+    .hero-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:18px}
+    .hero-stat{background:rgba(255,255,255,0.15);padding:12px;border-radius:10px;text-align:center}
+    .hero-stat .val{display:block;font-size:1.2rem;font-weight:800}
+    .hero-stat .lbl{font-size:0.7rem;opacity:0.8}
+    .nav-row{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:20px}
+    .nav-tile{background:var(--paper);border-radius:12px;padding:18px 10px;text-align:center;box-shadow:var(--shadow-sm);transition:transform 0.2s;display:block}
+    .nav-tile:hover{transform:translateY(-3px)}
+    .nav-tile.active{border:2px solid var(--sb-blue)}
+    .nav-tile i{font-size:1.5rem;display:block;margin-bottom:6px}
+    .nav-tile .nav-label{font-size:0.75rem;font-weight:700}
+    .icon-gold{color:var(--gold)}.icon-violet{color:var(--violet)}.icon-aqua{color:var(--aqua)}.icon-coral{color:var(--coral)}
+    .content-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+    .card{background:var(--paper);border-radius:14px;padding:20px;box-shadow:var(--shadow-sm)}
+    .card h3{font-size:1rem;font-weight:800;margin-bottom:15px}
+    .txn-item{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid rgba(0,0,0,0.05)}
+    .txn-item:last-child{border-bottom:0}
+    .txn-item .desc{font-weight:600;font-size:0.85rem}
+    .txn-item .amt{font-weight:700;font-size:0.9rem}
+    .txn-item .amt.in{color:#256b12}.txn-item .amt.out{color:#b34040}
+    .input-row{display:flex;gap:8px;margin-top:12px}
+    .input-row input{flex:1;padding:10px;border:2px solid #e0e0e0;border-radius:8px;font-size:0.85rem}
+    .input-row input:focus{border-color:var(--sb-blue);outline:none}
+    .btn-green{background:var(--sb-blue);color:#fff;border:none;padding:12px;border-radius:8px;font-weight:700;cursor:pointer;width:100%;font-size:0.9rem}
+    .btn-green:hover{background:var(--sb-blue-dark)}
+    .btn-outline{background:transparent;border:2px solid var(--sb-blue);color:var(--sb-blue);padding:12px;border-radius:8px;font-weight:700;cursor:pointer;width:100%;font-size:0.9rem}
+    .mobile-nav{position:fixed;bottom:0;left:0;right:0;display:grid;grid-template-columns:repeat(5,1fr);background:rgba(255,255,255,0.96);border-top:1px solid var(--line);padding:8px 4px;z-index:1030}
+    .mobile-nav a{display:flex;flex-direction:column;align-items:center;font-size:0.6rem;color:var(--muted);font-weight:700}
+    .mobile-nav a i{font-size:1rem}
+    .toast-stack{position:fixed;right:16px;bottom:80px;z-index:1080}
+    .app-toast{background:var(--ink);color:#fff;padding:10px 14px;border-radius:8px;margin-top:8px;font-weight:700;font-size:0.85rem}
+    @media(min-width:768px){.mobile-nav{display:none}body{padding-bottom:0}}
+    @media(max-width:768px){.content-grid{grid-template-columns:1fr}.nav-row{grid-template-columns:repeat(3,1fr)}.hero-stats{grid-template-columns:repeat(2,1fr)}}
   </style>
 </head>
-<body data-page="payments">
+<body>
   <header class="topbar">
-    <div class="topbar-inner">
-      <a class="brand" href="index.html"><i class="bi bi-bank2"></i><span>MoneyMatters</span></a>
-      <div class="toolbar">
-        <select class="member-select" data-member-select></select>
-        <button class="btn-soft" data-mode-toggle><i class="bi bi-arrow-repeat me-1"></i><span data-mode-text>Business</span></button>
-      </div>
-    </div>
+    <a class="brand" href="PersonalIndex.html"><i class="bi bi-bank2"></i>MoneyMatters</a>
+    <a href="MainMenu.html" class="btn-menu"><i class="bi bi-list me-1"></i>Menu</a>
   </header>
 
-  <nav class="app-nav">
-    <a class="home-tile" data-nav="overview" href="index.html"><i class="bi bi-grid-1x2-fill icon-tile tile-blue"></i><span>Home</span><strong>Overview</strong></a>
-    <a class="home-tile" data-nav="stokvel" href="stokvel.html"><i class="bi bi-people-fill icon-tile tile-aqua"></i><span>Shared</span><strong>Stokvel</strong></a>
-    <a class="home-tile" data-nav="approvals" href="approvals.html"><i class="bi bi-check2-square icon-tile tile-lime"></i><span>All members</span><strong>Approvals</strong></a>
-    <a class="home-tile" data-nav="emergency" href="emergency.html"><i class="bi bi-life-preserver icon-tile tile-coral"></i><span>14% split</span><strong>Emergency</strong></a>
-    <a class="home-tile active" data-nav="payments" href="payments.html"><i class="bi bi-cash-coin icon-tile tile-gold"></i><span>Money in</span><strong>Budget</strong></a>
-    <a class="home-tile" data-nav="credit" href="credit.html"><i class="bi bi-speedometer2 icon-tile tile-violet"></i><span>Profile</span><strong>Credit</strong></a>
-    <a class="home-tile" data-nav="savings" href="savings.html"><i class="bi bi-graph-up-arrow icon-tile tile-dark"></i><span>Growth</span><strong>Savings</strong></a>
-    <a class="home-tile" data-nav="community" href="community.html"><i class="bi bi-chat-dots-fill icon-tile tile-aqua"></i><span>Connect</span><strong>Community</strong></a>
-  </nav>
-
   <main class="main">
-    <section class="page-hero">
-      <div>
-        <span class="pill"><i class="bi bi-wallet2"></i> Cash flow & budget</span>
-        <h1 class="mt-3">Spend smarter,<br>save better.</h1>
-        <p>Track salary, stokvel, grants • Auto-sorted expenses • Budget with rollover • Bills & real-time left to spend.</p>
-      </div>
+    <div class="hero-card">
+      <span class="hero-badge"><i class="bi bi-cash-coin me-1"></i>PAYMENTS</span>
+      <h1 class="hero-title">Track your cash flow.</h1>
+      <p class="hero-subtitle">Manage incoming payments and recurring subscriptions.</p>
       <div class="hero-stats">
-        <div class="hero-stat"><strong id="incomingPayments">R0</strong><span>Total income (month)</span></div>
-        <div class="hero-stat"><strong id="subsTotal">R0</strong><span>Recurring bills</span></div>
-        <div class="left-to-spend-card">
-          <div class="label">💰 LEFT TO SPEND</div>
-          <div class="amount" id="leftToSpendHero">R0</div>
-          <div class="small">after savings & bills</div>
-        </div>
+        <div class="hero-stat"><span class="val" id="incomingPayments">R0</span><span class="lbl">Incoming</span></div>
+        <div class="hero-stat"><span class="val" id="subsTotal">R0</span><span class="lbl">Bills</span></div>
+        <div class="hero-stat"><span class="val" id="heroPool">R0</span><span class="lbl">Stokvel</span></div>
+        <div class="hero-stat"><span class="val" id="heroPending">0</span><span class="lbl">Pending</span></div>
       </div>
-    </section>
+    </div>
 
-    <section class="row g-3 mt-3">
-      <div class="col-lg-6">
-        <div class="dashboard-card">
-          <h2 class="h5 fw-bold mb-3"><i class="bi bi-graph-up-arrow text-success me-2"></i>Income tracker</h2>
-          <div class="row g-2 mb-3">
-            <div class="col-7"><input type="text" class="form-control" id="incomeSource" placeholder="e.g., Salary, Stokvel, SASSA"></div>
-            <div class="col-5"><input type="number" class="form-control" id="incomeAmount" placeholder="Amount (R)"></div>
-            <div class="col-12"><button class="btn-blue w-100" id="addIncomeBtn"><i class="bi bi-plus-circle me-2"></i>Add income</button></div>
-          </div>
-          <div id="incomeList" class="d-grid gap-2" style="max-height: 220px; overflow-y: auto;"></div>
-          <div class="mt-2 pt-2 border-top fw-bold d-flex justify-content-between"><span>Total monthly income:</span><span id="totalIncomeSum">R0</span></div>
-        </div>
+    <div class="nav-row">
+      <a href="payments.html" class="nav-tile active"><i class="bi bi-cash-coin icon-gold"></i><span class="nav-label">Payments</span></a>
+      <a href="credit.html" class="nav-tile"><i class="bi bi-speedometer2 icon-violet"></i><span class="nav-label">Credit</span></a>
+      <a href="stokvel.html" class="nav-tile"><i class="bi bi-people-fill icon-aqua"></i><span class="nav-label">Stokvels</span></a>
+      <a href="community.html" class="nav-tile"><i class="bi bi-chat-dots-fill icon-aqua"></i><span class="nav-label">Community</span></a>
+      <a href="Vault.html" class="nav-tile"><i class="bi bi-safe icon-coral"></i><span class="nav-label">Vault</span></a>
+    </div>
 
-        <div class="dashboard-card mt-3">
-          <h2 class="h5 fw-bold mb-3"><i class="bi bi-clock-history text-danger me-2"></i>Recurring bills</h2>
-          <div class="row g-2 mb-3">
-            <div class="col-7"><input type="text" class="form-control" id="billName" placeholder="e.g., Rent, Netflix, Loan"></div>
-            <div class="col-5"><input type="number" class="form-control" id="billAmount" placeholder="Amount (R)"></div>
-            <div class="col-12"><button class="btn-ghost w-100" id="addBillBtn"><i class="bi bi-calendar-plus me-2"></i>Add bill</button></div>
-          </div>
-          <div id="billsList" class="d-grid gap-2"></div>
-          <div class="mt-2 pt-2 border-top fw-bold d-flex justify-content-between"><span>Total bills:</span><span id="totalBillsSum">R0</span></div>
-        </div>
+    <div class="content-grid">
+      <div class="card">
+        <h3><i class="bi bi-arrow-down-circle text-success me-2"></i>Incoming payments</h3>
+        <div id="paymentsList"></div>
+        <div class="input-row"><input id="paymentClient" placeholder="Client or payer"><input id="paymentAmount" type="number" placeholder="Amount"></div>
+        <button class="btn-green mt-2" id="addPaymentBtn"><i class="bi bi-plus-circle me-1"></i>Add payment</button>
       </div>
-
-      <div class="col-lg-6">
-        <div class="dashboard-card">
-          <h2 class="h5 fw-bold mb-3"><i class="bi bi-tags text-info me-2"></i>Spending & auto-sorted</h2>
-          <div class="row g-2 mb-3">
-            <div class="col-7"><input type="text" class="form-control" id="expenseDesc" placeholder="e.g., Checkers, Uber, MTN data"></div>
-            <div class="col-5"><input type="number" class="form-control" id="expenseAmount" placeholder="Amount (R)"></div>
-            <div class="col-12"><button class="btn-blue w-100" id="addExpenseBtn"><i class="bi bi-receipt me-2"></i>Add expense</button></div>
-          </div>
-          <div id="categoryBreakdown"></div>
-        </div>
-
-        <div class="dashboard-card mt-3">
-          <h2 class="h5 fw-bold mb-3"><i class="bi bi-pie-chart-fill text-warning me-2"></i>Budget builder + rollover</h2>
-          <div id="budgetControls"></div>
-          <div class="mt-3 small text-muted"><i class="bi bi-arrow-repeat"></i> Unspent budget automatically rolls over.</div>
-          <div class="progress progress-budget-sm mt-2"><div class="progress-bar bg-success" id="overallBudgetBar" style="width:0%"></div></div>
-        </div>
+      <div class="card">
+        <h3><i class="bi bi-arrow-up-circle text-danger me-2"></i>Subscriptions</h3>
+        <div id="subscriptionList"></div>
+        <div class="input-row"><input id="subscriptionName" placeholder="Name"><input id="subscriptionCost" type="number" placeholder="Cost"></div>
+        <button class="btn-outline mt-2" id="addSubscriptionBtn"><i class="bi bi-plus-circle me-1"></i>Add subscription</button>
       </div>
-    </section>
-
-    <button class="voice-assistant" id="voiceAssistantBtn"><i class="bi bi-mic-fill"></i></button>
-    <div class="voice-feedback" id="voiceFeedback"></div>
+    </div>
   </main>
 
-  <nav class="mobile-bottom-nav">
-    <a href="index.html" class="mobile-nav-item"><i class="bi bi-house"></i><span>Home</span></a>
-    <a href="stokvel.html" class="mobile-nav-item"><i class="bi bi-people"></i><span>Stokvel</span></a>
-    <a href="approvals.html" class="mobile-nav-item"><i class="bi bi-check2-square"></i><span>Approve</span></a>
-    <a href="emergency.html" class="mobile-nav-item"><i class="bi bi-life-preserver"></i><span>Emergency</span></a>
-    <a href="community.html" class="mobile-nav-item"><i class="bi bi-chat-dots"></i><span>Forum</span></a>
+  <nav class="mobile-nav">
+    <a href="payments.html"><i class="bi bi-cash-coin"></i><span>Pay</span></a>
+    <a href="credit.html"><i class="bi bi-speedometer2"></i><span>Credit</span></a>
+    <a href="stokvel.html"><i class="bi bi-people"></i><span>Stokvel</span></a>
+    <a href="community.html"><i class="bi bi-chat-dots"></i><span>Chat</span></a>
+    <a href="Vault.html"><i class="bi bi-safe"></i><span>Vault</span></a>
   </nav>
 
   <div class="toast-stack" id="toastStack"></div>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-
   <script>
-    (function() {
-      let incomes = [
-        { source: "Salary (TechCorp)", amount: 12500 },
-        { source: "Stokvel Payout", amount: 1800 },
-        { source: "SASSA Child Grant", amount: 520 },
-        { source: "Freelance Design", amount: 2450 }
-      ];
-      let bills = [
-        { name: "Rent / Bond", amount: 4800 },
-        { name: "Electricity", amount: 850 },
-        { name: "Loan Repayment", amount: 1250 },
-        { name: "Streaming subs", amount: 249 }
-      ];
-      let expenses = [
-        { desc: "Checkers groceries", amount: 680, category: "groceries" },
-        { desc: "Uber to work", amount: 180, category: "transport" },
-        { desc: "MTN Airtime", amount: 299, category: "airtime" },
-        { desc: "Pick n Pay", amount: 420, category: "groceries" },
-        { desc: "Bolt taxi", amount: 95, category: "transport" },
-        { desc: "Vodacom data", amount: 129, category: "airtime" }
-      ];
-      
-      const categories = {
-        groceries: { name: "Groceries", icon: "bi-cart", spent: 0, limit: 2500, rollover: 320, keywords: ["woolworths","checkers","pick n pay","food","groceries","supermarket"] },
-        transport: { name: "Transport", icon: "bi-bus-front", spent: 0, limit: 1200, rollover: 85, keywords: ["uber","bolt","taxi","fuel","petrol","bus"] },
-        airtime: { name: "Airtime & Data", icon: "bi-wifi", spent: 0, limit: 400, rollover: 45, keywords: ["airtime","data","mtn","vodacom","cell c","telkom","recharge"] },
-        other: { name: "Other", icon: "bi-receipt", spent: 0, limit: 800, rollover: 120, keywords: [] }
-      };
-      
-      function detectCategory(desc) {
-        const lower = desc.toLowerCase();
-        for (let [key, cat] of Object.entries(categories)) {
-          if (key !== 'other' && cat.keywords.some(kw => lower.includes(kw))) return key;
-        }
-        return 'other';
-      }
-      
-      function recalcSpent() {
-        for (let k of Object.keys(categories)) categories[k].spent = 0;
-        for (let exp of expenses) {
-          if (categories[exp.category]) categories[exp.category].spent += exp.amount;
-        }
-      }
-      
-      function totalIncome() { return incomes.reduce((s,i) => s + i.amount, 0); }
-      function totalBills() { return bills.reduce((s,b) => s + b.amount, 0); }
-      function savingsAllocation() { return totalIncome() * 0.1; }
-      function totalSpent() { return expenses.reduce((s,e) => s + e.amount, 0); }
-      function leftToSpend() { return totalIncome() - totalBills() - savingsAllocation() - totalSpent(); }
-      function getCategoryAvailable(cat) { return categories[cat].limit + categories[cat].rollover; }
-      function getCategoryRemaining(cat) { return Math.max(0, getCategoryAvailable(cat) - categories[cat].spent); }
-      
-      function renderAll() {
-        recalcSpent();
-        document.getElementById('incomingPayments').innerHTML = `R${totalIncome().toLocaleString()}`;
-        document.getElementById('subsTotal').innerHTML = `R${totalBills().toLocaleString()}`;
-        document.getElementById('leftToSpendHero').innerHTML = `R${Math.max(0, leftToSpend()).toLocaleString()}`;
-        document.getElementById('totalIncomeSum').innerHTML = `R${totalIncome().toLocaleString()}`;
-        document.getElementById('totalBillsSum').innerHTML = `R${totalBills().toLocaleString()}`;
-        
-        const incomeContainer = document.getElementById('incomeList');
-        if (incomeContainer) {
-          incomeContainer.innerHTML = incomes.map((inc, idx) => `
-            <div class="transaction-card d-flex justify-content-between align-items-center">
-              <span><i class="bi bi-cash-stack text-success me-2"></i>${inc.source}</span>
-              <div><strong>R${inc.amount.toLocaleString()}</strong> <button class="btn btn-sm btn-link text-danger p-0 ms-2" data-remove-income="${idx}"><i class="bi bi-trash3"></i></button></div>
-            </div>
-          `).join('');
-          document.querySelectorAll('[data-remove-income]').forEach(btn => {
-            btn.addEventListener('click', () => { incomes.splice(parseInt(btn.dataset.removeIncome),1); renderAll(); showToast("Income removed"); });
-          });
-        }
-        
-        const billsContainer = document.getElementById('billsList');
-        if (billsContainer) {
-          billsContainer.innerHTML = bills.map((b, idx) => `
-            <div class="transaction-card d-flex justify-content-between align-items-center">
-              <span><i class="bi bi-receipt text-danger me-2"></i>${b.name}</span>
-              <div><strong>R${b.amount.toLocaleString()}</strong> <button class="btn btn-sm btn-link text-danger p-0 ms-2" data-remove-bill="${idx}"><i class="bi bi-x-circle"></i></button></div>
-            </div>
-          `).join('');
-          document.querySelectorAll('[data-remove-bill]').forEach(btn => {
-            btn.addEventListener('click', () => { bills.splice(parseInt(btn.dataset.removeBill),1); renderAll(); showToast("Bill removed"); });
-          });
-        }
-        
-        const catContainer = document.getElementById('categoryBreakdown');
-        let catHtml = '';
-        for (let [key, cat] of Object.entries(categories)) {
-          const spent = cat.spent;
-          const available = getCategoryAvailable(key);
-          const percent = available > 0 ? (spent / available) * 100 : 0;
-          catHtml += `
-            <div class="mb-2">
-              <div class="d-flex justify-content-between small fw-semibold">
-                <span><i class="bi ${cat.icon} me-1"></i> ${cat.name}</span>
-                <span>R${spent.toLocaleString()} / R${available.toLocaleString()}</span>
-              </div>
-              <div class="progress progress-budget-sm"><div class="progress-bar ${percent>90 ? 'bg-danger' : 'bg-success'}" style="width:${Math.min(100,percent)}%"></div></div>
-              <div class="small text-muted d-flex justify-content-between"><span>⬅️ Left: R${getCategoryRemaining(key).toLocaleString()}</span><span>🔄 Rollover: R${cat.rollover.toLocaleString()}</span></div>
-            </div>
-          `;
-        }
-        catContainer.innerHTML = catHtml;
-        
-        const budgetDiv = document.getElementById('budgetControls');
-        let sliderHtml = '';
-        for (let [key, cat] of Object.entries(categories)) {
-          sliderHtml += `
-            <div class="mb-2">
-              <label class="small fw-semibold"><i class="bi ${cat.icon} me-1"></i> ${cat.name} limit</label>
-              <div class="d-flex gap-2 align-items-center">
-                <input type="range" class="form-range flex-grow-1" data-cat="${key}" min="0" max="6000" step="50" value="${cat.limit}">
-                <input type="number" class="form-control form-control-sm w-25" data-cat-num="${key}" value="${cat.limit}" step="50">
-              </div>
-            </div>
-          `;
-        }
-        budgetDiv.innerHTML = sliderHtml;
-        document.querySelectorAll('[data-cat]').forEach(slider => {
-          const catKey = slider.dataset.cat;
-          const numInp = document.querySelector(`[data-cat-num="${catKey}"]`);
-          slider.addEventListener('input', () => { categories[catKey].limit = parseInt(slider.value); if(numInp) numInp.value = slider.value; renderAll(); });
-          if(numInp) numInp.addEventListener('change', () => { categories[catKey].limit = parseInt(numInp.value); slider.value = numInp.value; renderAll(); });
-        });
-        
-        const totalAvailable = Object.keys(categories).reduce((sum,k) => sum + getCategoryAvailable(k),0);
-        const totalBudgetSpent = Object.values(categories).reduce((sum,cat) => sum + cat.spent,0);
-        const overallPct = totalAvailable > 0 ? (totalBudgetSpent/totalAvailable)*100 : 0;
-        const progBar = document.getElementById('overallBudgetBar');
-        if(progBar) progBar.style.width = Math.min(100, overallPct) + '%';
-      }
-      
-      function showToast(msg) {
-        const stack = document.getElementById('toastStack');
-        if(!stack) return;
-        const toast = document.createElement('div');
-        toast.className = 'app-toast'; toast.textContent = msg;
-        stack.appendChild(toast);
-        setTimeout(() => toast.remove(), 2800);
-      }
-      
-      document.getElementById('addIncomeBtn')?.addEventListener('click', () => {
-        const src = document.getElementById('incomeSource').value.trim();
-        const amt = parseFloat(document.getElementById('incomeAmount').value);
-        if(!src || isNaN(amt) || amt<=0) { showToast("Valid source and amount"); return; }
-        incomes.push({ source: src, amount: amt });
-        document.getElementById('incomeSource').value = ''; document.getElementById('incomeAmount').value = '';
-        renderAll(); showToast("Income added");
-      });
-      document.getElementById('addBillBtn')?.addEventListener('click', () => {
-        const name = document.getElementById('billName').value.trim();
-        const amt = parseFloat(document.getElementById('billAmount').value);
-        if(!name || isNaN(amt) || amt<=0) { showToast("Valid bill name and amount"); return; }
-        bills.push({ name, amount: amt });
-        document.getElementById('billName').value = ''; document.getElementById('billAmount').value = '';
-        renderAll(); showToast("Recurring bill added");
-      });
-      document.getElementById('addExpenseBtn')?.addEventListener('click', () => {
-        const desc = document.getElementById('expenseDesc').value.trim();
-        const amt = parseFloat(document.getElementById('expenseAmount').value);
-        if(!desc || isNaN(amt) || amt<=0) { showToast("Valid expense description & amount"); return; }
-        const cat = detectCategory(desc);
-        expenses.unshift({ desc, amount: amt, category: cat });
-        document.getElementById('expenseDesc').value = ''; document.getElementById('expenseAmount').value = '';
-        renderAll(); showToast(`Added: ${desc} → ${categories[cat].name}`);
-      });
-      
-            window.simulateRollover = () => {
-        for(let [key, cat] of Object.entries(categories)) {
-          const available = cat.limit + cat.rollover;
-          const unspent = Math.max(0, available - cat.spent);
-          categories[key].rollover = unspent;
-        }
-        expenses = [];
-        renderAll();
-        showToast("Month ended! Unspent budgets rolled over to next month.");
-      };
-      
-      const state = { currentMode: "business", activeMember: "Thabo", stokvel: { members: [{name:"Thabo"},{name:"Priya"}] } };
-      const memberSelect = document.querySelector('[data-member-select]');
-      if(memberSelect) {
-        memberSelect.innerHTML = `<option>Thabo</option><option>Priya</option><option>Lerato</option>`;
-        memberSelect.value = "Thabo";
-        memberSelect.addEventListener('change', e => { state.activeMember = e.target.value; showToast(`Now acting as ${state.activeMember}`); });
-      }
-      document.querySelector('[data-mode-toggle]')?.addEventListener('click', () => {
-        state.currentMode = state.currentMode === "business" ? "personal" : "business";
-        document.querySelector('[data-mode-text]').textContent = state.currentMode === "business" ? "Business" : "Personal";
-        showToast(`Switched to ${state.currentMode} view (demo data unified)`);
-      });
-      renderAll();
-      
-      const heroStats = document.querySelector('.hero-stats');
-      if(heroStats && !document.getElementById('rolloverBtn')) {
-        const rollBtn = document.createElement('div');
-        rollBtn.className = 'left-to-spend-card mt-2';
-        rollBtn.style.cursor = 'pointer';
-        rollBtn.innerHTML = '<div class="small">🔄 Rollover unspent</div><div class="small fw-bold">Month end →</div>';
-        rollBtn.addEventListener('click', () => window.simulateRollover());
-        heroStats.appendChild(rollBtn);
-      }
-    })();
-  </script>
+    const money=v=>"R"+Number(v||0).toLocaleString("en-ZA");
+    const setText=(id,v)=>{const n=document.getElementById(id);if(n)n.textContent=v};
+    const STORAGE_KEY="moneyMattersUltimateStokvelState";
+    let state;
+    try{state=JSON.parse(localStorage.getItem(STORAGE_KEY))||{stokvel:{mainPool:6450,emergencyFund:1050,transactions:[{status:"pending"}]},personalData:{incomingPayments:[{client:"Salary",amount:4200},{client:"Freelance",amount:650}],subscriptions:[{name:"Rent",cost:4800},{name:"Netflix",cost:159},{name:"Phone",cost:599}]}}}catch(e){state={stokvel:{mainPool:0,emergencyFund:0,transactions:[]},personalData:{incomingPayments:[],subscriptions:[]}}}
+    let ad=state.personalData;
 
-  <script>
-    (function() {
-      const voiceBtn = document.getElementById('voiceAssistantBtn');
-      const voiceFeedback = document.getElementById('voiceFeedback');
-      let recognition = null;
-      if (voiceBtn) {
-        voiceBtn.addEventListener('click', () => {
-          if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
-            voiceFeedback.textContent = 'Speech not supported.';
-            voiceFeedback.style.display = 'block';
-            setTimeout(() => { voiceFeedback.style.display = 'none'; }, 3000);
-            return;
-          }
-          const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-          recognition = new SpeechRecognition();
-          recognition.continuous = false;
-          recognition.interimResults = false;
-          recognition.lang = 'en-ZA';
-          recognition.onstart = () => {
-            voiceBtn.classList.add('listening');
-            voiceFeedback.textContent = '🎤 Listening...';
-            voiceFeedback.style.display = 'block';
-          };
-          recognition.onresult = (e) => {
-            const t = e.results[0][0].transcript.toLowerCase();
-            let r = 'Try saying: budget, bills, or help.';
-            if (t.includes('budget')) r = 'Your budget shows how much you can spend after bills and savings.';
-            if (t.includes('bill')) r = 'You can add recurring bills like rent and electricity on this page.';
-            if (t.includes('help')) r = 'Add income, bills, and expenses to track your monthly cash flow.';
-            voiceFeedback.textContent = r;
-            if ('speechSynthesis' in window) {
-              const u = new SpeechSynthesisUtterance(r);
-              u.lang = 'en-ZA';
-              window.speechSynthesis.cancel();
-              window.speechSynthesis.speak(u);
-            }
-          };
-          recognition.onerror = () => { voiceBtn.classList.remove('listening'); };
-          recognition.onend = () => {
-            voiceBtn.classList.remove('listening');
-            setTimeout(() => { voiceFeedback.style.display = 'none'; }, 4000);
-          };
-          recognition.start();
-        });
-      }
-    })();
-  </script>
-
-  <script>
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('sw.js')
-        .then(() => console.log('Service Worker registered!'))
-        .catch(err => console.log('Service Worker failed:', err));
+    function render(){
+      const inc=(ad.incomingPayments||[]).reduce((s,x)=>s+(x.amount||0),0);
+      const sub=(ad.subscriptions||[]).reduce((s,x)=>s+(x.cost||0),0);
+      setText('incomingPayments',money(inc));setText('subsTotal',money(sub));
+      setText('heroPool',money(state.stokvel.mainPool||0));
+      setText('heroPending',(state.stokvel.transactions||[]).filter(t=>t.status!=="approved").length);
+      document.getElementById('paymentsList').innerHTML=(ad.incomingPayments||[]).map(p=>`<div class="txn-item"><span class="desc"><i class="bi bi-arrow-down-circle text-success me-2"></i>${p.client}</span><span class="amt in">+${money(p.amount)}</span></div>`).join('')||'<p class="muted small">No payments yet</p>';
+      document.getElementById('subscriptionList').innerHTML=(ad.subscriptions||[]).map(s=>`<div class="txn-item"><span class="desc"><i class="bi bi-arrow-up-circle text-danger me-2"></i>${s.name}</span><span class="amt out">-${money(s.cost)}</span></div>`).join('')||'<p class="muted small">No subscriptions</p>';
     }
+
+    function showToast(m){const s=document.getElementById('toastStack');const t=document.createElement('div');t.className='app-toast';t.textContent=m;s.appendChild(t);setTimeout(()=>t.remove(),3000)}
+    function save(){localStorage.setItem(STORAGE_KEY,JSON.stringify(state))}
+
+    document.getElementById('addPaymentBtn').addEventListener('click',()=>{
+      const c=document.getElementById('paymentClient').value.trim();
+      const a=Number(document.getElementById('paymentAmount').value);
+      if(!c||!a||a<=0)return showToast('Enter valid details');
+      ad.incomingPayments.unshift({client:c,amount:a});
+      document.getElementById('paymentClient').value='';document.getElementById('paymentAmount').value='';
+      save();render();showToast('Payment added');
+    });
+    document.getElementById('addSubscriptionBtn').addEventListener('click',()=>{
+      const n=document.getElementById('subscriptionName').value.trim();
+      const c=Number(document.getElementById('subscriptionCost').value);
+      if(!n||!c||c<=0)return showToast('Enter valid details');
+      ad.subscriptions.push({name:n,cost:c});
+      document.getElementById('subscriptionName').value='';document.getElementById('subscriptionCost').value='';
+      save();render();showToast('Subscription added');
+    });
+
+    if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});
+    render();
   </script>
 </body>
 </html>
