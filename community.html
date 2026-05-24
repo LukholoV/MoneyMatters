@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>MoneyMatters | Community & Help Centre</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+  <link rel="manifest" href="manifest.json">
+  <style>
+    :root {
+      --sb-blue: #006b3f;
+      --sb-blue-light: #008f54;
+      --sb-blue-dark: #004d2c;
+      --ink: #102033;
+      --muted: #64748b;
+      --paper: #ffffff;
+      --soft: #f3f7fb;
+      --line: rgba(16, 32, 51, 0.1);
+      --aqua: #00a86b;
+      --lime: #6cc24a;
+      --gold: #d4af37;
+      --coral: #ff6b5f;
+      --violet: #6750d8;
+      --shadow: 0 18px 45px rgba(0, 107, 63, 0.13);
+      --shadow-sm: 0 10px 26px rgba(0, 107, 63, 0.09);
+      --transition: 180ms ease;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: radial-gradient(circle at top left, rgba(0, 166, 166, 0.12), transparent 34rem),
+                  linear-gradient(135deg, rgba(0, 51, 160, 0.08), rgba(108, 194, 74, 0.05)),
+                  var(--soft);
+      color: var(--ink);
+      font-family: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      overflow-x: hidden;
+      padding-bottom: 82px;
+    }
+    button, input, select, textarea { font: inherit; }
+    a { color: inherit; }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 1020;
+      background: linear-gradient(135deg, var(--sb-blue-dark), var(--sb-blue));
+      color: #fff;
+      box-shadow: 0 8px 28px rgba(0, 31, 102, 0.18);
+    }
+    .topbar-inner {
+      width: min(1180px, calc(100% - 28px));
+      margin: 0 auto;
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 850;
+    }
+    .brand i {
+      width: 42px;
+      height: 42px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.15);
+      font-size: 1.35rem;
+      display: grid;
+      place-items: center;
+    }
+    .toolbar {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .member-select {
+      min-width: 172px;
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      color: #fff;
+      background-color: rgba(255, 255, 255, 0.12);
+      border-radius: 8px;
+      padding: 9px 12px;
+    }
+    .member-select option { color: var(--ink); background: #fff; }
+    .btn-soft, .btn-blue, .btn-ghost {
+      border: 0;
+      border-radius: 8px;
+      font-weight: 780;
+      min-height: 42px;
+      padding: 9px 14px;
+      transition: transform var(--transition), box-shadow var(--transition), background var(--transition);
+    }
+    .btn-soft { background: #fff; color: var(--sb-blue); box-shadow: 0 8px 22px rgba(0, 0, 0, 0.12); }
+    .btn-blue { background: var(--sb-blue); color: #fff; box-shadow: 0 12px 24px rgba(0, 51, 160, 0.2); }
+    .btn-ghost { background: rgba(0, 51, 160, 0.08); color: var(--sb-blue); }
+    .btn-soft:hover, .btn-blue:hover, .btn-ghost:hover { transform: translateY(-3px); }
+    .main { width: min(1180px, calc(100% - 28px)); margin: 22px auto 38px; }
+
+    .app-nav {
+      display: grid;
+      grid-template-columns: repeat(8, minmax(100px, 1fr));
+      gap: 12px;
+      margin: 18px 0 8px;
+    }
+    .home-tile {
+      aspect-ratio: 1 / 1;
+      border: 1px solid var(--line);
+      background: var(--paper);
+      border-radius: 8px;
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 13px;
+      box-shadow: var(--shadow-sm);
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+    .home-tile:hover, .home-tile.active { border-color: rgba(0, 51, 160, 0.45); box-shadow: 0 18px 35px rgba(0, 51, 160, 0.17); }
+    .icon-tile { width: 42px; height: 42px; border-radius: 8px; display: grid; place-items: center; color: #fff; font-size: 1.25rem; }
+    .tile-blue { background: var(--sb-blue); }
+    .tile-aqua { background: var(--aqua); }
+    .tile-lime { background: var(--lime); }
+    .tile-gold { background: var(--gold); }
+    .tile-coral { background: var(--coral); }
+    .tile-violet { background: var(--violet); }
+    .tile-dark { background: var(--ink); }
+
+    .dashboard-card {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: var(--shadow-sm);
+      transition: transform var(--transition);
+      padding: 18px;
+      height: 100%;
+    }
+    .dashboard-card:hover { transform: translateY(-3px); }
+    .muted { color: var(--muted); }
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border-radius: 999px;
+      background: rgba(0, 51, 160, 0.08);
+      color: var(--sb-blue-dark);
+      font-weight: 800;
+      font-size: 0.78rem;
+      padding: 5px 9px;
+    }
+    .pill-success { background: rgba(108, 194, 74, 0.14); color: #256b12; }
+
+    /* Forum Styles */
+    .forum-post {
+      background: var(--paper);
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 16px;
+      border: 1px solid var(--line);
+      transition: transform 0.2s;
+    }
+    .forum-post:hover { transform: translateY(-2px); box-shadow: var(--shadow-sm); }
+    .forum-post-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    .forum-avatar {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      background: var(--sb-blue);
+      display: grid;
+      place-items: center;
+      color: white;
+      font-weight: bold;
+    }
+    .forum-like { cursor: pointer; transition: color 0.2s; }
+    .forum-like:hover { color: var(--coral); }
+    .forum-like.liked { color: var(--coral); }
+
+    /* Help Video Cards */
+    .help-video-card {
+      background: var(--paper);
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      transition: transform 0.2s;
+      cursor: pointer;
+    }
+    .help-video-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-sm); }
+    .video-thumb {
+      background: linear-gradient(135deg, var(--sb-blue-dark), var(--sb-blue));
+      height: 140px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 3rem;
+    }
+    .offline-badge {
+      background: var(--lime);
+      color: white;
+      font-size: 0.7rem;
+      padding: 2px 8px;
+      border-radius: 12px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Voice Assistant */
+    .voice-assistant {
+      position: fixed;
+      bottom: 100px;
+      right: 20px;
+      z-index: 1100;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--sb-blue), var(--aqua));
+      border: none;
+      color: white;
+      font-size: 1.8rem;
+      box-shadow: 0 8px 25px rgba(0, 107, 63, 0.4);
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .voice-assistant:hover { transform: scale(1.08); }
+    .voice-assistant.listening {
+      animation: pulse 1.5s infinite;
+      background: linear-gradient(135deg, var(--coral), #ff4444);
+    }
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      70% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+    .voice-feedback {
+      position: fixed;
+      bottom: 170px;
+      right: 20px;
+      background: var(--ink);
+      color: white;
+      padding: 10px 16px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      max-width: 280px;
+      z-index: 1100;
+      display: none;
+      box-shadow: var(--shadow);
+    }
+    @media (min-width: 860px) { .voice-assistant { bottom: 30px; } .voice-feedback { bottom: 100px; } }
+
+    /* Toast & Mobile */
+    .toast-stack {
+      position: fixed;
+      right: 16px;
+      bottom: 88px;
+      z-index: 1080;
+      display: grid;
+      gap: 10px;
+      width: min(340px, calc(100% - 32px));
+    }
+    .app-toast {
+      background: var(--ink);
+      color: #fff;
+      border-radius: 8px;
+      padding: 12px 14px;
+      animation: toastIn 220ms ease;
+      font-weight: 700;
+    }
+    @keyframes toastIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+    .mobile-bottom-nav {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 1030;
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 6px;
+      background: rgba(255, 255, 255, 0.96);
+      border-top: 1px solid var(--line);
+      backdrop-filter: blur(14px);
+      padding: 7px 8px calc(7px + env(safe-area-inset-bottom));
+    }
+    .mobile-nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 0.7rem;
+      font-weight: 750;
+    }
+    .mobile-nav-item i { font-size: 1.18rem; }
+    .mobile-nav-item.active { color: var(--sb-blue); background: rgba(0, 51, 160, 0.08); border-radius: 8px; }
+    @media (min-width: 860px) { body { padding-bottom: 0; } .mobile-bottom-nav { display: none; } }
+    @media (max-width: 1040px) { .app-nav { grid-template-columns: repeat(4, minmax(110px, 1fr)); } }
+    @media (max-width: 720px) { .topbar-inner { flex-direction: column; align-items: stretch; } .app-nav { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+    .modal-content { border-radius: 8px; }
+    .nav-tabs .nav-link { color: var(--muted); font-weight: 600; }
+    .nav-tabs .nav-link.active { color: var(--sb-blue); border-bottom-color: var(--sb-blue); }
+  </style>
+</head>
+<body data-page="community">
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="index.html"><i class="bi bi-bank2"></i><span>MoneyMatters</span></a>
+      <div class="toolbar">
+        <select class="member-select" data-member-select></select>
+        <button class="btn-soft" data-mode-toggle><i class="bi bi-arrow-repeat me-1"></i><span data-mode-text>Business</span></button>
+      </div>
+    </div>
+  </header>
+
+  <main class="main">
+    <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+      <h1 class="h2 fw-bold mb-0"><i class="bi bi-chat-dots-fill me-2" style="color: var(--sb-blue);"></i>Community & Help Centre</h1>
+      <div><span class="offline-badge"><i class="bi bi-wifi-off"></i> Works offline</span></div>
+    </div>
+
+    <!-- Navigation Tabs -->
+    <ul class="nav nav-tabs mb-4" id="communityTab" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="help-tab" data-bs-toggle="tab" data-bs-target="#help" type="button" role="tab"><i class="bi bi-play-circle me-1"></i>📱 Offline Help Centre</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="forum-tab" data-bs-toggle="tab" data-bs-target="#forum" type="button" role="tab"><i class="bi bi-people me-1"></i>💬 Community Forum</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="voice-tab" data-bs-toggle="tab" data-bs-target="#voice" type="button" role="tab"><i class="bi bi-mic me-1"></i>🎤 AI Voice Assistant</button>
+      </li>
+    </ul>
+
+    <div class="tab-content" id="communityTabContent">
+      <!-- ========== TAB 1: OFFLINE HELP CENTRE ========== -->
+      <div class="tab-pane fade show active" id="help" role="tabpanel">
+        <div class="row g-3">
+          <div class="col-12">
+            <div class="dashboard-card">
+              <h3 class="h5 fw-bold mb-3"><i class="bi bi-book me-2"></i>How-to videos (no data needed)</h3>
+              <p class="muted small">These videos are cached for offline use. Tap any to watch - works without internet!</p>
+              <div class="row g-3 mt-2" id="helpVideosContainer"></div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="dashboard-card">
+              <h3 class="h5 fw-bold mb-3"><i class="bi bi-question-circle me-2"></i>Frequently Asked Questions</h3>
+              <div class="accordion" id="faqAccordion">
+                <div class="accordion-item border-0 bg-transparent">
+                  <h2 class="accordion-header"><button class="accordion-button bg-light rounded" data-bs-toggle="collapse" data-bs-target="#faq1">How do I join a stokvel?</button></h2>
+                  <div id="faq1" class="accordion-collapse collapse" data-bs-parent="#faqAccordion"><div class="accordion-body">Use the invite code on the Stokvel page (MM-STOKVEL-250) or ask a member to add you via the "Add member" button.</div></div>
+                </div>
+                <div class="accordion-item border-0 bg-transparent mt-2">
+                  <h2 class="accordion-header"><button class="accordion-button bg-light rounded collapsed" data-bs-toggle="collapse" data-bs-target="#faq2">How does the emergency fund work?</button></h2>
+                  <div id="faq2" class="accordion-collapse collapse"><div class="accordion-body">14% of each R250 contribution goes to the emergency fund. All members must approve withdrawals, and repayment is due within one month.</div></div>
+                </div>
+                <div class="accordion-item border-0 bg-transparent mt-2">
+                  <h2 class="accordion-header"><button class="accordion-button bg-light rounded collapsed" data-bs-toggle="collapse" data-bs-target="#faq3">What is the approval process?</button></h2>
+                  <div id="faq3" class="accordion-collapse collapse"><div class="accordion-body">Every transaction needs ALL stokvel members to approve before money moves. Go to the Approvals page to see pending requests.</div></div>
+                </div>
+                <div class="accordion-item border-0 bg-transparent mt-2">
+                  <h2 class="accordion-header"><button class="accordion-button bg-light rounded collapsed" data-bs-toggle="collapse" data-bs-target="#faq4">Can I use this app offline?</button></h2>
+                  <div id="faq4" class="accordion-collapse collapse"><div class="accordion-body">Yes! Help videos and FAQs work offline. Your financial data syncs when you're back online.</div></div>
+                </div>
+                <div class="accordion-item border-0 bg-transparent mt-2">
+                  <h2 class="accordion-header"><button class="accordion-button bg-light rounded collapsed" data-bs-toggle="collapse" data-bs-target="#faq5">How do I set savings goals?</button></h2>
+                  <div id="faq5" class="accordion-collapse collapse"><div class="accordion-body">Go to the Savings page and click "New goal". You can track holiday, school fees, or emergency buffer goals.</div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="dashboard-card">
+              <h3 class="h5 fw-bold mb-3"><i class="bi bi-chat-text me-2"></i>Need more help?</h3>
+              <p>Try our <strong>AI Voice Assistant</strong> - supports English, isiZulu, and Afrikaans!</p>
+              <button class="btn-blue w-100 mb-2" id="openVoiceHelpFromHelp"><i class="bi bi-mic me-2"></i>Ask voice assistant</button>
+              <hr>
+              <p class="small muted mb-0"><i class="bi bi-envelope"></i> Email support: help@moneymatters.co.za</p>
+              <p class="small muted"><i class="bi bi-whatsapp"></i> WhatsApp: 0800 123 456</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ========== TAB 2: COMMUNITY FORUM ========== -->
+      <div class="tab-pane fade" id="forum" role="tabpanel">
+        <div class="row g-3">
+          <div class="col-lg-8">
+            <div class="dashboard-card">
+              <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+                <h3 class="h5 fw-bold mb-0"><i class="bi bi-chat-dots me-2"></i>South African stokvel community</h3>
+                <button class="btn-soft btn-sm" id="newPostBtn"><i class="bi bi-plus-lg me-1"></i>New post</button>
+              </div>
+              <div id="forumPostsContainer">
+                <div class="text-center py-4"><div class="spinner-border text-success"></div><p class="mt-2">Loading forum...</p></div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="dashboard-card">
+              <h3 class="h5 fw-bold mb-3"><i class="bi bi-bar-chart me-2"></i>Community stats</h3>
+              <div><strong id="totalPosts">0</strong> posts</div>
+              <div><strong id="totalLikes">0</strong> total likes</div>
+              <hr>
+              <h4 class="h6 fw-bold">🔥 Popular topics</h4>
+              <ul class="list-unstyled small">
+                <li><i class="bi bi-cash-stack me-1 text-success"></i> Best stokvel practices</li>
+                <li><i class="bi bi-life-preserver me-1 text-danger"></i> Emergency fund experiences</li>
+                <li><i class="bi bi-graph-up me-1 text-info"></i> Investment tips SA</li>
+                <li><i class="bi bi-people me-1 text-primary"></i> Group saving strategies</li>
+                <li><i class="bi bi-piggy-bank me-1 text-warning"></i> Goal-based saving wins</li>
+              </ul>
+            </div>
+            <div class="dashboard-card mt-3">
+              <h3 class="h5 fw-bold mb-2"><i class="bi bi-shield-check me-2"></i>Moderated community</h3>
+              <small class="muted">Posts are reviewed for quality. Be respectful, helpful, and share your stokvel journey!</small>
+              <hr class="my-2">
+              <div class="d-flex gap-2 flex-wrap">
+                <span class="pill"><i class="bi bi-flag"></i> Report</span>
+                <span class="pill"><i class="bi bi-star"></i> Guidelines</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ========== TAB 3: AI VOICE ASSISTANT ========== -->
+      <div class="tab-pane fade" id="voice" role="tabpanel">
+        <div class="row g-3">
+          <div class="col-md-6">
+            <div class="dashboard-card text-center">
+              <div class="py-4">
+                <div style="font-size: 5rem;"><i class="bi bi-mic-fill" style="color: var(--sb-blue);"></i></div>
+                <h3 class="h4 mt-3">AI Voice Assistant</h3>
+                <p class="muted">Speak naturally in <strong>English, isiZulu, or Afrikaans</strong></p>
+                <button class="btn-blue btn-lg px-5 py-3" id="voiceAssistantMainBtn"><i class="bi bi-mic-fill me-2"></i>Start listening</button>
+                <p class="mt-3 small muted" id="voiceStatusText">Click the button and speak your question</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="dashboard-card">
+              <h3 class="h5 fw-bold mb-3"><i class="bi bi-chat-dots"></i> What you can ask</h3>
+              <div class="row g-2">
+                <div class="col-6"><div class="p-2 bg-light rounded small"><i class="bi bi-calculator"></i> "What's my balance?"</div></div>
+                <div class="col-6"><div class="p-2 bg-light rounded small"><i class="bi bi-cash-stack"></i> "How to contribute?"</div></div>
+                <div class="col-6"><div class="p-2 bg-light rounded small"><i class="bi bi-life-preserver"></i> "Emergency fund help"</div></div>
+                <div class="col-6"><div class="p-2 bg-light rounded small"><i class="bi bi-check2-square"></i> "Pending approvals"</div></div>
+                <div class="col-6"><div class="p-2 bg-light rounded small"><i class="bi bi-people"></i> "Stokvel info"</div></div>
+                <div class="col-6"><div class="p-2 bg-light rounded small"><i class="bi bi-question-circle"></i> "Help / Usizo / Hulp"</div></div>
+              </div>
+              <hr>
+              <div class="alert alert-success small mb-0">
+                <i class="bi bi-check-circle-fill"></i> <strong>Supported languages:</strong> English, isiZulu (Zulu), Afrikaans. The assistant auto-detects your language!
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Mobile Bottom Navigation -->
+  <nav class="mobile-bottom-nav">
+    <a href="index.html" class="mobile-nav-item"><i class="bi bi-house"></i><span>Home</span></a>
+    <a href="stokvel.html" class="mobile-nav-item"><i class="bi bi-people"></i><span>Stokvel</span></a>
+    <a href="approvals.html" class="mobile-nav-item"><i class="bi bi-check2-square"></i><span>Approve</span></a>
+    <a href="emergency.html" class="mobile-nav-item"><i class="bi bi-life-preserver"></i><span>Emergency</span></a>
+    <a href="community.html" class="mobile-nav-item active"><i class="bi bi-chat-dots"></i><span>Community</span></a>
+  </nav>
+
+  <!-- Floating Voice Assistant Button (visible on all pages) -->
+  <button class="voice-assistant" id="floatingVoiceBtn"><i class="bi bi-mic-fill"></i></button>
+  <div class="voice-feedback" id="voiceFeedback"></div>
+  <div class="toast-stack" id="toastStack"></div>
+
+  <!-- New Post Modal -->
+  <div class="modal fade" id="newPostModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title"><i class="bi bi-pencil-square"></i> Create new forum post</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <input class="form-control mb-2" id="postTitle" placeholder="Post title">
+          <textarea class="form-control mb-2" id="postContent" rows="4" placeholder="Share your tip, question, or experience..."></textarea>
+          <select class="form-select" id="postCategory">
+            <option value="General">📢 General</option>
+            <option value="Stokvel Tips">💰 Stokvel Tips</option>
+            <option value="Emergency">🚨 Emergency</option>
+            <option value="Investments">📈 Investments</option>
+            <option value="Savings Goals">🎯 Savings Goals</option>
+          </select>
+        </div>
+        <div class="modal-footer">
+          <button class="btn-ghost" data-bs-dismiss="modal">Cancel</button>
+          <button class="btn-blue" id="submitPostBtn">Post to community</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    (function() {
+      // ========== STORAGE KEYS ==========
+      const STORAGE_KEY = "moneyMattersUltimateStokvelState";
+      const FORUM_KEY = "moneyMattersForum";
+
+      // ========== DEFAULT FORUM POSTS (SA-focused, moderated) ==========
+      const defaultForumPosts = [
+        { id: "post1", title: "Best way to split stokvel payouts?", content: "Our group has 8 members. Any advice on fair rotation? We're thinking monthly payouts but want everyone to benefit equally.", author: "Thabo_JHB", avatar: "T", likes: 12, likedBy: [], date: "2026-05-20", category: "Stokvel Tips" },
+        { id: "post2", title: "Emergency fund saved my family 🙏", content: "We had a medical emergency last week and the fund helped immediately. So grateful for this system!", author: "Nandi_DBN", avatar: "N", likes: 34, likedBy: [], date: "2026-05-18", category: "Emergency" },
+        { id: "post3", title: "Where do you invest your stokvel surplus?", content: "We have extra R5k this month - EasyEquities TFSA or rotate to members? What works for you?", author: "Priya_CPT", avatar: "P", likes: 8, likedBy: [], date: "2026-05-15", category: "Investments" },
+        { id: "post4", title: "Saving for December holiday - tips?", content: "We're 5 members saving R250 each. Target is R10k for year-end braai and gifts. Any saving hacks?", author: "Lerato_STB", avatar: "L", likes: 5, likedBy: [], date: "2026-05-12", category: "Savings Goals" }
+      ];
+
+      // ========== OFFLINE HELP VIDEOS ==========
+      const helpVideos = [
+        { id: 1, title: "How to make a contribution", duration: "1:30", icon: "bi-cash-stack", description: "Step-by-step guide to paying your R250 monthly" },
+        { id: 2, title: "Requesting emergency funds", duration: "2:15", icon: "bi-life-preserver", description: "When and how to request emergency withdrawal" },
+        { id: 3, title: "Approving transactions", duration: "1:45", icon: "bi-check2-square", description: "How to approve requests as a member" },
+        { id: 4, title: "Setting savings goals", duration: "2:00", icon: "bi-piggy-bank", description: "Create and track your savings goals" },
+        { id: 5, title: "Using voice assistant", duration: "1:20", icon: "bi-mic", description: "Learn voice commands in isiZulu/Afrikaans" },
+        { id: 6, title: "Inviting members", duration: "1:10", icon: "bi-person-plus", description: "Add new members to your stokvel" }
+      ];
+
+      // ========== HELPER FUNCTIONS ==========
+      function showToast(message) {
+        const stack = document.getElementById('toastStack');
+        if (!stack) return;
+        const toast = document.createElement('div');
+        toast.className = 'app-toast';
+        toast.innerHTML = `<i class="bi bi-info-circle-fill me-2"></i>${message}`;
+        stack.appendChild(toast);
+        setTimeout(() => toast.remove(), 3400);
+      }
+
+      function getCurrentUser() {
+        try {
+          const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
+          return saved?.activeMember || 'Thabo';
+        } catch(e) { return 'Thabo'; }
+      }
+
+      function loadForumPosts() {
+        try {
+          const saved = localStorage.getItem(FORUM_KEY);
+          if (saved) return JSON.parse(saved);
+          localStorage.setItem(FORUM_KEY, JSON.stringify(defaultForumPosts));
+          return [...defaultForumPosts];
+        } catch(e) { return [...defaultForumPosts]; }
+      }
+
+      function saveForumPosts(posts) {
+        localStorage.setItem(FORUM_KEY, JSON.stringify(posts));
+      }
+
+      // ========== RENDER HELP VIDEOS ==========
+      function renderHelpVideos() {
+        const container = document.getElementById('helpVideosContainer');
+        if (!container) return;
+        container.innerHTML = helpVideos.map(v => `
+          <div class="col-md-4 col-6">
+            <div class="help-video-card" data-video="${v.id}">
+              <div class="video-thumb"><i class="bi ${v.icon}"></i></div>
+              <div class="p-3">
+                <strong class="d-block">${v.title}</strong>
+                <small class="muted">${v.duration} · <i class="bi bi-wifi-off"></i> offline</small>
+                <p class="small mt-1 mb-0 text-muted">${v.description}</p>
+              </div>
+            </div>
+          </div>
+        `).join('');
+        document.querySelectorAll('.help-video-card').forEach(card => {
+          card.addEventListener('click', () => {
+            const title = card.querySelector('strong')?.innerText || 'video';
+            showToast(`🎬 Playing: ${title}\n(Offline demo - cached content ready)`);
+          });
+        });
+      }
+
+      // ========== RENDER FORUM POSTS ==========
+      function renderForumPosts() {
+        const container = document.getElementById('forumPostsContainer');
+        if (!container) return;
+        let posts = loadForumPosts();
+        const totalLikes = posts.reduce((sum, p) => sum + p.likes, 0);
+        document.getElementById('totalPosts').innerText = posts.length;
+        document.getElementById('totalLikes').innerText = totalLikes;
+
+        if (posts.length === 0) {
+          container.innerHTML = `<div class="text-center py-5"><i class="bi bi-chat-square-text" style="font-size: 3rem; color: var(--muted);"></i><p class="mt-3">No posts yet. Be the first to share!</p></div>`;
+          return;
+        }
+
+        const currentUser = getCurrentUser();
+        container.innerHTML = posts.sort((a, b) => new Date(b.date) - new Date(a.date)).map(post => `
+          <div class="forum-post" data-post-id="${post.id}">
+            <div class="forum-post-header">
+              <div class="forum-avatar" style="background: var(--sb-blue);">${post.avatar}</div>
+              <div>
+                <strong>${post.author}</strong>
+                <div class="small muted">${post.date} · ${post.category}</div>
+              </div>
+            </div>
+            <h4 class="h6 fw-bold">${escapeHtml(post.title)}</h4>
+            <p class="small">${escapeHtml(post.content)}</p>
+            <div class="d-flex gap-4 mt-2">
+              <span class="forum-like ${post.likedBy.includes(currentUser) ? 'liked' : ''}" data-id="${post.id}">
+                <i class="bi ${post.likedBy.includes(currentUser) ? 'bi-heart-fill' : 'bi-heart'} me-1"></i>${post.likes} likes
+              </span>
+              <span class="muted small"><i class="bi bi-chat"></i> 0 replies</span>
+              <span class="muted small"><i class="bi bi-flag"></i> report</span>
+            </div>
+          </div>
+        `).join('');
+
+        document.querySelectorAll('.forum-like').forEach(el => {
+          el.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const postId = el.dataset.id;
+            let posts = loadForumPosts();
+            const post = posts.find(p => p.id === postId);
+            if (post) {
+              const user = getCurrentUser();
+              if (post.likedBy.includes(user)) {
+                post.likes--;
+                post.likedBy = post.likedBy.filter(u => u !== user);
+                showToast('You unliked this post');
+              } else {
+                post.likes++;
+                post.likedBy.push(user);
+                showToast('❤️ You liked this post!');
+              }
+              saveForumPosts(posts);
+              renderForumPosts();
+            }
+          });
+        });
+      }
+
+      function escapeHtml(str) {
+        if (!str) return '';
+        return str.replace(/[&<>]/g, function(m) {
+          if (m === '&') return '&amp;';
+          if (m === '<') return '&lt;';
+          if (m === '>') return '&gt;';
+          return m;
+        });
+      }
+
+      // ========== AI VOICE ASSISTANT (Multi-language) ==========
+      let recognition = null;
+      let isListening = false;
+      const voiceFeedback = document.getElementById('voiceFeedback');
+      const floatingBtn = document.getElementById('floatingVoiceBtn');
+      const mainVoiceBtn = document.getElementById('voiceAssistantMainBtn');
+      const voiceStatusText = document.getElementById('voiceStatusText');
+
+      // Multi-language responses
+      const responses = {
+        en: {
+          balance: () => { try { return `Your current balance is ${document.getElementById('heroPool')?.innerText || 'R0'}`; } catch(e) { return 'Balance R0'; } },
+          contribute: 'You can contribute by clicking the Pay R250 button on the home page.',
+          emergency: 'The emergency fund has 14% of each contribution. Go to Emergency page to request withdrawal.',
+          approve: 'Go to Approvals page to see pending transactions that need your approval.',
+          stokvel: 'Your stokvel has 5 members. The next beneficiary is shown on the dashboard.',
+          help: 'I can help with balance, contributions, emergency fund, approvals, stokvel info, or savings goals. Try saying one of those!',
+          savings: 'Set savings goals on the Savings page. You can create holiday, school fees, or emergency buffer goals.',
+          default: 'I heard you. Try saying: balance, contribute, emergency, approve, stokvel, savings, or help.'
+        },
+        zu: {
+          balance: () => { try { return `Imali yakho yimanje ingu ${document.getElementById('heroPool')?.innerText || 'R0'}`; } catch(e) { return 'R0'; } },
+          contribute: 'Ungafaka imali ngokuchofoza inkinobho ethi Pay R250 ekhasini lasekhaya.',
+          emergency: 'Isikhwama sezimo eziphuthumayo sithola u-14% womnikelo ngamunye. Iya ekhasini le-Emergency ukuze ucele.',
+          approve: 'Iya ekhasini le-Approvals ukuze ubone imicelo elindele ukuvunywa kwakho.',
+          stokvel: 'I-stokvel yakho inamalungu ama-5. Umamukeli olandelayo ukhonjiswa kudeshbodi.',
+          help: 'Ngingakusiza ngebhalansi, iminikelo, isikhwama sezimo eziphuthumayo, ukuvunywa, noma i-stokvel. Zama ukusho elinye!',
+          savings: 'Beka izinhloso zokonga ekhasini le-Savings. Ungadala izinhloso zeholide, izimali zesikole, noma isikhwama sezimo eziphuthumayo.',
+          default: 'Ngikuzwile. Zama ukuthi: ibhalansi, faka imali, isimo eziphuthumayo, vuma, stokvel, ukonga, noma usizo.'
+        },
+        af: {
+          balance: () => { try { return `Jou huidige balans is ${document.getElementById('heroPool')?.innerText || 'R0'}`; } catch(e) { return 'R0'; } },
+          contribute: 'Jy kan bydra deur op die Pay R250-knoppie op die tuisblad te klik.',
+          emergency: 'Die noodfonds kry 14% van elke bydrae. Gaan na die Emergency-bladsy om te versoek.',
+          approve: 'Gaan na die Approvals-bladsy om hangende transaksies te sien wat jou goedkeuring benodig.',
+          stokvel: 'Jou stokvel het 5 lede. Die volgende begunstigde word op die dashboard gewys.',
+          help: 'Ek kan help met balans, bydraes, noodfonds, goedkeurings, stokvel inligting, of spaardoelwitte. Probeer een sê!',
+          savings: 'Stel spaardoelwitte op die Savings-bladsy. Jy kan vakansie-, skoolgeld- of noodbuffel-doelwitte skep.',
+          default: 'Ek het jou gehoor. Probeer sê: balans, bydra, nood, goedkeur, stokvel, spaar, of hulp.'
+        }
+      };
+
+      function detectLanguage(text) {
+        if (text.match(/ngi|uku|ukuthi|wena|mina|khona|kanye/i)) return 'zu';
+        if (text.match(/ek|jy|my|jou|die|dit|ons|hulp/i)) return 'af';
+        return 'en';
+      }
+
+      function speakResponse(text, langCode = 'en-ZA') {
+        if ('speechSynthesis' in window) {
+          const utterance = new SpeechSynthesisUtterance(text);
+          utterance.lang = langCode;
+          utterance.rate = 0.9;
+          window.speechSynthesis.cancel();
+          window.speechSynthesis.speak(utterance);
+        }
+      }
+
+      function processVoiceCommand(command, lang = 'en') {
+        const lower = command.toLowerCase();
+        let responseText = responses[lang].default;
+        
+        if (lower.includes('balans') || lower.includes('balance') || lower.includes('ibhalansi')) {
+          const bal = responses[lang].balance;
+          responseText = typeof bal === 'function' ? bal() : bal;
+        } else if (lower.includes('contribute') || lower.includes('bydra') || lower.includes('faka') || lower.includes('pay')) {
+          responseText = responses[lang].contribute;
+        } else if (lower.includes('emergency') || lower.includes('nood') || lower.includes('ephuthumayo')) {
+          responseText = responses[lang].emergency;
+        } else if (lower.includes('approve') || lower.includes('goedkeur') || lower.includes('vuma')) {
+          responseText = responses[lang].approve;
+        } else if (lower.includes('stokvel') || lower.includes('group')) {
+          responseText = responses[lang].stokvel;
+        } else if (lower.includes('savings') || lower.includes('spaar') || lower.includes('ukonga')) {
+          responseText = responses[lang].savings;
+        } else if (lower.includes('help') || lower.includes('hulp') || lower.includes('usizo')) {
+          responseText = responses[lang].help;
+        }
+        
+        return responseText;
+      }
+
+      function startVoiceListening() {
+        if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+          showToast('Speech recognition not supported in this browser. Try Chrome or Safari.');
+          if (voiceStatusText) voiceStatusText.textContent = '❌ Speech recognition not supported';
+          return;
+        }
+        
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        recognition = new SpeechRecognition();
+        recognition.continuous = false;
+        recognition.interimResults = false;
+        recognition.lang = 'en-ZA';
+        
+        recognition.onstart = () => {
+          isListening = true;
+          if (floatingBtn) floatingBtn.classList.add('listening');
+          if (voiceFeedback) {
+            voiceFeedback.textContent = '🎤 Listening... Speak now (say "help" for commands)';
+            voiceFeedback.style.display = 'block';
+          }
+          if (voiceStatusText) voiceStatusText.textContent = '🎤 Listening... Speak now';
+        };
+        
+        recognition.onresult = (event) => {
+          const transcript = event.results[0][0].transcript;
+          const detectedLang = detectLanguage(transcript);
+          const langName = detectedLang === 'zu' ? 'isiZulu' : (detectedLang === 'af' ? 'Afrikaans' : 'English');
+          
+          if (voiceFeedback) {
+            voiceFeedback.textContent = `🗣️ "${transcript}" (${langName})`;
+          }
+          
+          const response = processVoiceCommand(transcript, detectedLang);
+          
+          setTimeout(() => {
+            if (voiceFeedback) {
+              voiceFeedback.textContent = `🤖 ${response}`;
+            }
+            if (voiceStatusText) voiceStatusText.textContent = `🤖 ${response.substring(0, 60)}...`;
+          }, 500);
+          
+          speakResponse(response, detectedLang === 'zu' ? 'zu-ZA' : (detectedLang === 'af' ? 'af-ZA' : 'en-ZA'));
+          
+          setTimeout(() => {
+            if (voiceFeedback && voiceFeedback.textContent !== '🎤 Listening... Speak now (say "help" for commands)') {
+              voiceFeedback.style.display = 'none';
+            }
+          }, 6000);
+        };
+        
+        recognition.onerror = (event) => {
+          console.error('Speech error:', event.error);
+          if (voiceFeedback) {
+            voiceFeedback.textContent = `❌ Error: ${event.error}. Please try again.`;
+            setTimeout(() => { if (voiceFeedback) voiceFeedback.style.display = 'none'; }, 3000);
+          }
+          if (voiceStatusText) voiceStatusText.textContent = '❌ Could not hear you. Click the mic and try again.';
+          if (floatingBtn) floatingBtn.classList.remove('listening');
+        };
+        
+        recognition.onend = () => {
+          isListening = false;
+          if (floatingBtn) floatingBtn.classList.remove('listening');
+          setTimeout(() => {
+            if (voiceFeedback && voiceFeedback.textContent !== '🎤 Listening... Speak now (say "help" for commands)') {
+              if (voiceFeedback) voiceFeedback.style.display = 'none';
+            }
+          }, 1500);
+        };
+        
+        recognition.start();
+      }
+
+      // Voice button handlers
+      if (floatingBtn) floatingBtn.addEventListener('click', startVoiceListening);
+      if (mainVoiceBtn) mainVoiceBtn.addEventListener('click', startVoiceListening);
+      
+      const openVoiceFromHelp = document.getElementById('openVoiceHelpFromHelp');
+      if (openVoiceFromHelp) {
+        openVoiceFromHelp.addEventListener('click', () => {
+          const voiceTab = document.querySelector('#voice-tab');
+          if (voiceTab) {
+            const tab = new bootstrap.Tab(voiceTab);
+            tab.show();
+          }
+          setTimeout(() => startVoiceListening(), 300);
+        });
+      }
+
+      // ========== FORUM NEW POST ==========
+      document.getElementById('newPostBtn')?.addEventListener('click', () => {
+        const modal = new bootstrap.Modal(document.getElementById('newPostModal'));
+        modal.show();
+      });
+      
+      document.getElementById('submitPostBtn')?.addEventListener('click', () => {
+        const title = document.getElementById('postTitle').value.trim();
+        const content = document.getElementById('postContent').value.trim();
+        const category = document.getElementById('postCategory').value;
+        if (!title || !content) {
+          showToast('Please fill in both title and content');
+          return;
+        }
+        const user = getCurrentUser();
+        const newPost = {
+          id: 'post' + Date.now(),
+          title: title,
+          content: content,
+          author: user,
+          avatar: user.charAt(0),
+          likes: 0,
+          likedBy: [],
+          date: new Date().toISOString().slice(0, 10),
+          category: category
+        };
+        const posts = loadForumPosts();
+        posts.unshift(newPost);
+        saveForumPosts(posts);
+        renderForumPosts();
+        bootstrap.Modal.getInstance(document.getElementById('newPostModal')).hide();
+        document.getElementById('postTitle').value = '';
+        document.getElementById('postContent').value = '';
+        showToast('✅ Post published! (moderated for quality)');
+      });
+
+      // ========== MEMBER SELECT & MODE TOGGLE (sync with other pages) ==========
+      function updateMemberSelect() {
+        try {
+          const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
+          if (saved?.stokvel?.members) {
+            const select = document.querySelector('[data-member-select]');
+            if (select) {
+              select.innerHTML = saved.stokvel.members.map(m => `<option value="${m.name}">${m.name} · ${m.role}</option>`).join('');
+              select.value = saved.activeMember || saved.stokvel.members[0].name;
+            }
+          }
+        } catch(e) {}
+      }
+
+      document.querySelector('[data-member-select]')?.addEventListener('change', (e) => {
+        try {
+          const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
+          if (saved) {
+            saved.activeMember = e.target.value;
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(saved));
+          }
+          showToast(`Now acting as ${e.target.value}`);
+          renderForumPosts();
+        } catch(err) {}
+      });
+
+      document.querySelector('[data-mode-toggle]')?.addEventListener('click', () => {
+        try {
+          const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
+          if (saved) {
+            saved.currentMode = saved.currentMode === 'business' ? 'personal' : 'business';
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(saved));
+          }
+          const modeText = document.querySelector('[data-mode-text]');
+          if (modeText) modeText.textContent = saved?.currentMode === 'business' ? 'Business' : 'Personal';
+          showToast(`Switched to ${saved?.currentMode || 'business'} view`);
+          renderForumPosts();
+        } catch(e) {}
+      });
+
+      function updateModeText() {
+        try {
+          const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
+          const modeText = document.querySelector('[data-mode-text]');
+          if (modeText && saved) modeText.textContent = saved.currentMode === 'business' ? 'Business' : 'Personal';
+        } catch(e) {}
+      }
+
+      // ========== SERVICE WORKER REGISTRATION (Offline support) ==========
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/sw.js').then(reg => {
+          console.log('Service Worker registered for offline support');
+        }).catch(err => console.log('SW registration failed:', err));
+      }
+
+      // ========== INITIAL RENDER ==========
+      renderHelpVideos();
+      renderForumPosts();
+      updateMemberSelect();
+      updateModeText();
+      
+      // Also try to read hero stats from localStorage for voice assistant balance
+      try {
+        const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
+        if (saved) {
+          const totalPool = (saved.stokvel?.mainPool || 0) + (saved.stokvel?.emergencyFund || 0);
+          if (!document.getElementById('heroPool')) {
+            const fakeHero = document.createElement('span');
+            fakeHero.id = 'heroPool';
+            fakeHero.style.display = 'none';
+            fakeHero.innerText = 'R' + totalPool.toLocaleString();
+            document.body.appendChild(fakeHero);
+          } else {
+            document.getElementById('heroPool').innerText = 'R' + totalPool.toLocaleString();
+          }
+        }
+      } catch(e) {}
+    })();
+  </script>
+  <script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js')
+      .then(() => console.log('Service Worker registered!'))
+      .catch(err => console.log('Service Worker failed:', err));
+  }
+</script>
+</body>
+</html>
