@@ -8,91 +8,91 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
   <link rel="manifest" href="manifest.json">
   <style>
-    :root{--sb-blue:#006b3f;--sb-blue-dark:#004d2c;--aqua:#00a86b;--gold:#d4af37;--coral:#ff6b5f;--ink:#102033;--muted:#64748b;--paper:#ffffff;--soft:#f3f7fb;--line:rgba(16,32,51,0.1);--shadow-sm:0 10px 26px rgba(0,107,63,0.09)}
-    *{box-sizing:border-box;margin:0;padding:0}
-    body{min-height:100vh;background:radial-gradient(circle at top left,rgba(0,166,166,0.12),transparent 34rem),linear-gradient(135deg,rgba(0,51,160,0.08),rgba(108,194,74,0.05)),var(--soft);color:var(--ink);font-family:"Segoe UI",system-ui,sans-serif;padding-bottom:70px}
+    :root{--sb-blue:#006b3f;--sb-blue-dark:#004d2c;--aqua:#00a86b;--gold:#d4af37;--coral:#ff6b5f;--ink:#102033;--muted:#64748b;--paper:#ffffff;--soft:#f3f7fb}
+    body{min-height:100vh;background:radial-gradient(circle at top left,rgba(0,166,166,0.12),transparent 34rem),linear-gradient(135deg,rgba(0,51,160,0.08),rgba(108,194,74,0.05)),var(--soft);color:var(--ink);font-family:"Segoe UI",system-ui,sans-serif}
     a{color:inherit;text-decoration:none}
-    .topbar{position:sticky;top:0;z-index:1020;background:linear-gradient(135deg,var(--sb-blue-dark),var(--sb-blue));color:#fff;padding:15px 20px;display:flex;align-items:center;justify-content:space-between}
-    .brand{display:flex;align-items:center;gap:10px;font-weight:850;font-size:1.2rem}
-    .brand i{font-size:1.5rem;color:var(--gold)}
-    .btn-menu{background:rgba(255,255,255,0.15);color:#fff;border:none;padding:8px 16px;border-radius:8px;font-weight:700;cursor:pointer}
-    .main{max-width:800px;margin:20px auto;padding:0 15px}
-    .hero{background:linear-gradient(135deg,var(--sb-blue-dark),var(--sb-blue));color:#fff;border-radius:16px;padding:25px;margin-bottom:20px;text-align:center}
-    .hero h1{font-size:2rem;font-weight:900;margin-bottom:5px}
-    .hero p{opacity:0.85;font-size:0.9rem}
-    .hero-stats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:15px}
-    .hero-stat{background:rgba(255,255,255,0.15);padding:12px;border-radius:10px}
-    .hero-stat strong{display:block;font-size:1.3rem}
-    .hero-stat span{font-size:0.7rem;opacity:0.8}
-    .nav-blocks{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:20px}
-    .nav-block{background:var(--paper);border-radius:12px;padding:20px;text-align:center;box-shadow:var(--shadow-sm);transition:transform 0.2s;display:block;color:var(--ink)}
+    .topbar{background:linear-gradient(135deg,var(--sb-blue-dark),var(--sb-blue));color:#fff}
+    .brand i{color:var(--gold)}
+    .hero-card{background:linear-gradient(135deg,var(--sb-blue-dark),var(--sb-blue));color:#fff;border-radius:16px;padding:25px}
+    .hero-stat-box{background:rgba(255,255,255,0.15);padding:12px;border-radius:10px;text-align:center}
+    .hero-stat-box strong{display:block;font-size:1.3rem}
+    .hero-stat-box span{font-size:0.7rem;opacity:0.8}
+    .nav-block{background:var(--paper);border-radius:12px;padding:20px;text-align:center;box-shadow:0 10px 26px rgba(0,107,63,0.09);transition:transform 0.2s;display:block;color:var(--ink);height:100%}
     .nav-block:hover{transform:translateY(-3px)}
     .nav-block i{font-size:2rem;display:block;margin-bottom:8px}
     .nav-block strong{display:block;font-size:1rem}
     .nav-block small{color:var(--muted);font-size:0.75rem}
-    .icon-blue{color:var(--sb-blue)}.icon-gold{color:var(--gold)}.icon-aqua{color:var(--aqua)}.icon-coral{color:var(--coral)}
-    .section-title{font-size:1.2rem;font-weight:900;margin:15px 0 10px}
-    .card{background:var(--paper);border-radius:12px;padding:18px;box-shadow:var(--shadow-sm);margin-bottom:12px}
-    .metric-row{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+    .icon-aqua{color:var(--aqua)}.icon-gold{color:var(--gold)}.icon-coral{color:var(--coral)}
     .metric-box{background:var(--soft);padding:12px;border-radius:8px;text-align:center}
     .metric-box .value{font-size:1.4rem;font-weight:900;color:var(--sb-blue-dark)}
     .metric-box .label{font-size:0.7rem;color:var(--muted)}
-    .btn{display:block;width:100%;padding:12px;border:none;border-radius:8px;font-weight:700;font-size:0.9rem;cursor:pointer;text-align:center;margin-top:8px}
-    .btn-green{background:var(--sb-blue);color:#fff}
-    .btn-outline{background:#fff;color:var(--sb-blue);border:2px solid var(--sb-blue)}
+    .btn-green{background:var(--sb-blue);color:#fff;border:none;padding:12px;border-radius:8px;font-weight:700;width:100%}
+    .btn-green:hover{background:var(--sb-blue-dark);color:#fff}
     .toast-stack{position:fixed;right:16px;bottom:80px;z-index:1080}
     .app-toast{background:var(--ink);color:#fff;padding:10px 14px;border-radius:8px;margin-top:8px;font-weight:700;font-size:0.85rem}
-    .mobile-nav{position:fixed;bottom:0;left:0;right:0;display:grid;grid-template-columns:repeat(3,1fr);background:rgba(255,255,255,0.96);border-top:1px solid var(--line);padding:8px;z-index:1030}
-    .mobile-nav a{display:flex;flex-direction:column;align-items:center;font-size:0.65rem;color:var(--muted);font-weight:700}
+    .mobile-nav{background:rgba(255,255,255,0.96);border-top:1px solid rgba(16,32,51,0.1)}
+    .mobile-nav a{color:var(--muted);font-size:0.65rem;font-weight:700}
     .mobile-nav a i{font-size:1.1rem}
-    @media(min-width:768px){.mobile-nav{display:none}body{padding-bottom:0}}
+    @media(min-width:768px){.mobile-nav{display:none}}
   </style>
 </head>
 <body>
-  <header class="topbar">
-    <a class="brand" href="MainMenu.html"><i class="bi bi-bank2"></i>MoneyMatters</a>
-    <a href="MainMenu.html" class="btn-menu"><i class="bi bi-list me-1"></i>Menu</a>
+  <header class="topbar py-3 px-3 sticky-top">
+    <div class="container-fluid">
+      <div class="d-flex justify-content-between align-items-center">
+        <a class="brand d-flex align-items-center gap-2 fw-bold fs-5" href="MainMenu.html"><i class="bi bi-bank2 fs-3"></i>MoneyMatters</a>
+        <a href="MainMenu.html" class="btn btn-sm text-white" style="background:rgba(255,255,255,0.15)"><i class="bi bi-list me-1"></i>Menu</a>
+      </div>
+    </div>
   </header>
 
-  <main class="main">
-    <div class="hero">
-      <span style="background:rgba(255,255,255,0.2);padding:4px 10px;border-radius:20px;font-size:0.7rem;font-weight:700"><i class="bi bi-briefcase me-1"></i>BUSINESS</span>
-      <h1>Group finance, managed.</h1>
-      <p>Track your stokvel contributions and group savings.</p>
-      <div class="hero-stats">
-        <div class="hero-stat"><strong id="heroPool">R0</strong><span>Total value</span></div>
-        <div class="hero-stat"><strong id="heroEmergency">R0</strong><span>Emergency</span></div>
-        <div class="hero-stat"><strong id="heroPending">0</strong><span>Pending</span></div>
-        <div class="hero-stat"><strong id="heroNext">-</strong><span>Next payout</span></div>
+  <main class="container-fluid py-3" style="max-width:900px">
+    <div class="hero-card mb-4 text-center text-md-start">
+      <span class="badge mb-2" style="background:rgba(255,255,255,0.2);font-size:0.7rem"><i class="bi bi-briefcase me-1"></i>BUSINESS</span>
+      <h1 class="fw-bold display-5 mb-1">Group finance, managed.</h1>
+      <p class="opacity-75">Track your stokvel contributions and group savings.</p>
+      <div class="row g-2 mt-3">
+        <div class="col-6 col-md-3"><div class="hero-stat-box"><strong id="heroPool">R0</strong><span>Total value</span></div></div>
+        <div class="col-6 col-md-3"><div class="hero-stat-box"><strong id="heroEmergency">R0</strong><span>Emergency</span></div></div>
+        <div class="col-6 col-md-3"><div class="hero-stat-box"><strong id="heroPending">0</strong><span>Pending</span></div></div>
+        <div class="col-6 col-md-3"><div class="hero-stat-box"><strong id="heroNext">-</strong><span>Next payout</span></div></div>
       </div>
     </div>
 
-    <div class="nav-blocks">
-      <a href="stokvel.html" class="nav-block"><i class="bi bi-people-fill icon-aqua"></i><strong>Stokvel</strong><small>Group savings</small></a>
-      <a href="rentalsandrent.html" class="nav-block"><i class="bi bi-house-door icon-gold"></i><strong>Rentals</strong><small>Property tracking</small></a>
-    </div>
-
-    <div class="section-title">Quick overview</div>
-    <div class="card">
-      <div class="metric-row">
-        <div class="metric-box"><div class="value" id="stokvelPayoutValue">R0</div><div class="label">Main pool</div></div>
-        <div class="metric-box"><div class="value" id="emergencyFundValue">R0</div><div class="label">Emergency</div></div>
-        <div class="metric-box"><div class="value" id="incomingPayments">R0</div><div class="label">Incoming</div></div>
-        <div class="metric-box"><div class="value" id="rentDueDisplay">R0</div><div class="label">Rent due</div></div>
+    <div class="row g-3 mb-4">
+      <div class="col-6 col-md-4">
+        <a href="stokvel.html" class="nav-block"><i class="bi bi-people-fill icon-aqua"></i><strong>Stokvel</strong><small>Group savings</small></a>
+      </div>
+      <div class="col-6 col-md-4">
+        <a href="rentalsandrent.html" class="nav-block"><i class="bi bi-house-door icon-gold"></i><strong>Rentals</strong><small>Property tracking</small></a>
+      </div>
+      <div class="col-6 col-md-4">
+        <a href="Vault.html" class="nav-block"><i class="bi bi-safe icon-coral"></i><strong>Vault</strong><small>Secure storage</small></a>
       </div>
     </div>
 
-    <button class="btn btn-green" id="payBtn"><i class="bi bi-plus-circle me-2"></i>Pay R250 Contribution</button>
+    <h5 class="fw-bold mb-3">Quick overview</h5>
+    <div class="row g-2 mb-3">
+      <div class="col-6 col-md-3"><div class="metric-box"><div class="value" id="stokvelPayoutValue">R0</div><div class="label">Main pool</div></div></div>
+      <div class="col-6 col-md-3"><div class="metric-box"><div class="value" id="emergencyFundValue">R0</div><div class="label">Emergency</div></div></div>
+      <div class="col-6 col-md-3"><div class="metric-box"><div class="value" id="incomingPayments">R0</div><div class="label">Incoming</div></div></div>
+      <div class="col-6 col-md-3"><div class="metric-box"><div class="value" id="rentDueDisplay">R0</div><div class="label">Rent due</div></div></div>
+    </div>
+
+    <button class="btn btn-green btn-lg" id="payBtn"><i class="bi bi-plus-circle me-2"></i>Pay R250 Contribution</button>
   </main>
 
-  <nav class="mobile-nav">
-    <a href="BusinessIndex.html"><i class="bi bi-house"></i>Home</a>
-    <a href="stokvel.html"><i class="bi bi-people"></i>Stokvel</a>
-    <a href="MainMenu.html"><i class="bi bi-list"></i>Menu</a>
+  <nav class="mobile-nav fixed-bottom d-md-none">
+    <div class="row g-0 text-center py-2">
+      <div class="col-4"><a href="BusinessIndex.html" class="d-flex flex-column align-items-center"><i class="bi bi-house"></i>Home</a></div>
+      <div class="col-4"><a href="stokvel.html" class="d-flex flex-column align-items-center"><i class="bi bi-people"></i>Stokvel</a></div>
+      <div class="col-4"><a href="MainMenu.html" class="d-flex flex-column align-items-center"><i class="bi bi-list"></i>Menu</a></div>
+    </div>
   </nav>
 
   <div class="toast-stack" id="toastStack"></div>
 
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
   <script>
     const money=v=>"R"+Number(v||0).toLocaleString("en-ZA");
     const setText=(id,v)=>{const n=document.getElementById(id);if(n)n.textContent=v};
