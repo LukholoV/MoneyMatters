@@ -19,62 +19,163 @@
     .nav-block i{font-size:2rem;display:block;margin-bottom:8px}
     .nav-block strong{display:block;font-size:1rem}
     .nav-block small{color:var(--muted);font-size:0.75rem}
-    .icon-aqua{color:var(--aqua)}.icon-gold{color:var(--gold)}.icon-coral{color:var(--coral)}.icon-purple{color:#9b59b6}
-    .btn-green{background:var(--sb-blue);color:#fff;border:none;padding:12px;border-radius:8px;font-weight:700;width:100%}
-    .btn-green:hover{background:var(--sb-blue-dark);color:#fff}
-    .toast-stack{position:fixed;right:16px;bottom:80px;z-index:1080}
-    .app-toast{background:var(--ink);color:#fff;padding:10px 14px;border-radius:8px;margin-top:8px;font-weight:700;font-size:0.85rem}
-    .mobile-nav{background:rgba(255,255,255,0.96);border-top:1px solid rgba(16,32,51,0.1)}
-    .mobile-nav a{color:var(--muted);font-size:0.65rem;font-weight:700}
-    .mobile-nav a i{font-size:1.1rem}
-    @media(min-width:768px){.mobile-nav{display:none}}
+    .icon-aqua{color:var(--aqua)}.icon-gold{color:var(--gold)}.icon-coral{color:var(--coral)}
     
-    /* Hamburger menu styles for mobile */
+    /* Hamburger Menu Styles */
     .hamburger-menu {
       display: none;
       position: relative;
     }
-    @media (max-width: 767px) {
-      .desktop-nav-links {
+    
+    .hamburger-btn {
+      background: rgba(255,255,255,0.15);
+      border: none;
+      color: white;
+      padding: 8px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1.2rem;
+      transition: background 0.3s;
+    }
+    
+    .hamburger-btn:hover {
+      background: rgba(255,255,255,0.25);
+    }
+    
+    .hamburger-dropdown {
+      display: none;
+      position: absolute;
+      top: 50px;
+      right: 0;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+      min-width: 220px;
+      z-index: 1000;
+      overflow: hidden;
+    }
+    
+    .hamburger-dropdown a {
+      display: block;
+      padding: 14px 20px;
+      color: var(--ink);
+      text-decoration: none;
+      border-bottom: 1px solid #eee;
+      font-weight: 600;
+      transition: background 0.2s;
+    }
+    
+    .hamburger-dropdown a i {
+      margin-right: 10px;
+      font-size: 1.1rem;
+    }
+    
+    .hamburger-dropdown a:hover {
+      background: var(--soft);
+    }
+    
+    .hamburger-dropdown.show {
+      display: block;
+    }
+    
+    /* Desktop navigation */
+    .desktop-nav {
+      display: flex;
+      align-items: center;
+    }
+    
+    .desktop-menu-btn {
+      background: rgba(255,255,255,0.15);
+      border: none;
+      color: white;
+      padding: 8px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background 0.3s;
+    }
+    
+    .desktop-menu-btn:hover {
+      background: rgba(255,255,255,0.25);
+    }
+    
+    /* Mobile Styles */
+    @media (max-width: 768px) {
+      .desktop-nav {
         display: none;
       }
+      
       .hamburger-menu {
         display: block;
       }
-      .hamburger-btn {
-        background: rgba(255,255,255,0.15);
-        border: none;
-        color: white;
-        padding: 8px 12px;
-        border-radius: 8px;
-        cursor: pointer;
-        font-size: 1.2rem;
+      
+      .mobile-nav {
+        display: block;
       }
-      .hamburger-dropdown {
+      
+      .hero-card h1 {
+        font-size: 1.8rem;
+      }
+      
+      .hero-card p {
+        font-size: 0.9rem;
+      }
+      
+      .nav-block {
+        padding: 15px;
+      }
+      
+      .nav-block i {
+        font-size: 1.5rem;
+      }
+      
+      .nav-block strong {
+        font-size: 0.9rem;
+      }
+      
+      .nav-block small {
+        font-size: 0.7rem;
+      }
+    }
+    
+    /* Desktop Styles */
+    @media (min-width: 769px) {
+      .mobile-nav {
         display: none;
-        position: absolute;
-        top: 50px;
-        right: 0;
-        background: white;
-        border-radius: 12px;
-        box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-        min-width: 200px;
-        z-index: 1000;
-        overflow: hidden;
       }
-      .hamburger-dropdown a {
-        display: block;
-        padding: 12px 20px;
-        color: var(--ink);
-        text-decoration: none;
-        border-bottom: 1px solid #eee;
-        font-weight: 600;
-      }
-      .hamburger-dropdown a:hover {
-        background: var(--soft);
-      }
-      .hamburger-dropdown.show {
-        display: block;
+    }
+    
+    .mobile-nav {
+      background: rgba(255,255,255,0.96);
+      border-top: 1px solid rgba(16,32,51,0.1);
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+    }
+    
+    .mobile-nav a {
+      color: var(--muted);
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    
+    .mobile-nav a:hover {
+      color: var(--sb-blue);
+    }
+    
+    .mobile-nav a i {
+      font-size: 1.2rem;
+      margin-bottom: 4px;
+    }
+    
+    /* Add padding to main content to prevent overlap with mobile nav */
+    @media (max-width: 768px) {
+      main {
+        padding-bottom: 70px !important;
       }
     }
   </style>
@@ -83,50 +184,94 @@
   <header class="topbar py-3 px-3 sticky-top">
     <div class="container-fluid">
       <div class="d-flex justify-content-between align-items-center">
-        <a class="brand d-flex align-items-center gap-2 fw-bold fs-5" href="MainMenu.html"><i class="bi bi-bank2 fs-3"></i>MoneyMatters</a>
-        <div class="desktop-nav-links">
-          <a href="MainMenu.html" class="btn btn-sm text-white" style="background:rgba(255,255,255,0.15)"><i class="bi bi-list me-1"></i>Menu</a>
+        <a class="brand d-flex align-items-center gap-2 fw-bold fs-5" href="MainMenu.html">
+          <i class="bi bi-bank2 fs-3"></i>MoneyMatters
+        </a>
+        
+        <!-- Desktop Navigation -->
+        <div class="desktop-nav">
+          <a href="MainMenu.html" class="desktop-menu-btn">
+            <i class="bi bi-grid me-1"></i>Menu
+          </a>
         </div>
+        
+        <!-- Mobile Hamburger Menu -->
         <div class="hamburger-menu">
-          <button class="hamburger-btn" id="hamburgerBtn"><i class="bi bi-list fs-4"></i></button>
+          <button class="hamburger-btn" id="hamburgerBtn">
+            <i class="bi bi-list fs-4"></i>
+          </button>
           <div class="hamburger-dropdown" id="hamburgerDropdown">
-            <a href="MainMenu.html"><i class="bi bi-grid me-2"></i>Main Menu</a>
-            <a href="spazashop.html"><i class="bi bi-shop me-2"></i>Spaza Shop</a>
-            <a href="Vault.html"><i class="bi bi-safe me-2"></i>Vault</a>
-            <a href="landlord.html"><i class="bi bi-building me-2"></i>Landlord</a>
+            <a href="MainMenu.html"><i class="bi bi-grid"></i> Main Menu</a>
+            <a href="spazashop.html"><i class="bi bi-shop"></i> Spaza Shop</a>
+            <a href="Vault.html"><i class="bi bi-safe"></i> Vault</a>
+            <a href="landlord.html"><i class="bi bi-building"></i> Landlord</a>
           </div>
         </div>
       </div>
     </div>
   </header>
 
-  <main class="container-fluid py-3" style="max-width:900px">
+  <main class="container-fluid py-3" style="max-width:900px; padding-bottom: 80px;">
     <div class="hero-card mb-4 text-center text-md-start">
-      <span class="badge mb-2" style="background:rgba(255,255,255,0.2);font-size:0.7rem"><i class="bi bi-briefcase me-1"></i>BUSINESS INDEX</span>
+      <span class="badge mb-2" style="background:rgba(255,255,255,0.2);font-size:0.7rem">
+        <i class="bi bi-briefcase me-1"></i>BUSINESS INDEX
+      </span>
       <h1 class="fw-bold display-5 mb-1">Your Business Command Center</h1>
       <p class="opacity-75">Manage your Spaza Shop inventory, secure assets in Vault, and oversee Landlord properties - all in one place.</p>
     </div>
 
     <div class="row g-3 mb-4">
       <div class="col-6 col-md-4">
-        <a href="spazashop.html" class="nav-block"><i class="bi bi-shop icon-aqua"></i><strong>Spaza Shop</strong><small>Retail & inventory management</small></a>
+        <a href="spazashop.html" class="nav-block">
+          <i class="bi bi-shop icon-aqua"></i>
+          <strong>Spaza Shop</strong>
+          <small>Retail & inventory management</small>
+        </a>
       </div>
       <div class="col-6 col-md-4">
-        <a href="Vault.html" class="nav-block"><i class="bi bi-safe icon-coral"></i><strong>Vault</strong><small>Secure document & asset storage</small></a>
+        <a href="Vault.html" class="nav-block">
+          <i class="bi bi-safe icon-coral"></i>
+          <strong>Vault</strong>
+          <small>Secure document & asset storage</small>
+        </a>
       </div>
       <div class="col-6 col-md-4">
-        <a href="landlord.html" class="nav-block"><i class="bi bi-building icon-gold"></i><strong>Landlord</strong><small>Property & tenant management</small></a>
+        <a href="landlord.html" class="nav-block">
+          <i class="bi bi-building icon-gold"></i>
+          <strong>Landlord</strong>
+          <small>Property & tenant management</small>
+        </a>
       </div>
     </div>
-
-    <button class="btn btn-green btn-lg" id="payBtn"><i class="bi bi-plus-circle me-2"></i>Pay R250 Contribution</button>
   </main>
 
-  <nav class="mobile-nav fixed-bottom d-md-none">
+  <!-- Mobile Bottom Navigation -->
+  <nav class="mobile-nav">
     <div class="row g-0 text-center py-2">
-      <div class="col-4"><a href="BusinessIndex.html" class="d-flex flex-column align-items-center"><i class="bi bi-house"></i>Home</a></div>
-      <div class="col-4"><a href="spazashop.html" class="d-flex flex-column align-items-center"><i class="bi bi-shop"></i>Spaza</a></div>
-      <div class="col-4"><a href="MainMenu.html" class="d-flex flex-column align-items-center"><i class="bi bi-list"></i>Menu</a></div>
+      <div class="col-3">
+        <a href="BusinessIndex.html" class="d-flex flex-column align-items-center">
+          <i class="bi bi-house"></i>
+          <span>Home</span>
+        </a>
+      </div>
+      <div class="col-3">
+        <a href="spazashop.html" class="d-flex flex-column align-items-center">
+          <i class="bi bi-shop"></i>
+          <span>Spaza</span>
+        </a>
+      </div>
+      <div class="col-3">
+        <a href="Vault.html" class="d-flex flex-column align-items-center">
+          <i class="bi bi-safe"></i>
+          <span>Vault</span>
+        </a>
+      </div>
+      <div class="col-3">
+        <a href="landlord.html" class="d-flex flex-column align-items-center">
+          <i class="bi bi-building"></i>
+          <span>Landlord</span>
+        </a>
+      </div>
     </div>
   </nav>
 
@@ -134,34 +279,32 @@
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
   <script>
-    // Hamburger menu toggle
+    // Hamburger menu toggle for mobile
     const hamburgerBtn = document.getElementById('hamburgerBtn');
     const hamburgerDropdown = document.getElementById('hamburgerDropdown');
+    
     if (hamburgerBtn) {
-      hamburgerBtn.addEventListener('click', () => {
+      hamburgerBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
         hamburgerDropdown.classList.toggle('show');
       });
+      
       // Close dropdown when clicking outside
       document.addEventListener('click', (e) => {
         if (!hamburgerBtn.contains(e.target) && !hamburgerDropdown.contains(e.target)) {
           hamburgerDropdown.classList.remove('show');
         }
       });
+      
+      // Prevent dropdown from closing when clicking inside it
+      hamburgerDropdown.addEventListener('click', (e) => {
+        e.stopPropagation();
+      });
     }
 
-    const money=v=>"R"+Number(v||0).toLocaleString("en-ZA");
-    const STORAGE_KEY="moneyMattersUltimateStokvelState";
-    let state;
-    try{state=JSON.parse(localStorage.getItem(STORAGE_KEY))||{stokvel:{mainPool:6450,emergencyFund:1050,payoutIndex:2,members:[{name:"Thabo"},{name:"Priya"},{name:"Lerato"},{name:"Sipho"},{name:"Nandi"}]},transactions:[{status:"pending"},{status:"approved"}],businessData:{incomingPayments:[{amount:2100},{amount:1100}],rent:{amount:1500}},activity:[]}}catch(e){state={stokvel:{mainPool:0,emergencyFund:0,payoutIndex:0,members:[]},transactions:[],businessData:{incomingPayments:[],rent:{amount:0}},activity:[]}}
-
-    document.getElementById('payBtn').addEventListener('click',()=>{
-      state.stokvel.emergencyFund=(state.stokvel.emergencyFund||0)+35;
-      state.stokvel.mainPool=(state.stokvel.mainPool||0)+215;
-      localStorage.setItem(STORAGE_KEY,JSON.stringify(state));
-      const t=document.createElement('div');t.className='app-toast';t.textContent='R250 paid! R35 to emergency.';document.getElementById('toastStack').appendChild(t);setTimeout(()=>t.remove(),3000);
-    });
-
-    if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});
+    if('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js').catch(() => {});
+    }
   </script>
 </body>
 </html>
