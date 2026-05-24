@@ -6,8 +6,8 @@
   <title>MoneyMatters | Approvals</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+  <link rel="manifest" href="manifest.json">
   
-  <!-- ========== PAGE-SPECIFIC CSS ========== -->
   <style>
     :root {
   --sb-blue: #006b3f;
@@ -191,7 +191,7 @@
 
     .app-nav {
       display: grid;
-      grid-template-columns: repeat(7, minmax(100px, 1fr));
+      grid-template-columns: repeat(8, minmax(100px, 1fr));
       gap: 12px;
       margin: 18px 0 8px;
     }
@@ -387,6 +387,8 @@
       .page-hero { padding: 20px; }
       .hero-stats { grid-template-columns: 1fr; }
     }
+
+    .voice-assistant{position:fixed;bottom:100px;right:20px;width:56px;height:56px;border-radius:50%;background:var(--gold);color:var(--sb-blue-dark);border:none;font-size:1.4rem;z-index:1040;box-shadow:0 8px 24px rgba(0,0,0,0.2);cursor:pointer;display:grid;place-items:center}.voice-assistant.listening{background:var(--coral);animation:pulse 1s infinite}.voice-feedback{display:none;position:fixed;bottom:165px;right:20px;background:var(--ink);color:#fff;padding:12px 16px;border-radius:12px;font-size:.85rem;z-index:1040;max-width:250px;box-shadow:var(--shadow)}@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(255,107,95,0.5)}50%{box-shadow:0 0 0 15px rgba(255,107,95,0)}}
   </style>
 </head>
 <body data-page="approvals">
@@ -423,6 +425,7 @@
       <a class="home-tile" data-nav="payments" href="payments.html"><i class="bi bi-cash-coin icon-tile tile-gold"></i><span>Money in</span><strong>Payments</strong></a>
       <a class="home-tile" data-nav="credit" href="credit.html"><i class="bi bi-speedometer2 icon-tile tile-violet"></i><span>Profile</span><strong>Credit</strong></a>
       <a class="home-tile" data-nav="savings" href="savings.html"><i class="bi bi-graph-up-arrow icon-tile tile-dark"></i><span>Growth</span><strong>Savings</strong></a>
+      <a class="home-tile" data-nav="community" href="community.html"><i class="bi bi-chat-dots-fill icon-tile tile-aqua"></i><span>Connect</span><strong>Community</strong></a>
     </nav>
 
     <section class="row g-3 mt-3">
@@ -456,21 +459,22 @@
         </div>
       </div>
     </section>
-  </main>
 
-  <nav class="mobile-bottom-nav">
+    <button class="voice-assistant" id="voiceAssistantBtn"><i class="bi bi-mic-fill"></i></button>
+    <div class="voice-feedback" id="voiceFeedback"></div>
+  </main>
+    <nav class="mobile-bottom-nav">
     <a href="index.html" class="mobile-nav-item" data-nav="overview"><i class="bi bi-house"></i><span>Home</span></a>
     <a href="stokvel.html" class="mobile-nav-item" data-nav="stokvel"><i class="bi bi-people"></i><span>Stokvel</span></a>
     <a href="approvals.html" class="mobile-nav-item" data-nav="approvals"><i class="bi bi-check2-square"></i><span>Approve</span></a>
     <a href="emergency.html" class="mobile-nav-item" data-nav="emergency"><i class="bi bi-life-preserver"></i><span>Emergency</span></a>
-    <a href="payments.html" class="mobile-nav-item" data-nav="payments"><i class="bi bi-cash"></i><span>Cash</span></a>
+    <a href="community.html" class="mobile-nav-item"><i class="bi bi-chat-dots"></i><span>Forum</span></a>
   </nav>
 
   <div class="toast-stack" id="toastStack"></div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 
-  <!-- ========== PAGE-SPECIFIC JAVASCRIPT ========== -->
   <script>
     (function() {
       const STORAGE_KEY = "moneyMattersUltimateStokvelState";
@@ -775,7 +779,7 @@
         });
         qsa("[data-mode-toggle]").forEach(button => {
           button.addEventListener("click", () => {
-                        state.currentMode = state.currentMode === "business" ? "personal" : "business";
+            state.currentMode = state.currentMode === "business" ? "personal" : "business";
             activeData = getActiveData();
             saveAndRender();
             showToast("Switched to " + state.currentMode + " view.");
@@ -818,6 +822,90 @@
         bindForms();
       });
     })();
+  </script>
+
+  <script>
+    (function() {
+      const voiceBtn = document.getElementById('voiceAssistantBtn');
+      const voiceFeedback = document.getElementById('voiceFeedback');
+      let recognition = null;
+      
+      const responses = {
+        en: {
+          'approve': 'You are on the Approvals page. Click Approve as me to approve all pending transactions.',
+          'stokvel': 'Your stokvel requires all members to approve before money moves.',
+          'help': 'On this page, you can create approval requests or approve pending transactions.',
+          'default': 'Try saying: approve, stokvel, or help.'
+        }
+      };
+      
+      function speakResponse(text) {
+        if ('speechSynthesis' in window) {
+          const utterance = new SpeechSynthesisUtterance(text);
+          utterance.lang = 'en-ZA';
+          utterance.rate = 0.9;
+          window.speechSynthesis.cancel();
+          window.speechSynthesis.speak(utterance);
+        }
+      }
+      
+      function processCommand(command) {
+        const lower = command.toLowerCase();
+        if (lower.includes('approve')) return responses.en.approve;
+        if (lower.includes('stokvel')) return responses.en.stokvel;
+        if (lower.includes('help')) return responses.en.help;
+        return responses.en.default;
+      }
+      
+      if (voiceBtn) {
+        voiceBtn.addEventListener('click', () => {
+          if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+            voiceFeedback.textContent = 'Speech not supported in this browser.';
+            voiceFeedback.style.display = 'block';
+            setTimeout(() => { voiceFeedback.style.display = 'none'; }, 3000);
+            return;
+          }
+          const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+          recognition = new SpeechRecognition();
+          recognition.continuous = false;
+          recognition.interimResults = false;
+          recognition.lang = 'en-ZA';
+          
+          recognition.onstart = () => {
+            voiceBtn.classList.add('listening');
+            voiceFeedback.textContent = '🎤 Listening...';
+            voiceFeedback.style.display = 'block';
+          };
+          
+          recognition.onresult = (event) => {
+            const transcript = event.results[0][0].transcript;
+            const response = processCommand(transcript);
+            voiceFeedback.textContent = response;
+            speakResponse(response);
+          };
+          
+          recognition.onerror = (event) => {
+            voiceFeedback.textContent = 'Error: ' + event.error;
+            voiceBtn.classList.remove('listening');
+          };
+          
+          recognition.onend = () => {
+            voiceBtn.classList.remove('listening');
+            setTimeout(() => { voiceFeedback.style.display = 'none'; }, 4000);
+          };
+          
+          recognition.start();
+        });
+      }
+    })();
+  </script>
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js')
+        .then(() => console.log('Service Worker registered!'))
+        .catch(err => console.log('Service Worker failed:', err));
+    }
   </script>
 </body>
 </html>
