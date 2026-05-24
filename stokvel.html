@@ -2,154 +2,1773 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-  <title>MoneyMatters | Stokvel</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, shrink-to-fit=no">
+  <title>Digital Stokvel Collective</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
-  <link rel="manifest" href="manifest.json">
   <style>
-    :root{--sb-blue:#006b3f;--sb-blue-light:#008f54;--sb-blue-dark:#004d2c;--ink:#102033;--muted:#64748b;--paper:#ffffff;--soft:#f3f7fb;--line:rgba(16,32,51,0.1);--aqua:#00a86b;--lime:#6cc24a;--gold:#d4af37;--coral:#ff6b5f;--violet:#6750d8;--shadow:0 18px 45px rgba(0,107,63,0.13);--shadow-sm:0 10px 26px rgba(0,107,63,0.09);--transition:180ms ease}
-    *{box-sizing:border-box}
-    body{margin:0;min-height:100vh;background:radial-gradient(circle at top left,rgba(0,166,166,0.12),transparent 34rem),linear-gradient(135deg,rgba(0,51,160,0.08),rgba(108,194,74,0.05)),var(--soft);color:var(--ink);font-family:"Segoe UI",system-ui,-apple-system,BlinkMacSystemFont,sans-serif;overflow-x:hidden;padding-bottom:82px}
-    button,input,select,textarea{font:inherit}
-    a{color:inherit}
-    .topbar{position:sticky;top:0;z-index:1020;background:linear-gradient(135deg,var(--sb-blue-dark),var(--sb-blue));color:#fff;box-shadow:0 8px 28px rgba(0,31,102,0.18)}
-    .topbar-inner{width:min(1180px,calc(100% - 28px));margin:0 auto;min-height:72px;display:flex;align-items:center;justify-content:space-between;gap:14px}
-    .brand{display:flex;align-items:center;gap:12px;color:#fff;text-decoration:none;font-weight:850}
-    .brand i,.icon-box,.member-avatar,.icon-tile,.square-action{display:grid;place-items:center}
-    .brand i{width:42px;height:42px;border-radius:8px;background:rgba(255,255,255,0.15);font-size:1.35rem}
-    .toolbar{display:flex;align-items:center;gap:10px}
-    .member-select{min-width:172px;border:1px solid rgba(255,255,255,0.28);color:#fff;background-color:rgba(255,255,255,0.12);border-radius:8px;padding:9px 12px}
-    .member-select option{color:var(--ink);background:#fff}
-    .btn-soft,.btn-blue,.btn-ghost{border:0;border-radius:8px;font-weight:780;min-height:42px;padding:9px 14px;transition:transform var(--transition),box-shadow var(--transition),background var(--transition)}
-    .btn-soft{background:#fff;color:var(--sb-blue);box-shadow:0 8px 22px rgba(0,0,0,0.12)}
-    .btn-blue{background:var(--sb-blue);color:#fff;box-shadow:0 12px 24px rgba(0,51,160,0.2)}
-    .btn-ghost{background:rgba(0,51,160,0.08);color:var(--sb-blue)}
-    .btn-soft:hover,.btn-blue:hover,.btn-ghost:hover,.dashboard-card:hover,.home-tile:hover,.mini-card:hover,.square-action:hover{transform:translateY(-3px)}
-    .btn-blue:hover{background:var(--sb-blue-dark);color:#fff}
-    .main{width:min(1180px,calc(100% - 28px));margin:22px auto 38px}
-    .page-hero{overflow:hidden;border-radius:8px;min-height:252px;background:linear-gradient(90deg,rgba(0,31,102,0.96),rgba(0,51,160,0.74),rgba(0,166,166,0.48)),url("https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1600&q=80") center/cover;color:#fff;padding:clamp(22px,4vw,42px);display:grid;grid-template-columns:minmax(0,1.3fr) minmax(260px,0.7fr);gap:24px;align-items:end;box-shadow:var(--shadow)}
-    .page-hero h1{margin:0;font-size:clamp(2rem,5vw,4.6rem);line-height:0.95;font-weight:900}
-    .page-hero p{max-width:660px;margin:14px 0 0;color:rgba(255,255,255,0.86);font-size:clamp(0.98rem,2vw,1.12rem)}
-    .hero-stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-    .hero-stat{min-height:106px;padding:14px;border-radius:8px;background:rgba(255,255,255,0.14);border:1px solid rgba(255,255,255,0.18);backdrop-filter:blur(10px)}
-    .hero-stat strong{display:block;font-size:clamp(1.3rem,3vw,1.8rem);line-height:1.05}
-    .hero-stat span{color:rgba(255,255,255,0.78);font-size:0.84rem}
-    .app-nav{display:grid;grid-template-columns:repeat(8,minmax(100px,1fr));gap:12px;margin:18px 0 8px}
-    .home-tile{aspect-ratio:1/1;border:1px solid var(--line);background:var(--paper);border-radius:8px;text-decoration:none;display:flex;flex-direction:column;justify-content:space-between;padding:13px;box-shadow:var(--shadow-sm);transition:transform var(--transition),box-shadow var(--transition),border-color var(--transition);min-width:0}
-    .home-tile:hover,.home-tile.active{border-color:rgba(0,51,160,0.45);box-shadow:0 18px 35px rgba(0,51,160,0.17)}
-    .icon-tile{width:42px;height:42px;border-radius:8px;color:#fff;font-size:1.25rem}
-    .home-tile span{font-size:0.83rem;color:var(--muted);font-weight:750;line-height:1.1}
-    .home-tile strong{font-size:clamp(1rem,2vw,1.32rem);line-height:1.05}
-    .tile-blue{background:var(--sb-blue)}.tile-aqua{background:var(--aqua)}.tile-lime{background:var(--lime)}.tile-gold{background:var(--gold)}.tile-coral{background:var(--coral)}.tile-violet{background:var(--violet)}.tile-dark{background:var(--ink)}
-    .section-title{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:26px 0 14px}
-    .section-title h2{margin:0;font-size:clamp(1.3rem,3vw,2rem);font-weight:900}
-    .dashboard-card,.mini-card{background:var(--paper);border:1px solid var(--line);border-radius:8px;box-shadow:var(--shadow-sm);transition:transform var(--transition),box-shadow var(--transition)}
-    .dashboard-card{padding:18px;height:100%}.mini-card{padding:15px;min-height:112px}
-    .metric-value{color:var(--sb-blue-dark);font-weight:900;font-size:clamp(1.55rem,4vw,2.1rem);line-height:1;margin:8px 0 5px}
-    .muted{color:var(--muted)}
-    .pill{display:inline-flex;align-items:center;gap:6px;min-height:28px;border-radius:999px;background:rgba(0,51,160,0.08);color:var(--sb-blue-dark);font-weight:800;font-size:0.78rem;padding:5px 9px;white-space:nowrap}
-    .pill-success{background:rgba(108,194,74,0.14);color:#256b12}.pill-warn{background:rgba(212,175,55,0.18);color:#725700}
-    .progress{height:11px;border-radius:999px;background:rgba(0,51,160,0.08)}
-    .progress-bar{background:linear-gradient(90deg,var(--aqua),var(--sb-blue));border-radius:999px}
-    .member-row{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}
-    .member-row:last-child{border-bottom:0;padding-bottom:0}
-    .member-avatar{width:42px;height:42px;border-radius:8px;color:#fff;background:var(--sb-blue);font-weight:900}
-    .square-actions{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
-    .square-action{min-height:94px;border-radius:8px;border:1px solid var(--line);background:#fff;color:var(--ink);box-shadow:var(--shadow-sm);transition:transform var(--transition),box-shadow var(--transition);padding:10px;text-align:center;font-weight:800}
-    .square-action i{display:block;font-size:1.35rem;color:var(--sb-blue);margin-bottom:7px}
-    .fund-split{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-    .voice-assistant{position:fixed;bottom:100px;right:20px;width:56px;height:56px;border-radius:50%;background:var(--gold);color:var(--sb-blue-dark);border:none;font-size:1.4rem;z-index:1040;box-shadow:0 8px 24px rgba(0,0,0,0.2);cursor:pointer;display:grid;place-items:center}.voice-assistant.listening{background:var(--coral);animation:pulse 1s infinite}.voice-feedback{display:none;position:fixed;bottom:165px;right:20px;background:var(--ink);color:#fff;padding:12px 16px;border-radius:12px;font-size:.85rem;z-index:1040;max-width:250px;box-shadow:var(--shadow)}@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(255,107,95,0.5)}50%{box-shadow:0 0 0 15px rgba(255,107,95,0)}}
-    .toast-stack{position:fixed;right:16px;bottom:88px;z-index:1080;display:grid;gap:10px;width:min(340px,calc(100% - 32px))}
-    .app-toast{background:var(--ink);color:#fff;border-radius:8px;padding:12px 14px;box-shadow:var(--shadow);animation:toastIn 220ms ease both;font-weight:700}
-    @keyframes toastIn{from{transform:translateY(12px);opacity:0}to{transform:translateY(0);opacity:1}}
-    .mobile-bottom-nav{position:fixed;left:0;right:0;bottom:0;z-index:1030;min-height:72px;padding:7px 8px calc(7px + env(safe-area-inset-bottom));display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px;background:rgba(255,255,255,0.96);border-top:1px solid var(--line);box-shadow:0 -12px 28px rgba(16,32,51,0.08);backdrop-filter:blur(14px)}
-    .mobile-nav-item{min-width:0;min-height:55px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:2px;text-decoration:none;color:var(--muted);font-size:0.7rem;font-weight:750}
-    .mobile-nav-item i{font-size:1.18rem}.mobile-nav-item.active{color:var(--sb-blue);background:rgba(0,51,160,0.08)}
-    @media(min-width:860px){body{padding-bottom:0}.mobile-bottom-nav{display:none}}
-    @media(max-width:1040px){.app-nav{grid-template-columns:repeat(4,minmax(110px,1fr))}.page-hero{grid-template-columns:1fr}}
-    @media(max-width:720px){.topbar-inner{align-items:stretch;flex-direction:column;padding:12px 0}.toolbar{display:grid;grid-template-columns:1fr auto}.member-select{width:100%;min-width:0}.app-nav{grid-template-columns:repeat(2,minmax(0,1fr))}.hero-stats,.fund-split,.square-actions{grid-template-columns:repeat(2,minmax(0,1fr))}.section-title{align-items:flex-start;flex-direction:column}}
-    @media(max-width:420px){.main,.topbar-inner{width:min(100% - 20px,1180px)}.page-hero{padding:20px}.hero-stats,.square-actions{grid-template-columns:1fr}}
+    :root {
+      /* Theme Colors */
+      --sb-blue: #0033a0;
+      --sb-blue-light: #006494;
+      --sb-blue-dark: #001f66;
+      --warm-gold: #d8ae3d;
+      --warm-gold-soft: #fff5d6;
+      --warm-gold-pale: #fffaf0;
+      --soft-white: #f4f6f9;
+      --white: #ffffff;
+      --shadow-sm: 0 4px 12px rgba(0, 51, 160, 0.08);
+      --transition: all 0.2s ease;
+    }
+
+    body {
+      background: #0b1d3d;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      color: #1e2b3c;
+      margin: 0;
+      padding-bottom: 70px; /* mobile bottom nav space */
+      overflow-x: hidden;
+      transition: background-color 0.3s ease; /* Smooth transition for background */
+    }
+
+    /* NEW: Cream background mode for Approvals */
+    body.bg-cream-mode {
+      background: #FDFBF7 !important;
+    }
+    body.bg-cream-mode .site-backdrop {
+      display: none !important;
+    }
+    body.bg-green-mode {
+      background: #004b3d !important;
+    }
+    body.bg-green-mode .site-backdrop {
+      display: none !important;
+    }
+    body.lobby-mode {
+      background:
+        linear-gradient(135deg, rgba(0, 51, 160, 0.96) 0 22%, rgba(216, 174, 61, 0.9) 22% 26%, rgba(0, 31, 102, 0.95) 26% 52%, rgba(255, 245, 214, 0.92) 52% 56%, rgba(0, 100, 148, 0.9) 56% 100%),
+        #0033a0;
+      min-height: 100vh;
+    }
+    body.lobby-mode .site-backdrop {
+      display: none !important;
+    }
+
+    .site-backdrop {
+      position: fixed;
+      inset: -16vh 0 -22vh;
+      z-index: 0;
+      background-image: url("Gathering of Black South African Aunties and Uncles.png");
+      background-size: cover;
+      background-position: left center;
+      will-change: transform;
+      transform: translate3d(0, 0, 0) scale(1.04);
+      pointer-events: none;
+    }
+    .site-backdrop::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(180deg, rgba(5, 18, 44, 0.54) 0%, rgba(244, 246, 249, 0.12) 28%, rgba(244, 246, 249, 0.35) 56%, rgba(244, 246, 249, 0.78) 100%),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.02) 0%, rgba(255, 255, 255, 0.08) 44%, rgba(0, 31, 102, 0.18) 100%);
+    }
+    #appContainer {
+      position: relative;
+      z-index: 1;
+    }
+
+    .lobby-shell {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+    }
+    .lobby-heading {
+      color: var(--white);
+      max-width: 760px;
+    }
+    .lobby-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      background: rgba(255, 245, 214, 0.16);
+      border: 1px solid rgba(255, 245, 214, 0.34);
+      color: #fff6d7;
+      border-radius: 999px;
+      padding: 0.45rem 0.8rem;
+      font-weight: 800;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .lobby-title {
+      font-size: clamp(2.15rem, 7vw, 4.6rem);
+      font-weight: 900;
+      letter-spacing: 0;
+      line-height: 0.98;
+      margin: 1rem 0 0.65rem;
+      text-wrap: balance;
+    }
+    .lobby-copy {
+      color: rgba(255, 255, 255, 0.78);
+      font-size: 1rem;
+      max-width: 580px;
+      margin: 0;
+    }
+    .lobby-panel {
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid rgba(255, 255, 255, 0.62);
+      border-radius: 1.25rem;
+      padding: 1rem;
+      box-shadow: 0 24px 60px rgba(0, 31, 102, 0.28);
+      backdrop-filter: blur(16px);
+    }
+    .lobby-section-title {
+      color: var(--sb-blue-dark);
+      font-weight: 900;
+      margin: 0;
+    }
+
+    /* Header */
+    .dashboard-hero {
+      position: relative;
+      overflow: hidden;
+      color: var(--white);
+      background-image:
+        linear-gradient(90deg, rgba(0, 31, 102, 0.96) 0%, rgba(0, 51, 160, 0.82) 44%, rgba(0, 51, 160, 0.18) 100%),
+        url("Gemini_Generated_Image_q5qs7vq5qs7vq5qs.png");
+      background-size: cover;
+      background-position: center 43%;
+      box-shadow: 0 12px 32px rgba(0, 31, 102, 0.18);
+      border-bottom: 8px solid var(--sb-blue-dark);
+    }
+    .dashboard-hero::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0;
+      height: 54px;
+      background: linear-gradient(180deg, rgba(244, 246, 249, 0), var(--soft-white));
+      pointer-events: none;
+    }
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      min-height: 232px;
+      padding: 1rem 0 2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .hero-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .hero-brand {
+      color: var(--white);
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      min-width: 0;
+      text-decoration: none;
+    }
+    .hero-brand-mark {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      background: rgba(255, 255, 255, 0.16);
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.16);
+      flex: 0 0 auto;
+    }
+    .hero-brand-text {
+      min-width: 0;
+    }
+    .hero-brand-title {
+      display: block;
+      font-size: 1rem;
+      font-weight: 800;
+      line-height: 1.1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .hero-brand-subtitle {
+      display: block;
+      color: rgba(255, 255, 255, 0.72);
+      font-size: 0.78rem;
+      font-weight: 600;
+      margin-top: 0.12rem;
+    }
+    .hero-icon-btn {
+      width: 42px;
+      height: 42px;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      border-radius: 14px;
+      color: var(--white);
+      background: rgba(255, 255, 255, 0.14);
+      display: inline-grid;
+      place-items: center;
+      transition: var(--transition);
+    }
+    .hero-icon-btn:hover {
+      background: rgba(255, 255, 255, 0.24);
+      color: var(--white);
+    }
+    .hero-content {
+      max-width: 720px;
+      padding-top: 2.4rem;
+    }
+    .hero-eyebrow {
+      color: #9be7c0;
+      font-size: 0.76rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 0.45rem;
+    }
+    .hero-title {
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 800;
+      line-height: 1.02;
+      margin: 0;
+      letter-spacing: 0;
+    }
+    .hero-copy {
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 0.98rem;
+      max-width: 530px;
+      margin: 0.7rem 0 0;
+    }
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-top: 1rem;
+    }
+    .hero-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.42rem;
+      color: var(--white);
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      border-radius: 999px;
+      padding: 0.46rem 0.78rem;
+      font-size: 0.84rem;
+      font-weight: 700;
+      backdrop-filter: blur(8px);
+    }
+    .hero-chip strong {
+      color: #d7ffe8;
+    }
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      flex: 0 0 auto;
+    }
+
+    .dashboard-content {
+      position: relative;
+      margin-top: clamp(10.5rem, 20vw, 14rem);
+      padding-bottom: 0 !important;
+      transition: margin-top 0.25s ease;
+    }
+    body.compact-dashboard .dashboard-content {
+      margin-top: 1.25rem;
+    }
+
+    /* Buttons */
+    .btn-blue {
+      background: var(--sb-blue);
+      border: none;
+      color: white;
+      font-weight: 600;
+      border-radius: 2rem;
+      padding: 0.5rem 1.5rem;
+      transition: var(--transition);
+    }
+    .btn-blue:hover {
+      background: var(--sb-blue-dark);
+      color: white;
+    }
+    .btn-outline-blue {
+      border: 2px solid var(--sb-blue);
+      color: var(--sb-blue);
+      background: transparent;
+      font-weight: 600;
+      border-radius: 2rem;
+      padding: 0.4rem 1.5rem;
+      transition: var(--transition);
+    }
+    .btn-outline-blue:hover {
+      background: var(--sb-blue);
+      color: var(--white);
+    }
+
+    /* Cards */
+    .dashboard-card {
+      background: rgba(255, 255, 255, 0.94);
+      border-radius: 1rem;
+      padding: 1.2rem;
+      box-shadow: 0 12px 30px rgba(0, 31, 102, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      transition: var(--transition);
+      height: 100%;
+      margin-bottom: 1rem;
+      backdrop-filter: blur(10px);
+    }
+    .dashboard-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 36px rgba(0, 31, 102, 0.16);
+    }
+    .card-top-accent {
+      border-top: 4px solid var(--sb-blue);
+    }
+    .metric-value {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--sb-blue-dark);
+      margin: 0.5rem 0;
+    }
+
+    /* NEW STOKVEL PROFILE CARD STYLES */
+    .stokvel-card {
+      cursor: pointer;
+      border-top: 4px solid transparent;
+      transform: translateY(0);
+    }
+    .stokvel-card:hover {
+      border-top: 4px solid var(--sb-blue);
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(0, 31, 102, 0.2);
+    }
+    .stokvel-card.featured-stokvel {
+      background: linear-gradient(145deg, #ffffff 0%, #fff7dc 100%);
+      border-color: rgba(216, 174, 61, 0.36);
+    }
+    .stokvel-card:not([data-target]) {
+      cursor: default;
+      opacity: 0.9;
+    }
+    .stokvel-card:not([data-target]):hover {
+      border-top-color: transparent;
+      transform: translateY(-2px);
+    }
+
+    #overviewTab .dashboard-card {
+      background: linear-gradient(145deg, #ffffff 0%, var(--warm-gold-pale) 100%);
+      border-color: rgba(216, 174, 61, 0.28);
+    }
+    #overviewTab .card-top-accent {
+      border-top-color: var(--warm-gold);
+    }
+    #overviewTab .metric-value {
+      color: #8a6a16;
+    }
+
+    .risk-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.75rem;
+    }
+    .risk-member {
+      background: rgba(255, 255, 255, 0.74);
+      border: 1px solid rgba(216, 174, 61, 0.32);
+      border-radius: 0.9rem;
+      padding: 0.9rem;
+      transition: var(--transition);
+    }
+    .risk-member:hover,
+    .poll-option:hover,
+    .rule-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 14px 28px rgba(0, 31, 102, 0.14);
+    }
+    .risk-score {
+      color: #a36f00;
+      font-size: 1.45rem;
+      font-weight: 900;
+    }
+    .risk-meter {
+      height: 12px;
+      border-radius: 999px;
+      background: #eef2f8;
+      overflow: hidden;
+    }
+    .risk-meter-fill {
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, #17a673, var(--warm-gold), #dc3545);
+    }
+    .default-horizon {
+      min-height: 100%;
+      background:
+        linear-gradient(145deg, rgba(0, 51, 160, 0.95), rgba(0, 31, 102, 0.92)),
+        var(--sb-blue);
+      color: var(--white);
+      border-color: rgba(255, 245, 214, 0.28) !important;
+    }
+    .default-horizon .text-muted {
+      color: rgba(255, 255, 255, 0.7) !important;
+    }
+    .default-horizon h5,
+    .default-horizon strong,
+    .default-horizon .horizon-callout {
+      color: var(--white);
+    }
+    .horizon-callout {
+      background: rgba(255, 255, 255, 0.13);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 0.9rem;
+      padding: 0.75rem;
+      margin-bottom: 0.85rem;
+    }
+    .horizon-bar {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+      gap: 0.35rem;
+    }
+    .horizon-step {
+      height: 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.2);
+    }
+    .horizon-step.active {
+      background: var(--warm-gold);
+    }
+
+    .chat-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(280px, 0.8fr);
+      gap: 1rem;
+    }
+    .chat-feed {
+      display: grid;
+      gap: 0.75rem;
+    }
+    .chat-bubble {
+      max-width: 86%;
+      padding: 0.85rem 1rem;
+      border-radius: 1rem;
+      background: #eef4ff;
+      border: 1px solid rgba(0, 51, 160, 0.1);
+    }
+    .chat-bubble.mine {
+      margin-left: auto;
+      color: var(--white);
+      background: linear-gradient(135deg, var(--sb-blue), var(--sb-blue-light));
+    }
+    .poll-option,
+    .rule-card {
+      border: 1px solid rgba(0, 51, 160, 0.1);
+      border-radius: 0.9rem;
+      padding: 0.85rem;
+      background: rgba(255, 255, 255, 0.84);
+      transition: var(--transition);
+    }
+    .poll-option.selected,
+    .rule-card.selected {
+      border-color: var(--warm-gold);
+      background: var(--warm-gold-soft);
+    }
+    .poll-result {
+      height: 8px;
+      border-radius: 999px;
+      background: #edf1f7;
+      overflow: hidden;
+    }
+    .poll-result span {
+      display: block;
+      height: 100%;
+      background: linear-gradient(90deg, var(--sb-blue), var(--warm-gold));
+    }
+    .bank-rule-label {
+      color: #8a6a16;
+      background: var(--warm-gold-soft);
+      border: 1px solid rgba(216, 174, 61, 0.38);
+      border-radius: 999px;
+      padding: 0.25rem 0.6rem;
+      font-size: 0.72rem;
+      font-weight: 800;
+    }
+    .pdf-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.75rem;
+    }
+    .pdf-card {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      color: var(--sb-blue-dark);
+      background: #fff;
+      border: 1px solid rgba(0, 51, 160, 0.1);
+      border-radius: 0.85rem;
+      padding: 0.8rem;
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    .pdf-card:hover {
+      color: var(--sb-blue);
+      transform: translateY(-3px);
+      box-shadow: 0 14px 28px rgba(0, 31, 102, 0.12);
+    }
+    .pdf-icon {
+      width: 42px;
+      height: 50px;
+      display: grid;
+      place-items: center;
+      color: #b42318;
+      background: linear-gradient(180deg, #fff, #fff0f0);
+      border: 1px solid #ffd1d1;
+      border-radius: 0.45rem;
+      font-size: 1.35rem;
+      flex: 0 0 auto;
+    }
+    .green-pane {
+      background: linear-gradient(145deg, rgba(0, 75, 61, 0.98), rgba(0, 42, 36, 0.95));
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 1.1rem;
+      padding: 1rem;
+      box-shadow: 0 18px 42px rgba(0, 42, 36, 0.28);
+    }
+    .green-pane .dashboard-card {
+      background: rgba(255, 255, 255, 0.96);
+      border-color: rgba(184, 214, 76, 0.24);
+    }
+    .company-footer {
+      margin-top: 1.5rem;
+      margin-bottom: 0;
+      color: rgba(255, 255, 255, 0.82);
+      background: linear-gradient(135deg, rgba(0, 31, 102, 0.95), rgba(0, 75, 61, 0.94));
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 1.1rem;
+      padding: 1.25rem;
+      box-shadow: 0 18px 44px rgba(0, 31, 102, 0.18);
+    }
+    .company-footer h6 {
+      color: var(--white);
+      font-weight: 900;
+      margin-bottom: 0.45rem;
+    }
+    .company-footer a {
+      color: #fff2bd;
+      text-decoration: none;
+      font-weight: 700;
+    }
+    .auto-detect-card {
+      border-left: 5px solid #17a673 !important;
+    }
+    .auto-detect-pulse {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #17a673;
+      box-shadow: 0 0 0 7px rgba(23, 166, 115, 0.12);
+      flex: 0 0 auto;
+    }
+    .floating-footer {
+      position: fixed !important;
+      inset: auto 0.75rem 0.75rem auto;
+      z-index: 1080;
+      display: none;
+      gap: 0.5rem;
+      align-items: center;
+      color: var(--sb-blue-dark);
+      background: rgba(255, 255, 255, 0.92);
+      border: 1px solid rgba(216, 174, 61, 0.38);
+      border-radius: 999px;
+      padding: 0.58rem 0.85rem;
+      box-shadow: 0 16px 40px rgba(0, 31, 102, 0.18);
+      backdrop-filter: blur(12px);
+      font-size: 0.82rem;
+      font-weight: 800;
+      width: max-content;
+      max-width: min(420px, calc(100vw - 1.5rem));
+    }
+
+    /* Tabs */
+    .nav-pills {
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      align-items: center;
+      gap: 0.35rem;
+      background: rgba(255, 255, 255, 0.78);
+      border: 1px solid rgba(255, 255, 255, 0.72);
+      border-radius: 999px;
+      box-shadow: 0 10px 26px rgba(0, 31, 102, 0.1);
+      padding: 0.45rem;
+      backdrop-filter: blur(12px);
+      
+      /* STICKY STYLES */
+      position: sticky;
+      top: 10px;
+      z-index: 1050;
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+    .nav-pills::-webkit-scrollbar { display: none; }
+    .nav-pills .nav-item {
+      flex: 1 1 0;
+      min-width: 0;
+    }
+    .nav-pills .nav-link.active {
+      background: var(--sb-blue);
+      color: var(--white);
+      font-weight: 600;
+    }
+    .nav-pills .nav-link {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.25rem;
+      color: var(--sb-blue-light);
+      border-radius: 2rem;
+      margin: 0;
+      white-space: nowrap;
+      font-size: clamp(0.72rem, 1vw, 0.95rem);
+      transition: var(--transition);
+    }
+    .mobile-tab-menu {
+      display: none;
+    }
+    .mobile-tab-menu .dropdown-toggle {
+      min-height: 48px;
+      border-radius: 1rem;
+      background: rgba(255, 255, 255, 0.94);
+      color: var(--sb-blue-dark);
+      border: 1px solid rgba(0, 51, 160, 0.14);
+      box-shadow: 0 12px 26px rgba(0, 31, 102, 0.12);
+      font-weight: 800;
+    }
+    .mobile-tab-menu .dropdown-menu {
+      border: 0;
+      border-radius: 1rem;
+      box-shadow: 0 20px 45px rgba(0, 31, 102, 0.2);
+      padding: 0.45rem;
+    }
+    .mobile-tab-menu .dropdown-item {
+      border-radius: 0.8rem;
+      font-weight: 700;
+      padding: 0.75rem 0.8rem;
+    }
+    .mobile-tab-menu .dropdown-item.active {
+      background: var(--sb-blue);
+      color: var(--white);
+    }
+
+    /* DOMINANT STATE WHEN STUCK */
+    .nav-pills.is-stuck {
+      background: rgba(0, 31, 102, 0.95);
+      border: 1px solid rgba(0, 31, 102, 1);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+      border-radius: 1.2rem;
+    }
+    .nav-pills.is-stuck .nav-link {
+      color: rgba(255, 255, 255, 0.7);
+    }
+    .nav-pills.is-stuck .nav-link.active {
+      background: var(--white);
+      color: var(--sb-blue-dark);
+    }
+
+    /* Mobile Nav */
+    .mobile-bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: white;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      height: 65px;
+      border-top: 1px solid #e0e5eb;
+      box-shadow: 0 -4px 12px rgba(0,0,0,0.04);
+      z-index: 1030;
+    }
+    .mobile-nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: #6c7a89;
+      font-size: 0.75rem;
+      text-decoration: none;
+      font-weight: 500;
+      width: 100%;
+      padding: 0.5rem 0;
+    }
+    .mobile-nav-item i { font-size: 1.4rem; margin-bottom: 2px; }
+    .mobile-nav-item.active { color: var(--sb-blue); font-weight: 700; }
+
+    /* Stokvel Specific Styles */
+    .member-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.8rem 0;
+      border-bottom: 1px solid #f0f2f5;
+    }
+    .member-row:last-child { border-bottom: none; }
+    
+    .status-badge {
+      font-size: 0.75rem;
+      padding: 0.3rem 0.6rem;
+      border-radius: 1rem;
+      font-weight: 600;
+    }
+    .bg-penalty { background: #ffe5e5; color: #d32f2f; }
+    .bg-paid { background: #e8f5e9; color: #2e7d32; }
+    .bg-pending { background: #fff3e0; color: #ef6c00; }
+
+    @media (max-width: 767.98px) {
+      .site-backdrop {
+        background-size: auto 118%;
+        background-position: 18% center;
+      }
+      .dashboard-hero {
+        background-image:
+          linear-gradient(180deg, rgba(0, 31, 102, 0.96) 0%, rgba(0, 51, 160, 0.9) 58%, rgba(0, 51, 160, 0.5) 100%),
+          url("Gemini_Generated_Image_q5qs7vq5qs7vq5qs.png");
+        background-position: center top;
+      }
+      .dashboard-content {
+        margin-top: 8.75rem;
+      }
+      body.compact-dashboard .dashboard-content {
+        margin-top: 1rem;
+      }
+      .hero-inner {
+        min-height: 270px;
+        padding-bottom: 1.5rem;
+      }
+      .hero-content {
+        padding-top: 1.8rem;
+      }
+      .hero-title {
+        max-width: 12ch;
+      }
+      .hero-copy {
+        font-size: 0.92rem;
+      }
+      .hero-chip {
+        font-size: 0.78rem;
+        padding: 0.42rem 0.66rem;
+      }
+      .hero-brand-title {
+        max-width: 205px;
+      }
+      .lobby-shell {
+        align-items: flex-start;
+      }
+      .lobby-panel {
+        margin-top: 1.5rem;
+      }
+      .risk-grid,
+      .chat-layout,
+      .pdf-grid {
+        grid-template-columns: 1fr;
+      }
+      .desktop-tab-nav {
+        display: none !important;
+      }
+      .mobile-tab-menu {
+        display: block;
+        position: sticky;
+        top: 10px;
+        z-index: 1050;
+      }
+      .mobile-bottom-nav {
+        display: none !important;
+      }
+      .floating-footer {
+        right: 0.75rem;
+        bottom: 0.75rem;
+        max-width: calc(100vw - 1.5rem);
+      }
+      .company-footer {
+        margin-bottom: 0;
+      }
+    }
+
+    @media (min-width: 768px) {
+      .mobile-bottom-nav { display: none; }
+      body { padding-bottom: 0; }
+      .dashboard-card { padding: 1.5rem; }
+    }
   </style>
 </head>
-<body data-page="stokvel">
-  <header class="topbar">
-    <div class="topbar-inner">
-      <a class="brand" href="index.html"><i class="bi bi-bank2"></i><span>MoneyMatters</span></a>
-      <div class="toolbar">
-        <select class="member-select" data-member-select></select>
-        <button class="btn-soft" data-mode-toggle><i class="bi bi-arrow-repeat me-1"></i><span data-mode-text>Business</span></button>
-      </div>
-    </div>
-  </header>
+<body class="lobby-mode">
 
-  <nav class="app-nav">
-    <a class="home-tile" data-nav="overview" href="index.html"><i class="bi bi-grid-1x2-fill icon-tile tile-blue"></i><span>Home</span><strong>Overview</strong></a>
-    <a class="home-tile active" data-nav="stokvel" href="stokvel.html"><i class="bi bi-people-fill icon-tile tile-aqua"></i><span>Shared</span><strong>Stokvel</strong></a>
-    <a class="home-tile" data-nav="approvals" href="approvals.html"><i class="bi bi-check2-square icon-tile tile-lime"></i><span>All members</span><strong>Approvals</strong></a>
-    <a class="home-tile" data-nav="emergency" href="emergency.html"><i class="bi bi-life-preserver icon-tile tile-coral"></i><span>14% split</span><strong>Emergency</strong></a>
-    <a class="home-tile" data-nav="payments" href="payments.html"><i class="bi bi-cash-coin icon-tile tile-gold"></i><span>Money in</span><strong>Budget</strong></a>
-    <a class="home-tile" data-nav="credit" href="credit.html"><i class="bi bi-speedometer2 icon-tile tile-violet"></i><span>Profile</span><strong>Credit</strong></a>
-    <a class="home-tile" data-nav="savings" href="savings.html"><i class="bi bi-graph-up-arrow icon-tile tile-dark"></i><span>Growth</span><strong>Savings</strong></a>
-    <a class="home-tile" data-nav="community" href="community.html"><i class="bi bi-chat-dots-fill icon-tile tile-aqua"></i><span>Connect</span><strong>Community</strong></a>
-  </nav>
+  <div class="site-backdrop" id="siteBackdrop" aria-hidden="true"></div>
 
-  <main class="main">
-    <section class="page-hero">
-      <div><span class="pill"><i class="bi bi-people"></i> Digital stokvel room</span><h1 class="mt-3">The group wallet with rules.</h1><p>Member profiles, R250 contributions, the 14% emergency split, invite code access, and beneficiary queue management.</p></div>
-      <div class="hero-stats">
-        <div class="hero-stat"><strong id="heroPool">R0</strong><span>Total value</span></div>
-        <div class="hero-stat"><strong id="heroEmergency">R0</strong><span>Emergency reserve</span></div>
-        <div class="hero-stat"><strong id="heroNext">-</strong><span>Next beneficiary</span></div>
-        <div class="hero-stat"><strong id="memberCount">0</strong><span>Members</span></div>
-      </div>
-    </section>
+  <div id="appContainer">
 
-    <section class="section-title"><div><h2>Stokvel Controls</h2><p class="muted mb-0">Active member: <strong id="activeMemberLabel"></strong></p></div><button class="btn-ghost" id="copyInviteBtn"><i class="bi bi-whatsapp me-1"></i>Copy invite</button></section>
+    <div id="lobbyView" class="lobby-shell">
+      <div class="container" style="padding-top: 3rem; padding-bottom: 3rem;">
+        <div class="d-flex justify-content-between align-items-start gap-3 mb-4">
+          <div class="lobby-heading">
+            <span class="lobby-kicker"><i class="bi bi-stars"></i> My Stokvels</span>
+            <h1 class="lobby-title">What’s the Qho? Putting money away the modern Qwa way.</h1>
+            <p class="lobby-copy">Your stokvels stay in one place. Open Beke le Beke to continue into the full workspace.</p>
+          </div>
+          <button class="hero-icon-btn" type="button" aria-label="Profile Settings">
+            <i class="bi bi-person-fill"></i>
+          </button>
+        </div>
 
-    <section class="row g-3">
-      <div class="col-lg-7"><div class="dashboard-card"><h2 class="h5 fw-bold mb-1">Members and beneficiary order</h2><p class="muted">Every member is part of the approval circle.</p><div id="stokvelMembersList"></div></div></div>
-      <div class="col-lg-5">
-        <div class="dashboard-card mb-3">
-          <h2 class="h5 fw-bold mb-3">Contribution split</h2>
-          <div class="fund-split mb-3"><div class="mini-card"><span class="muted small">Member pays</span><div class="metric-value">R<span id="monthlyContribution">250</span></div></div><div class="mini-card"><span class="muted small">Emergency cut</span><div class="metric-value" id="emergencyContributionDetail">R35</div></div></div>
-          <div class="d-flex justify-content-between mb-1 small fw-bold"><span>Main pool receives</span><span id="mainContribution">R215</span></div>
-          <div class="progress mb-3"><div class="progress-bar" style="width:86%"></div></div>
-          <div class="square-actions">
-            <button class="square-action" id="recordContributionBtn"><i class="bi bi-plus-circle"></i>Pay R250</button>
-            <button class="square-action" id="requestPayoutBtn"><i class="bi bi-send-check"></i>Request payout</button>
-            <button class="square-action" id="advancePayoutBtn"><i class="bi bi-person-check"></i>Next beneficiary</button>
-            <button class="square-action" id="resetDemoBtn"><i class="bi bi-arrow-counterclockwise"></i>Reset</button>
+        <div class="lobby-panel">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <h2 class="h5 lobby-section-title">Thabo's stokvel list</h2>
+            <span class="badge rounded-pill" style="background: var(--warm-gold-soft); color: #806312;">3 active</span>
+          </div>
+          <div class="row g-3">
+        <div class="col-12 col-md-4">
+          <div class="dashboard-card stokvel-card featured-stokvel" data-target="groupDashboardView" aria-label="Open Beke le Beke dashboard">
+            <div class="d-flex justify-content-between align-items-start mb-3">
+              <div class="d-flex align-items-center gap-2">
+                <div class="hero-brand-mark" style="width: 36px; height: 36px; background: var(--sb-blue); border: none;">
+                  <i class="bi bi-people-fill text-white"></i>
+                </div>
+                <h5 class="fw-bold m-0 text-dark">Beke le Beke</h5>
+              </div>
+              <span class="badge bg-primary rounded-pill px-3">Treasurer</span>
+            </div>
+            <hr class="text-muted" style="opacity: 0.15;">
+            <div class="d-flex justify-content-between text-muted small">
+              <span>Next Due: <strong class="text-success">R1,000</strong></span>
+              <span>Pool: <strong>R15,450</strong></span>
+            </div>
           </div>
         </div>
-        <div class="dashboard-card"><h2 class="h5 fw-bold mb-3">Add member</h2><input class="form-control mb-2" id="newMemberName" placeholder="Member name"><input class="form-control mb-3" id="newMemberRole" placeholder="Role, e.g. Secretary"><button class="btn-blue w-100" id="addMemberBtn"><i class="bi bi-person-plus me-2"></i>Add to stokvel</button></div>
+
+        <div class="col-12 col-md-4">
+          <div class="dashboard-card stokvel-card">
+            <div class="d-flex justify-content-between align-items-start mb-3">
+              <div class="d-flex align-items-center gap-2">
+                <div class="hero-brand-mark" style="width: 36px; height: 36px; background: #e67e22; border: none;">
+                  <i class="bi bi-basket-fill text-white"></i>
+                </div>
+                <h5 class="fw-bold m-0 text-dark">Family Groceries</h5>
+              </div>
+              <span class="badge bg-secondary rounded-pill px-3">Member</span>
+            </div>
+            <hr class="text-muted" style="opacity: 0.15;">
+            <div class="d-flex justify-content-between text-muted small">
+              <span>Next Due: <strong class="text-success">R500</strong></span>
+              <span>Cart: <strong>R4,200</strong></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 col-md-4">
+          <div class="dashboard-card stokvel-card">
+            <div class="d-flex justify-content-between align-items-start mb-3">
+              <div class="d-flex align-items-center gap-2">
+                <div class="hero-brand-mark" style="width: 36px; height: 36px; background: #27ae60; border: none;">
+                  <i class="bi bi-graph-up-arrow text-white"></i>
+                </div>
+                <h5 class="fw-bold m-0 text-dark">Work Investment</h5>
+              </div>
+              <span class="badge bg-secondary rounded-pill px-3">Member</span>
+            </div>
+            <hr class="text-muted" style="opacity: 0.15;">
+            <div class="d-flex justify-content-between text-muted small">
+              <span>Next Due: <strong class="text-success">R2,500</strong></span>
+              <span>Shares: <strong>12.5%</strong></span>
+            </div>
+          </div>
+        </div>
+          </div>
+        </div>
+        <button class="btn btn-blue mt-4 w-100 py-3 shadow"><i class="bi bi-plus-circle me-2"></i> Create or Join New Stokvel</button>
       </div>
-    </section>
+    </div>
 
-    <button class="voice-assistant" id="voiceAssistantBtn"><i class="bi bi-mic-fill"></i></button>
-    <div class="voice-feedback" id="voiceFeedback"></div>
-  </main>
 
-  <nav class="mobile-bottom-nav">
-    <a href="index.html" class="mobile-nav-item"><i class="bi bi-house"></i><span>Home</span></a>
-    <a href="stokvel.html" class="mobile-nav-item active"><i class="bi bi-people"></i><span>Stokvel</span></a>
-    <a href="approvals.html" class="mobile-nav-item"><i class="bi bi-check2-square"></i><span>Approve</span></a>
-    <a href="emergency.html" class="mobile-nav-item"><i class="bi bi-life-preserver"></i><span>Emergency</span></a>
-    <a href="community.html" class="mobile-nav-item"><i class="bi bi-chat-dots"></i><span>Forum</span></a>
-  </nav>
+    <div id="groupDashboardView" style="display: none;">
+      <header class="dashboard-hero">
+        <div class="container hero-inner">
+          <div class="hero-nav">
+            <a class="hero-brand" href="#">
+              <span class="hero-brand-mark"><i class="bi bi-people-fill fs-5"></i></span>
+              <span class="hero-brand-text">
+                <span class="hero-brand-title">Beke le Beke ke Stokvel</span>
+                <span class="hero-brand-subtitle">Member workspace</span>
+              </span>
+            </a>
+            <div class="hero-actions">
+              <button class="hero-icon-btn" type="button" aria-label="Go back" id="backToLobbyBtn">
+                <i class="bi bi-arrow-left"></i>
+              </button>
+              <button class="hero-icon-btn" type="button" aria-label="Notifications">
+                <i class="bi bi-bell"></i>
+              </button>
+            </div>
+          </div>
 
-  <div class="toast-stack" id="toastStack"></div>
+          <div class="hero-content">
+            <div class="hero-eyebrow">Group Dashboard</div>
+            <h1 class="hero-title">Collect. Track. Release.</h1>
+            <p class="hero-copy">A clear view of this cycle's pool, member contributions, penalties, and payout approvals.</p>
+            <div class="hero-meta">
+              <span class="hero-chip"><i class="bi bi-calendar3"></i> Cycle <strong>Nov 2026</strong></span>
+              <span class="hero-chip"><i class="bi bi-safe2-fill"></i> Pool <strong>R15,450</strong></span>
+              <span class="hero-chip"><i class="bi bi-shield-check"></i> Approvals <strong>1 pending</strong></span>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <div class="container dashboard-content py-3 py-md-4">
+
+        <ul class="nav nav-pills mb-4 desktop-tab-nav" id="stokvelTabs">
+          <li class="nav-item"><a class="nav-link active" data-bs-toggle="pill" href="#overviewTab">📊 Pool Overview</a></li>
+          <li class="nav-item"><a class="nav-link" data-bs-toggle="pill" href="#ledgerTab">📒 Ledger & Penalties</a></li>
+          <li class="nav-item"><a class="nav-link" data-bs-toggle="pill" href="#approvalsTab">🔐 Approvals <span class="badge bg-danger ms-1" id="approvalCount">1</span></a></li>
+          <li class="nav-item"><a class="nav-link" data-bs-toggle="pill" href="#bulkTab">🛒 Bulk Buying</a></li>
+          <li class="nav-item"><a class="nav-link" data-bs-toggle="pill" href="#chatsTab"><i class="bi bi-chat-dots-fill me-1"></i> Chats & Polls</a></li>
+          <li class="nav-item"><a class="nav-link" data-bs-toggle="pill" href="#rulesTab"><i class="bi bi-bank2 me-1"></i> Rules</a></li>
+        </ul>
+
+        <div class="mobile-tab-menu dropdown mb-4">
+          <button class="btn dropdown-toggle w-100 d-flex align-items-center justify-content-between" type="button" id="mobileTabMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+            <span><i class="bi bi-list me-2"></i><span id="mobileTabLabel">Pool Overview</span></span>
+          </button>
+          <ul class="dropdown-menu w-100" aria-labelledby="mobileTabMenuButton">
+            <li><button class="dropdown-item active" type="button" data-mobile-tab-target="overviewTab">Pool Overview</button></li>
+            <li><button class="dropdown-item" type="button" data-mobile-tab-target="ledgerTab">Ledger & Penalties</button></li>
+            <li><button class="dropdown-item" type="button" data-mobile-tab-target="approvalsTab">Approvals</button></li>
+            <li><button class="dropdown-item" type="button" data-mobile-tab-target="bulkTab">Bulk Buying</button></li>
+            <li><button class="dropdown-item" type="button" data-mobile-tab-target="chatsTab">Chats & Polls</button></li>
+            <li><button class="dropdown-item" type="button" data-mobile-tab-target="rulesTab">Rules</button></li>
+          </ul>
+        </div>
+
+        <div class="tab-content">
+          
+          <div class="tab-pane fade show active" id="overviewTab">
+            <div class="row g-3 mb-4">
+              <div class="col-6 col-md-3">
+                <div class="dashboard-card card-top-accent text-center">
+                  <i class="bi bi-safe2-fill fs-3 text-muted"></i>
+                  <div class="metric-value" id="totalPool">R15,450</div>
+                  <small class="text-muted">Total Group Pool</small>
+                </div>
+              </div>
+              <div class="col-6 col-md-3">
+                <div class="dashboard-card card-top-accent text-center">
+                  <i class="bi bi-wallet2 fs-3 text-muted"></i>
+                  <div class="metric-value text-success" id="myContribution">R1,000</div>
+                  <small class="text-muted">Contribution Due</small>
+                </div>
+              </div>
+              <div class="col-12 col-md-6">
+                <div class="dashboard-card card-top-accent d-flex flex-column justify-content-center align-items-center">
+                  <div class="d-flex w-100 justify-content-between mb-2">
+                    <span class="text-muted fw-bold">Next Payout Host:</span>
+                    <span class="fw-bold" style="color: var(--sb-blue);">Thabo</span>
+                  </div>
+                  <div class="progress w-100" style="height: 12px; border-radius: 1rem;">
+                    <div class="progress-bar bg-success" style="width: 75%">75% Collected</div>
+                  </div>
+                  <small class="text-muted mt-2 w-100 text-end">Expected: R20,000</small>
+                </div>
+              </div>
+            </div>
+
+            <div class="dashboard-card">
+              <h5 class="fw-bold mb-3"><i class="bi bi-person-lines-fill" style="color: var(--sb-blue);"></i> Member Status (This Cycle)</h5>
+              <div id="membersList">
+                </div>
+            </div>
+
+            <div class="row g-3 mt-1">
+              <div class="col-12 col-lg-8">
+                <div class="dashboard-card">
+                  <div class="d-flex justify-content-between align-items-start gap-3 mb-3">
+                    <div>
+                      <h5 class="fw-bold mb-1"><i class="bi bi-activity" style="color: var(--sb-blue);"></i> Predictive Default Watch</h5>
+                      <p class="text-muted small mb-0">Simulation based on late history, reminder response, and payment timing.</p>
+                    </div>
+                    <span class="badge rounded-pill" style="background: var(--warm-gold-soft); color: #806312;">AI forecast</span>
+                  </div>
+                  <div class="risk-grid">
+                    <div class="risk-member">
+                      <div class="d-flex justify-content-between align-items-center mb-2">
+                        <strong>Lerato</strong>
+                        <span class="risk-score">82%</span>
+                      </div>
+                      <div class="risk-meter mb-2"><div class="risk-meter-fill" style="width: 82%;"></div></div>
+                      <small class="text-muted">High risk: late twice and no reminder confirmation.</small>
+                    </div>
+                    <div class="risk-member">
+                      <div class="d-flex justify-content-between align-items-center mb-2">
+                        <strong>Thabo</strong>
+                        <span class="risk-score">54%</span>
+                      </div>
+                      <div class="risk-meter mb-2"><div class="risk-meter-fill" style="width: 54%;"></div></div>
+                      <small class="text-muted">Medium risk: pending, salary date falls after due date.</small>
+                    </div>
+                    <div class="risk-member">
+                      <div class="d-flex justify-content-between align-items-center mb-2">
+                        <strong>Nandi</strong>
+                        <span class="risk-score">41%</span>
+                      </div>
+                      <div class="risk-meter mb-2"><div class="risk-meter-fill" style="width: 41%;"></div></div>
+                      <small class="text-muted">Watch: usually pays close to the cutoff.</small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 col-lg-4">
+                <div class="dashboard-card default-horizon">
+                  <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h5 class="fw-bold m-0"><i class="bi bi-hourglass-split me-1"></i> Group Default Horizon</h5>
+                    <span class="badge rounded-pill bg-warning text-dark">38%</span>
+                  </div>
+                  <div class="horizon-callout">
+                    <strong class="d-block">Likely pressure point: Week 4</strong>
+                    <small>The stokvel remains stable now, but missed contributions could delay the November payout after 30 Nov.</small>
+                  </div>
+                  <div class="horizon-bar mb-2" aria-label="Default horizon meter">
+                    <span class="horizon-step active"></span>
+                    <span class="horizon-step active"></span>
+                    <span class="horizon-step"></span>
+                    <span class="horizon-step"></span>
+                  </div>
+                  <div class="d-flex justify-content-between small text-muted">
+                    <span>Stable</span>
+                    <span>Week 4 pressure</span>
+                  </div>
+                  <hr style="border-color: rgba(255,255,255,0.18);">
+                  <small class="d-block">Suggested action: send reminder today and lock payout approval until quorum confirms.</small>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="tab-pane fade green-pane" id="ledgerTab">
+            <div class="dashboard-card mb-3">
+              <h5 class="fw-bold"><i class="bi bi-file-earmark-ruled" style="color: var(--sb-blue);"></i> Digital Constitution Active</h5>
+              <p class="text-muted small mb-3">System automatically enforces these rules.</p>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item d-flex justify-content-between px-0"><span>Monthly Contribution</span> <strong>R1,000</strong></li>
+                <li class="list-group-item d-flex justify-content-between px-0"><span>Late Payment Penalty</span> <strong>+R50</strong></li>
+                <li class="list-group-item d-flex justify-content-between px-0"><span>Missed Meeting Fine</span> <strong>+R20</strong></li>
+              </ul>
+            </div>
+            
+            <div class="dashboard-card">
+              <h5 class="fw-bold mb-3">Recent Automated Actions</h5>
+              <div class="member-row">
+                <div>
+                  <strong class="d-block">Lerato</strong>
+                  <small class="text-muted">Paid after deadline (2nd Nov)</small>
+                </div>
+                <div class="text-end">
+                  <span class="status-badge bg-penalty">Penalty Triggered: R50</span>
+                  <strong class="d-block mt-1">Total Due: R1,050</strong>
+                </div>
+              </div>
+              <div class="member-row">
+                <div>
+                  <strong class="d-block">Thabo</strong>
+                  <small class="text-muted">Reminder scheduled before due date</small>
+                </div>
+                <div class="text-end">
+                  <span class="status-badge bg-pending">Reminder queued</span>
+                  <strong class="d-block mt-1">Due: R1,000</strong>
+                </div>
+              </div>
+              <div class="member-row">
+                <div>
+                  <strong class="d-block">Nandi</strong>
+                  <small class="text-muted">Payment expected from linked salary date</small>
+                </div>
+                <div class="text-end">
+                  <span class="status-badge bg-pending">Watch list</span>
+                  <strong class="d-block mt-1">Due: R1,000</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="tab-pane fade" id="approvalsTab">
+            
+            <div class="dashboard-card auto-detect-card mb-4">
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <div class="d-flex align-items-center gap-2">
+                  <span class="auto-detect-pulse"></span>
+                  <h5 class="fw-bold m-0 text-success"><i class="bi bi-broadcast-pin"></i> Payment Detected</h5>
+                </div>
+                <span class="badge bg-success rounded-pill">Auto verified</span>
+              </div>
+              <div class="p-3 bg-light rounded border mb-3">
+                <div class="d-flex justify-content-between mb-2">
+                  <span>Detected payer:</span> <strong>Lerato Khumalo</strong>
+                </div>
+                <div class="d-flex justify-content-between mb-2">
+                  <span>Amount received:</span> <strong class="text-success">R1,050</strong>
+                </div>
+                <div class="d-flex justify-content-between">
+                  <span>Status:</span> <strong>Contribution plus late penalty matched</strong>
+                </div>
+              </div>
+              <div id="generatedPreviewBox" class="p-3 bg-white rounded border small mb-3">
+                Stokvel update: Lerato Khumalo has paid R1,050. The contribution and late penalty have been matched to the ledger.
+              </div>
+              <button class="btn btn-success w-100 fw-bold" id="shareWithChannelsBtn">
+                <i class="bi bi-share-fill me-2"></i> Share Detected Payment
+              </button>
+            </div>
+            <div class="dashboard-card border-warning mb-4">
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <h5 class="fw-bold m-0"><i class="bi bi-shield-lock text-warning"></i> Pending Payout Release</h5>
+              </div>
+              <p class="text-muted small mb-2">Omnibus security requires a quorum to release funds.</p>
+              
+              <div class="p-3 bg-light rounded border mb-3">
+                <div class="d-flex justify-content-between mb-2">
+                  <span>Beneficiary:</span> <strong>Thabo</strong>
+                </div>
+                <div class="d-flex justify-content-between mb-2">
+                  <span>Amount:</span> <strong class="fs-5 text-success">R15,000</strong>
+                </div>
+                <div class="d-flex justify-content-between">
+                  <span>Reason:</span> <strong>November Rotation Payout</strong>
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <div class="d-flex justify-content-between mb-1">
+                  <span class="fw-bold small">Signatories (2/3 Required)</span>
+                  <span class="fw-bold small" id="sigFraction">1 / 3</span>
+                </div>
+                <div class="progress" style="height: 10px; border-radius: 1rem;">
+                  <div class="progress-bar bg-warning" id="sigProgress" style="width: 33%"></div>
+                </div>
+              </div>
+              
+              <button class="btn btn-blue w-100" id="signBtn"><i class="bi bi-pen me-2"></i> Authorize Release</button>
+              <div id="sigSuccess" class="text-success text-center mt-2 fw-bold" style="display: none;">
+                <i class="bi bi-check-circle-fill me-1"></i> Treasurer signature recorded.
+              </div>
+            </div>
+
+            <h5 class="fw-bold mt-2 mb-3"><i class="bi bi-clock-history text-muted"></i> Historical Payouts</h5>
+            
+            <div class="dashboard-card border-0 mb-3" style="background: linear-gradient(145deg, #ffffff, #fffcf5); border-left: 4px solid #D4AF37 !important; box-shadow: 0 6px 15px rgba(212, 175, 55, 0.12);">
+              <div class="d-flex justify-content-between align-items-start mb-2">
+                <div>
+                  <span class="badge" style="background: #FFF4D2; color: #9A7B2C; border: 1px solid #D4AF37;">Authorized & Paid</span>
+                  <div class="text-muted small mt-1">Oct 28, 2026 • TRN-99823</div>
+                </div>
+                <h5 class="fw-bold m-0" style="color: #9A7B2C;">R15,000</h5>
+              </div>
+              <div class="d-flex justify-content-between align-items-center mt-3 pt-2 border-top" style="border-color: rgba(212, 175, 55, 0.2) !important;">
+                <span class="small">Beneficiary: <strong>Sipho</strong></span>
+                <span class="small text-muted"><i class="bi bi-check-all text-success"></i> Quorum (3/3)</span>
+              </div>
+            </div>
+
+            <div class="dashboard-card border-0 mb-3" style="background: linear-gradient(145deg, #ffffff, #fffcf5); border-left: 4px solid #D4AF37 !important; box-shadow: 0 6px 15px rgba(212, 175, 55, 0.12);">
+              <div class="d-flex justify-content-between align-items-start mb-2">
+                <div>
+                  <span class="badge" style="background: #FFF4D2; color: #9A7B2C; border: 1px solid #D4AF37;">Authorized & Paid</span>
+                  <div class="text-muted small mt-1">Sep 28, 2026 • TRN-88451</div>
+                </div>
+                <h5 class="fw-bold m-0" style="color: #9A7B2C;">R15,000</h5>
+              </div>
+              <div class="d-flex justify-content-between align-items-center mt-3 pt-2 border-top" style="border-color: rgba(212, 175, 55, 0.2) !important;">
+                <span class="small">Beneficiary: <strong>David</strong></span>
+                <span class="small text-muted"><i class="bi bi-check-all text-success"></i> Quorum (3/3)</span>
+              </div>
+            </div>
+            
+            <div class="dashboard-card border-0 mb-3" style="background: linear-gradient(145deg, #ffffff, #fffcf5); border-left: 4px solid #D4AF37 !important; box-shadow: 0 6px 15px rgba(212, 175, 55, 0.12);">
+              <div class="d-flex justify-content-between align-items-start mb-2">
+                <div>
+                  <span class="badge" style="background: #FFF4D2; color: #9A7B2C; border: 1px solid #D4AF37;">Authorized & Paid</span>
+                  <div class="text-muted small mt-1">Aug 28, 2026 • TRN-77190</div>
+                </div>
+                <h5 class="fw-bold m-0" style="color: #9A7B2C;">R15,000</h5>
+              </div>
+              <div class="d-flex justify-content-between align-items-center mt-3 pt-2 border-top" style="border-color: rgba(212, 175, 55, 0.2) !important;">
+                <span class="small">Beneficiary: <strong>Nandi</strong></span>
+                <span class="small text-muted"><i class="bi bi-check-all text-success"></i> Quorum (3/3)</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="tab-pane fade green-pane" id="bulkTab">
+            
+            <div class="dashboard-card mb-3">
+              <h5 class="fw-bold"><i class="bi bi-cart4" style="color: var(--sb-blue);"></i> Wholesale Partners</h5>
+              <p class="text-muted small mb-3">Shop bulk deals directly with our integrated stores. Pay instantly from the Stokvel pool.</p>
+              
+              <div class="d-grid gap-2">
+                <a href="https://www.makro.co.za" target="_blank" class="btn btn-outline-secondary d-flex justify-content-between align-items-center">
+                  <span class="fw-bold"><i class="bi bi-shop text-primary me-2"></i> Makro</span>
+                  <i class="bi bi-box-arrow-up-right small"></i>
+                </a>
+                <a href="https://www.boxer.co.za" target="_blank" class="btn btn-outline-secondary d-flex justify-content-between align-items-center">
+                  <span class="fw-bold"><i class="bi bi-shop text-danger me-2"></i> Boxer Superstores</span>
+                  <i class="bi bi-box-arrow-up-right small"></i>
+                </a>
+                <a href="https://www.jumbo.co.za" target="_blank" class="btn btn-outline-secondary d-flex justify-content-between align-items-center">
+                  <span class="fw-bold"><i class="bi bi-shop text-success me-2"></i> Jumbo Cash & Carry</span>
+                  <i class="bi bi-box-arrow-up-right small"></i>
+                </a>
+                <a href="https://www.shoprite.co.za" target="_blank" class="btn btn-outline-secondary d-flex justify-content-between align-items-center">
+                  <span class="fw-bold"><i class="bi bi-shop text-success me-2"></i> Shoprite</span>
+                  <i class="bi bi-box-arrow-up-right small"></i>
+                </a>
+                <a href="https://www.checkers.co.za" target="_blank" class="btn btn-outline-secondary d-flex justify-content-between align-items-center">
+                  <span class="fw-bold"><i class="bi bi-shop text-info me-2"></i> Checkers</span>
+                  <i class="bi bi-box-arrow-up-right small"></i>
+                </a>
+                <a href="https://www.pnp.co.za" target="_blank" class="btn btn-outline-secondary d-flex justify-content-between align-items-center">
+                  <span class="fw-bold"><i class="bi bi-shop text-primary me-2"></i> Pick n Pay</span>
+                  <i class="bi bi-box-arrow-up-right small"></i>
+                </a>
+                <a href="https://www.game.co.za" target="_blank" class="btn btn-outline-secondary d-flex justify-content-between align-items-center">
+                  <span class="fw-bold"><i class="bi bi-shop text-danger me-2"></i> Game</span>
+                  <i class="bi bi-box-arrow-up-right small"></i>
+                </a>
+              </div>
+            </div>
+
+            <div class="dashboard-card">
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <h5 class="fw-bold m-0">Group Grocery Cart</h5>
+                <span class="badge bg-primary rounded-pill">R 3,320.00 Total</span>
+              </div>
+              <p class="text-muted small mb-3">Members can add items they need for the end-of-year split.</p>
+              
+              <div class="member-row py-2">
+                <div>
+                  <strong class="d-block">10kg Ace Super Maize Meal (x5)</strong>
+                  <small class="text-muted">Requested by Nandi</small>
+                </div>
+                <div class="text-end">
+                  <strong class="d-block">R 450.00</strong>
+                </div>
+              </div>
+              <div class="member-row py-2">
+                <div>
+                  <strong class="d-block">12.5kg Selati White Sugar (x2)</strong>
+                  <small class="text-muted">Requested by Sipho</small>
+                </div>
+                <div class="text-end">
+                  <strong class="d-block">R 380.00</strong>
+                </div>
+              </div>
+              <div class="member-row py-2">
+                <div>
+                  <strong class="d-block">10kg Tastic Rice (x3)</strong>
+                  <small class="text-muted">Requested by David</small>
+                </div>
+                <div class="text-end">
+                  <strong class="d-block">R 420.00</strong>
+                </div>
+              </div>
+              <div class="member-row py-2">
+                <div>
+                  <strong class="d-block">2L Sunfoil Cooking Oil (x6)</strong>
+                  <small class="text-muted">Requested by Lerato</small>
+                </div>
+                <div class="text-end">
+                  <strong class="d-block">R 690.00</strong>
+                </div>
+              </div>
+              <div class="member-row py-2">
+                <div>
+                  <strong class="d-block">Koo Baked Beans 410g (x24)</strong>
+                  <small class="text-muted">Requested by Thabo</small>
+                </div>
+                <div class="text-end">
+                  <strong class="d-block">R 360.00</strong>
+                </div>
+              </div>
+              <div class="member-row py-2">
+                <div>
+                  <strong class="d-block">Sunlight Dishwashing Liquid (x12)</strong>
+                  <small class="text-muted">Requested by Nandi</small>
+                </div>
+                <div class="text-end">
+                  <strong class="d-block">R 300.00</strong>
+                </div>
+              </div>
+              <div class="member-row py-2">
+                <div>
+                  <strong class="d-block">18s Toilet Tissue Packs (x4)</strong>
+                  <small class="text-muted">Requested by Sipho</small>
+                </div>
+                <div class="text-end">
+                  <strong class="d-block">R 720.00</strong>
+                </div>
+              </div>
+              
+              <button class="btn btn-outline-blue w-100 mt-3"><i class="bi bi-plus-lg me-2"></i> Add Request to Cart</button>
+            </div>
+
+          </div>
+
+          <div class="tab-pane fade green-pane" id="chatsTab">
+            <div class="chat-layout">
+              <div class="dashboard-card">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                  <h5 class="fw-bold m-0"><i class="bi bi-chat-heart" style="color: var(--sb-blue);"></i> Stokvel Chat</h5>
+                  <span class="badge bg-success rounded-pill">Live group</span>
+                </div>
+                <div class="chat-feed">
+                  <div class="chat-bubble">
+                    <strong class="d-block">Sipho</strong>
+                    <span>Reminder sent. Please confirm before the Friday cutoff.</span>
+                  </div>
+                  <div class="chat-bubble mine">
+                    <strong class="d-block">Thabo</strong>
+                    <span>I support locking the payout until the last pending members confirm.</span>
+                  </div>
+                  <div class="chat-bubble">
+                    <strong class="d-block">Nandi</strong>
+                    <span>Can we use the grocery savings for the Makro deal this month?</span>
+                  </div>
+                  <div class="chat-bubble">
+                    <strong class="d-block">Lerato</strong>
+                    <span>Payment has reflected. Please share the update with everyone.</span>
+                  </div>
+                </div>
+                <div class="input-group mt-3">
+                  <input type="text" class="form-control" placeholder="Write a group update..." aria-label="Write a group update">
+                  <button class="btn btn-blue" type="button"><i class="bi bi-send-fill"></i></button>
+                </div>
+              </div>
+
+              <div class="dashboard-card">
+                <h5 class="fw-bold mb-2"><i class="bi bi-ui-checks-grid" style="color: var(--sb-blue);"></i> Active Decision Poll</h5>
+                <p class="text-muted small mb-3">Members vote here, so decisions stay inside the app.</p>
+                <div class="poll-option selected mb-2" data-poll-option>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <strong>Release payout after quorum</strong>
+                    <span class="small fw-bold" data-poll-count>4 votes</span>
+                  </div>
+                  <div class="poll-result mt-2"><span style="width: 66%;"></span></div>
+                </div>
+                <div class="poll-option mb-2" data-poll-option>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <strong>Wait until all members pay</strong>
+                    <span class="small fw-bold" data-poll-count>2 votes</span>
+                  </div>
+                  <div class="poll-result mt-2"><span style="width: 34%;"></span></div>
+                </div>
+                <button class="btn btn-outline-blue w-100 mt-2" type="button" id="castPollVoteBtn"><i class="bi bi-hand-thumbs-up me-2"></i> Vote for selected option</button>
+                <div class="text-success text-center small fw-bold mt-2" id="pollVoteStatus" style="display:none;">Vote recorded in the group decision log.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="tab-pane fade" id="rulesTab">
+            <div class="row g-3">
+              <div class="col-12 col-lg-5">
+                <div class="dashboard-card">
+                  <div class="d-flex justify-content-between align-items-start gap-2 mb-3">
+                    <div>
+                      <h5 class="fw-bold mb-1"><i class="bi bi-bank2" style="color: var(--sb-blue);"></i> Bank Rules Library</h5>
+                      <p class="text-muted small mb-0">Bank-provided rule templates for safer stokvel governance.</p>
+                    </div>
+                    <span class="bank-rule-label">Bank rules</span>
+                  </div>
+                  <div class="list-group list-group-flush">
+                    <div class="list-group-item px-0">
+                      <strong>Quorum protection</strong>
+                      <small class="d-block text-muted">Payouts require 2 of 3 signatories before release.</small>
+                    </div>
+                    <div class="list-group-item px-0">
+                      <strong>Late payment grace period</strong>
+                      <small class="d-block text-muted">Members receive 48 hours before penalties apply.</small>
+                    </div>
+                    <div class="list-group-item px-0">
+                      <strong>Transparent audit trail</strong>
+                      <small class="d-block text-muted">Every rule vote and payout decision is logged.</small>
+                    </div>
+                  </div>
+                  <div class="mt-4">
+                    <h6 class="fw-bold mb-3">Digital rule copies</h6>
+                    <div class="pdf-grid">
+                      <a class="pdf-card" href="#" aria-label="Open Beke le Beke Constitution PDF">
+                        <span class="pdf-icon"><i class="bi bi-filetype-pdf"></i></span>
+                        <span><strong class="d-block">Constitution</strong><small class="text-muted">PDF copy</small></span>
+                      </a>
+                      <a class="pdf-card" href="#" aria-label="Open Bank Quorum Rule PDF">
+                        <span class="pdf-icon"><i class="bi bi-filetype-pdf"></i></span>
+                        <span><strong class="d-block">Quorum Rule</strong><small class="text-muted">Bank template</small></span>
+                      </a>
+                      <a class="pdf-card" href="#" aria-label="Open Penalty Schedule PDF">
+                        <span class="pdf-icon"><i class="bi bi-filetype-pdf"></i></span>
+                        <span><strong class="d-block">Penalty Schedule</strong><small class="text-muted">Active rules</small></span>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 col-lg-7">
+                <div class="dashboard-card">
+                  <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h5 class="fw-bold m-0"><i class="bi bi-file-earmark-check" style="color: var(--sb-blue);"></i> Constitution Vote</h5>
+                    <span class="badge rounded-pill bg-warning text-dark">2/5 voted</span>
+                  </div>
+                  <div class="rule-card selected mb-3" data-rule-card>
+                    <div class="d-flex justify-content-between gap-3">
+                      <div>
+                        <strong class="d-block">Adopt bank quorum rule</strong>
+                        <small class="text-muted">Require signatory quorum before any payout leaves the pool.</small>
+                      </div>
+                      <span class="bank-rule-label">Recommended</span>
+                    </div>
+                    <div class="poll-result mt-3"><span id="ruleVoteBar" style="width: 40%;"></span></div>
+                    <div class="d-flex justify-content-between small text-muted mt-2">
+                      <span id="ruleVoteCount">2 yes votes</span>
+                      <span>Needs 4 yes votes</span>
+                    </div>
+                  </div>
+                  <button class="btn btn-blue w-100" type="button" id="voteRuleBtn" onclick="recordBankRuleVote()"><i class="bi bi-check2-circle me-2"></i> Vote Yes on Bank Rule</button>
+                  <div class="text-success text-center small fw-bold mt-2" id="ruleVoteStatus" style="display:none;">Rule vote added to the constitution record.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <footer class="company-footer">
+          <div class="row g-3 align-items-start">
+            <div class="col-12 col-md-4">
+              <h6>Digital Stokvel Collective</h6>
+              <p class="small mb-0">Secure digital tools for stokvel treasurers, chairpersons, and members who need transparent money movement.</p>
+            </div>
+            <div class="col-12 col-md-4">
+              <h6>Services</h6>
+              <p class="small mb-0">Pool tracking, payout approvals, rules voting, bulk buying coordination, payment alerts, and shared decision logs.</p>
+            </div>
+            <div class="col-12 col-md-4">
+              <h6>Contact</h6>
+              <p class="small mb-1">Email: <a href="mailto:support@digitalstokvel.co.za">support@digitalstokvel.co.za</a></p>
+              <p class="small mb-1">Phone: <a href="tel:+27101234567">+27 10 123 4567</a></p>
+              <p class="small mb-0">Johannesburg, South Africa</p>
+            </div>
+          </div>
+        </footer>
+      </div>
+
+      <footer class="floating-footer" id="dashboardFooter">
+        <i class="bi bi-shield-check"></i>
+        <span>Beke le Beke: monitored, voted, and bank-rule ready</span>
+      </footer>
+
+      <div class="mobile-bottom-nav d-md-none">
+        <a href="#" class="mobile-nav-item active" data-target="overviewTab"><i class="bi bi-grid-fill"></i><span>Overview</span></a>
+        <a href="#" class="mobile-nav-item" data-target="ledgerTab"><i class="bi bi-book"></i><span>Ledger</span></a>
+        <a href="#" class="mobile-nav-item" data-target="bulkTab"><i class="bi bi-cart3"></i><span>Bulk Deals</span></a>
+        <a href="#" class="mobile-nav-item" data-target="approvalsTab"><i class="bi bi-shield-check"></i><span>Approvals</span></a>
+        <a href="#" class="mobile-nav-item" data-target="chatsTab"><i class="bi bi-chat-dots"></i><span>Chats</span></a>
+        <a href="#" class="mobile-nav-item" data-target="rulesTab"><i class="bi bi-bank"></i><span>Rules</span></a>
+      </div>
+    </div>
+  </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
   <script>
-    (function(){const STORAGE_KEY="moneyMattersUltimateStokvelState";const EMERGENCY_RATE=0.14;const DEFAULT_CONTRIBUTION=250;const baseMembers=[{name:"Thabo",role:"Chairperson",color:"#0033a0"},{name:"Priya",role:"Treasurer",color:"#00a6a6"},{name:"Lerato",role:"Member",color:"#6cc24a"},{name:"Sipho",role:"Member",color:"#d4af37"},{name:"Nandi",role:"Member",color:"#ff6b5f"}];const defaultState={currentMode:"business",activeMember:"Thabo",stokvel:{contribution:DEFAULT_CONTRIBUTION,mainPool:6450,emergencyFund:1050,payoutIndex:2,currentPayoutIndex:2,inviteCode:"MM-STOKVEL-250",members:baseMembers,memberContributions:{Thabo:1500,Priya:1500,Lerato:1500,Sipho:1500,Nandi:1500}},transactions:[{id:"txn-001",type:"Business payout",amount:1200,reason:"Buy stock for township weekend market",requestedBy:"Lerato",approvals:["Thabo","Priya","Lerato"],status:"pending",createdAt:"2026-05-23"},{id:"txn-002",type:"Supplier payment",amount:650,reason:"Bulk airtime reseller float",requestedBy:"Priya",approvals:["Thabo","Priya","Lerato","Sipho","Nandi"],status:"approved",createdAt:"2026-05-21",poolDeducted:!0}],repayments:[{id:"repay-001",member:"Sipho",amount:500,dueDate:"2026-06-23",paid:!1}],activity:[{icon:"bi-check2-circle",tone:"tile-lime",title:"Priya approved supplier payment",detail:"All members have visibility",amount:650},{icon:"bi-life-preserver",tone:"tile-coral",title:"Sipho emergency drawdown logged",detail:"Repayment due in one month",amount:500},{icon:"bi-phone",tone:"tile-aqua",title:"Mobile access enabled",detail:"Members can switch profiles on shared demo",amount:0}],businessData:{creditScore:742,subscriptions:[],incomingPayments:[],rent:{amount:1500,paid:!1},savings:8720,investments:5340},personalData:{creditScore:698,subscriptions:[],incomingPayments:[],rent:{amount:1100,paid:!0},savings:4200,investments:2100}};const clone=(v)=>JSON.parse(JSON.stringify(v));const qs=(s)=>document.querySelector(s);const qsa=(s)=>Array.from(document.querySelectorAll(s));const money=(v)=>"R"+Number(v||0).toLocaleString("en-ZA",{maximumFractionDigits:2});const today=()=>new Date().toISOString().slice(0,10);const pageName=document.body.dataset.page||"stokvel";let state=loadState();let activeData=getActiveData();function loadState(){const base=clone(defaultState);try{const saved=JSON.parse(localStorage.getItem(STORAGE_KEY));if(!saved)return base;const merged={...base,...saved,stokvel:{...base.stokvel,...(saved.stokvel||{}),members:(saved.stokvel&&saved.stokvel.members)||base.stokvel.members,memberContributions:{...base.stokvel.memberContributions,...((saved.stokvel&&saved.stokvel.memberContributions)||{})}},businessData:{...base.businessData,...(saved.businessData||{})},personalData:{...base.personalData,...(saved.personalData||{})},transactions:saved.transactions||base.transactions,repayments:saved.repayments||base.repayments,activity:saved.activity||base.activity};merged.stokvel.payoutIndex=Number.isFinite(merged.stokvel.payoutIndex)?merged.stokvel.payoutIndex:merged.stokvel.currentPayoutIndex||0;if(!merged.stokvel.members.some(m=>m.name===merged.activeMember))merged.activeMember=merged.stokvel.members[0].name;return merged}catch(e){return base}}function saveState(){localStorage.setItem(STORAGE_KEY,JSON.stringify(state))}function getActiveData(){return state.currentMode==="business"?state.businessData:state.personalData}function getMembers(){return state.stokvel.members}function getNextPayoutMember(){const members=getMembers();const index=state.stokvel.payoutIndex%members.length;return members[index]||members[0]}function totalPool(){return state.stokvel.mainPool+state.stokvel.emergencyFund}function showToast(m){const stack=qs("#toastStack");if(!stack)return;const toast=document.createElement("div");toast.className="app-toast";toast.textContent=m;stack.appendChild(toast);setTimeout(()=>toast.remove(),3400)}function setText(id,v){const n=qs("#"+id);if(n)n.textContent=v}function on(id,ev,h){const n=qs("#"+id);if(n)n.addEventListener(ev,h)}function addActivity(icon,tone,title,detail,amount){state.activity.unshift({icon,tone,title,detail,amount:amount||0});state.activity=state.activity.slice(0,8)}function payContribution(){const emAmt=state.stokvel.contribution*EMERGENCY_RATE;const mainAmt=state.stokvel.contribution-emAmt;state.stokvel.emergencyFund+=emAmt;state.stokvel.mainPool+=mainAmt;state.stokvel.memberContributions[state.activeMember]=(state.stokvel.memberContributions[state.activeMember]||0)+state.stokvel.contribution;addActivity("bi-plus-circle","tile-lime",state.activeMember+" paid monthly contribution",money(mainAmt)+" to pool and "+money(emAmt)+" to emergency",state.stokvel.contribution);saveAndRender();showToast(state.activeMember+" paid R250. R35 moved to emergency cover.")}function advancePayoutQueue(){state.stokvel.payoutIndex=(state.stokvel.payoutIndex+1)%getMembers().length;state.stokvel.currentPayoutIndex=state.stokvel.payoutIndex;addActivity("bi-person-check","tile-violet","Next beneficiary updated",getNextPayoutMember().name+" is now next in line",0);saveAndRender();showToast("Next beneficiary is now "+getNextPayoutMember().name+".")}function createTransaction(type,amount,reason){if(!Number.isFinite(amount)||amount<=0){showToast("Enter a valid amount first.");return}state.transactions.unshift({id:"txn-"+Date.now(),type,amount,reason,requestedBy:state.activeMember,approvals:[state.activeMember],status:"pending",createdAt:today()});addActivity("bi-plus-square","tile-blue",state.activeMember+" created "+type,reason,amount);saveAndRender();showToast("Request created. Every member must approve.")}function renderShell(){const opts=getMembers().map(m=>`<option value="${m.name}">${m.name} · ${m.role}</option>`).join("");qsa("[data-member-select]").forEach(s=>{s.innerHTML=opts;s.value=state.activeMember});qsa("[data-mode-text]").forEach(n=>{n.textContent=state.currentMode==="business"?"Business":"Personal"});qsa("[data-nav]").forEach(l=>{l.classList.toggle("active",l.dataset.nav===pageName)});setText("activeMemberLabel",state.activeMember);setText("memberCount",getMembers().length);setText("heroPool",money(totalPool()));setText("heroEmergency",money(state.stokvel.emergencyFund));setText("heroNext",getNextPayoutMember().name);setText("monthlyContribution",state.stokvel.contribution);setText("emergencyContributionDetail",money(state.stokvel.contribution*EMERGENCY_RATE));setText("mainContribution",money(state.stokvel.contribution-state.stokvel.contribution*EMERGENCY_RATE))}function renderMembers(){const node=qs("#stokvelMembersList");if(!node)return;const nextMember=getNextPayoutMember().name;node.innerHTML=getMembers().map(m=>{const paid=state.stokvel.memberContributions[m.name]||0;const isNext=m.name===nextMember;return`<div class="member-row"><div class="member-avatar" style="background:${m.color}">${m.name.charAt(0).toUpperCase()}</div><div class="min-w-0"><div class="fw-bold">${m.name}</div><small class="muted">${m.role} · Contributed ${money(paid)}</small></div><span class="pill ${isNext?"pill-success":""}">${isNext?"Next beneficiary":"Member"}</span></div>`}).join("")}function bindShell(){qsa("[data-member-select]").forEach(s=>{s.addEventListener("change",e=>{state.activeMember=e.target.value;saveAndRender();showToast("Now acting as "+state.activeMember+".")})});qsa("[data-mode-toggle]").forEach(b=>{b.addEventListener("click",()=>{state.currentMode=state.currentMode==="business"?"personal":"business";activeData=getActiveData();saveAndRender();showToast("Switched to "+state.currentMode+" view.")})})}function bindForms(){on("recordContributionBtn","click",payContribution);on("advancePayoutBtn","click",advancePayoutQueue);on("requestPayoutBtn","click",()=>{const next=getNextPayoutMember().name;createTransaction("Business payout",Math.min(1200,state.stokvel.mainPool),"Payout cycle for "+next)});on("addMemberBtn","click",()=>{const input=qs("#newMemberName");const roleInput=qs("#newMemberRole");const name=input.value.trim();if(!name)return showToast("Add a member name first.");if(getMembers().some(m=>m.name.toLowerCase()===name.toLowerCase()))return showToast("That member already exists.");const colors=["#0033a0","#00a6a6","#6cc24a","#d4af37","#ff6b5f","#6750d8","#102033"];state.stokvel.members.push({name,role:roleInput.value.trim()||"Member",color:colors[getMembers().length%colors.length]});state.stokvel.memberContributions[name]=0;input.value="";roleInput.value="";addActivity("bi-person-plus","tile-aqua",name+" joined the stokvel","Member added to approval circle",0);saveAndRender();showToast(name+" added to the stokvel.")});on("copyInviteBtn","click",async()=>{const text=state.stokvel.inviteCode+" · "+location.href.replace(location.pathname.split("/").pop(),"stokvel.html");try{await navigator.clipboard.writeText(text);showToast("Invite copied for WhatsApp.")}catch(e){showToast("Invite code: "+state.stokvel.inviteCode)}});on("resetDemoBtn","click",()=>{state=clone(defaultState);activeData=getActiveData();saveAndRender();showToast("Demo reset.")})}function renderPage(){activeData=getActiveData();renderShell();renderMembers()}function saveAndRender(){saveState();renderPage()}window.addEventListener("storage",e=>{if(e.key!==STORAGE_KEY)return;state=loadState();activeData=getActiveData();renderPage()});document.addEventListener("DOMContentLoaded",()=>{renderPage();bindShell();bindForms()})})();
-  </script>
-  <script>(function(){const vb=document.getElementById('voiceAssistantBtn');const vf=document.getElementById('voiceFeedback');let rec=null;if(vb){vb.addEventListener('click',()=>{if(!('webkitSpeechRecognition' in window)&&!('SpeechRecognition' in window)){vf.textContent='Speech not supported.';vf.style.display='block';setTimeout(()=>{vf.style.display='none'},3000);return}const SR=window.SpeechRecognition||window.webkitSpeechRecognition;rec=new SR();rec.continuous=!1;rec.interimResults=!1;rec.lang='en-ZA';rec.onstart=()=>{vb.classList.add('listening');vf.textContent='🎤 Listening...';vf.style.display='block'};rec.onresult=(e)=>{const t=e.results[0][0].transcript.toLowerCase();let r='Try saying: stokvel, payout, or help.';if(t.includes('stokvel'))r='Your stokvel group shares contributions and approves transactions together.';if(t.includes('payout')||t.includes('pay'))r='Click Pay R250 to contribute, or Request payout for the next beneficiary.';if(t.includes('help'))r='Manage stokvel members, contributions, and beneficiary queue here.';vf.textContent=r;if('speechSynthesis' in window){const u=new SpeechSynthesisUtterance(r);u.lang='en-ZA';window.speechSynthesis.cancel();window.speechSynthesis.speak(u)}};rec.onerror=()=>{vb.classList.remove('listening')};rec.onend=()=>{vb.classList.remove('listening');setTimeout(()=>{vf.style.display='none'},4000)};rec.start()})}})();
-  </script>
-  <script>
-    if('serviceWorker' in navigator){
-      navigator.serviceWorker.register('sw.js').then(()=>console.log('SW registered')).catch(()=>{});
-    }
+    document.addEventListener("DOMContentLoaded", function() {
+      const siteBackdrop = document.getElementById('siteBackdrop');
+      const stokvelTabs = document.getElementById('stokvelTabs');
+      let ticking = false;
+
+      function moveBackdrop() {
+        const offset = window.scrollY * -0.1;
+        siteBackdrop.style.transform = `translate3d(0, ${offset}px, 0) scale(1.04)`;
+        ticking = false;
+      }
+
+      window.addEventListener('scroll', function() {
+        if (!ticking) {
+          window.requestAnimationFrame(moveBackdrop);
+          ticking = true;
+        }
+
+        // STICKY TABS LOGIC (Only runs if dashboard is visible)
+        if (stokvelTabs.offsetParent !== null) {
+          if (stokvelTabs.getBoundingClientRect().top <= 11) {
+            stokvelTabs.classList.add('is-stuck');
+          } else {
+            stokvelTabs.classList.remove('is-stuck');
+          }
+        }
+      }, { passive: true });
+      
+      moveBackdrop();
+
+      // ==========================================
+      // LOBBY / PORTFOLIO SWITCHING LOGIC
+      // ==========================================
+      const lobbyView = document.getElementById('lobbyView');
+      const groupDashboardView = document.getElementById('groupDashboardView');
+      const backToLobbyBtn = document.getElementById('backToLobbyBtn');
+      const dashboardFooter = document.getElementById('dashboardFooter');
+
+      document.querySelectorAll('.stokvel-card[data-target="groupDashboardView"]').forEach(card => {
+        card.addEventListener('click', function() {
+          lobbyView.style.display = 'none';
+          groupDashboardView.style.display = 'block';
+          document.body.classList.remove('lobby-mode');
+          document.body.classList.remove('bg-cream-mode', 'bg-green-mode', 'compact-dashboard');
+          if (dashboardFooter) dashboardFooter.style.display = 'inline-flex';
+          window.scrollTo(0, 0); // Reset scroll position for the dashboard
+        });
+      });
+
+      if(backToLobbyBtn) {
+        backToLobbyBtn.addEventListener('click', function() {
+          groupDashboardView.style.display = 'none';
+          lobbyView.style.display = 'block';
+          document.body.classList.add('lobby-mode');
+          document.body.classList.remove('bg-cream-mode', 'bg-green-mode', 'compact-dashboard');
+          if (dashboardFooter) dashboardFooter.style.display = 'none';
+          window.scrollTo(0, 0);
+        });
+      }
+
+
+      // MOCK STOKVEL DATA
+      const stokvelData = [
+        { name: 'Sipho (Treasurer)', status: 'Paid', amount: 1000 },
+        { name: 'Lerato', status: 'Late', amount: 1050, penalty: true },
+        { name: 'Nandi', status: 'Pending', amount: 1000 },
+        { name: 'David', status: 'Paid', amount: 1000 },
+        { name: 'Thabo', status: 'Pending', amount: 1000 }
+      ];
+
+      // RENDER MEMBER LIST
+      const membersContainer = document.getElementById('membersList');
+      stokvelData.forEach(member => {
+        if (membersContainer) {
+          const row = document.createElement('div');
+          row.className = 'member-row';
+          
+          let badgeHTML = '';
+          if (member.status === 'Paid') {
+            badgeHTML = `<span class="status-badge bg-paid">Paid R${member.amount}</span>`;
+          } else if (member.status === 'Late') {
+            badgeHTML = `<span class="status-badge bg-penalty">Late R${member.amount}</span>`;
+          } else {
+            badgeHTML = `<span class="status-badge bg-pending">Pending</span>`;
+          }
+
+          row.innerHTML = `
+            <div>
+              <strong class="d-block text-dark">${member.name}</strong>
+              <small class="text-muted">Contribution Status</small>
+            </div>
+            <div class="text-end">
+              ${badgeHTML}
+            </div>
+          `;
+          membersContainer.appendChild(row);
+        }
+      });
+
+      // EXISTING AUTHORIZATION BUTTON LOGIC
+      const signBtn = document.getElementById('signBtn');
+      if (signBtn) {
+        signBtn.addEventListener('click', function() {
+          document.getElementById('sigFraction').innerText = "2 / 3";
+          document.getElementById('sigProgress').style.width = "66%";
+          signBtn.style.display = 'none';
+          document.getElementById('sigSuccess').style.display = 'block';
+          document.getElementById('approvalCount').style.display = 'none';
+        });
+      }
+
+      // ===================================================
+      // NEW AUTOMATED TEXT EXTRACTION & SHARING LOGIC
+      // ===================================================
+      const smsInputText = document.getElementById('smsInputText');
+      const generatedPreviewBox = document.getElementById('generatedPreviewBox');
+      const shareWithChannelsBtn = document.getElementById('shareWithChannelsBtn');
+      let finalShareableText = "";
+      if (!smsInputText && generatedPreviewBox) {
+        finalShareableText = generatedPreviewBox.innerText.trim();
+      }
+
+      // List of keywords linked to real profiles for keyword-matching lookup
+      const locallyKnownMembers = [
+        { primary: "Sarah Smith", tokens: ["SMITH", "SARAH"] },
+        { primary: "Thabo Molefe", tokens: ["MOLEFE", "THABO"] },
+        { primary: "Lerato Khumalo", tokens: ["KHUMALO", "LERATO"] },
+        { primary: "Sipho", tokens: ["SIPHO"] },
+        { primary: "Nandi", tokens: ["NANDI"] },
+        { primary: "David", tokens: ["DAVID"] }
+      ];
+
+      if (smsInputText) {
+        smsInputText.addEventListener('input', function() {
+          const rawText = smsInputText.value.trim();
+          
+          if (rawText.length < 10) {
+            generatedPreviewBox.innerText = "Waiting for valid bank text input...";
+            generatedPreviewBox.classList.add('text-muted', 'italic');
+            shareWithChannelsBtn.disabled = true;
+            return;
+          }
+
+          // 1. Target Name Matching Extraction Routine
+          let identifiedName = "A group member";
+          const normalizedSMS = rawText.toUpperCase();
+          
+          for (let member of locallyKnownMembers) {
+            let matched = member.tokens.some(token => normalizedSMS.includes(token));
+            if (matched) {
+              identifiedName = member.primary;
+              break;
+            }
+          }
+
+          // 2. Target Balance/Currency Value Numeric Isolation Regex Routine
+          let identifiedAmount = "the specified amount";
+          const currencyRegex = /(?:R|ZAR)\s*([\d,]+(?:\.\d{2})?)/i;
+          const genericNumberRegex = /\b([\d,]+(?:\.\d{2}))\b/;
+          
+          let amountMatch = rawText.match(currencyRegex) || rawText.match(genericNumberRegex);
+          if (amountMatch && amountMatch[1]) {
+            identifiedAmount = "R" + amountMatch[1];
+          }
+
+          // 3. Complete Assembly of the Celebratory Target Update String Variable
+          finalShareableText = `📢 *Stokvel Update!* ${identifiedName} has successfully made a payment of *${identifiedAmount}*. Siyabonga! 🙏🇿🇦`;
+          
+          // Render Live Pre-Load to the User View Box Area
+          generatedPreviewBox.innerText = finalShareableText;
+          generatedPreviewBox.classList.remove('text-muted', 'italic');
+          shareWithChannelsBtn.disabled = false;
+        });
+      }
+
+      // 4. Native Sharing Ecosystem Execution Routine via Device Web Share Interface
+      if (shareWithChannelsBtn) {
+        shareWithChannelsBtn.addEventListener('click', function() {
+          if (!finalShareableText) return;
+
+          if (navigator.share) {
+            navigator.share({
+              text: finalShareableText
+            })
+            .then(() => console.log('Stokvel data forwarded successfully.'))
+            .catch((err) => console.log('Share interface declined or canceled:', err));
+          } else {
+            // Native Browser Fallback Routine if sharing API doesn't exist on hardware profile
+            navigator.clipboard.writeText(finalShareableText).then(() => {
+              alert("Payment update copied to your clipboard.");
+            });
+          }
+        });
+      }
+
+      // Poll and constitution voting simulations
+      let selectedPollOption = document.querySelector('[data-poll-option].selected');
+      document.querySelectorAll('[data-poll-option]').forEach(option => {
+        option.addEventListener('click', function() {
+          document.querySelectorAll('[data-poll-option]').forEach(item => item.classList.remove('selected'));
+          option.classList.add('selected');
+          selectedPollOption = option;
+        });
+      });
+
+      const castPollVoteBtn = document.getElementById('castPollVoteBtn');
+      const pollVoteStatus = document.getElementById('pollVoteStatus');
+      if (castPollVoteBtn) {
+        castPollVoteBtn.addEventListener('click', function() {
+          if (!selectedPollOption) return;
+          const countLabel = selectedPollOption.querySelector('[data-poll-count]');
+          const current = parseInt(countLabel.innerText, 10) || 0;
+          countLabel.innerText = `${current + 1} votes`;
+          castPollVoteBtn.disabled = true;
+          castPollVoteBtn.innerHTML = '<i class="bi bi-check2 me-2"></i> Vote Recorded';
+          pollVoteStatus.style.display = 'block';
+        });
+      }
+
+      const voteRuleBtn = document.getElementById('voteRuleBtn');
+      const ruleVoteStatus = document.getElementById('ruleVoteStatus');
+      const ruleVoteCount = document.getElementById('ruleVoteCount');
+      const ruleVoteBar = document.getElementById('ruleVoteBar');
+      window.recordBankRuleVote = function() {
+        if (!voteRuleBtn || voteRuleBtn.disabled) return;
+        ruleVoteCount.innerText = '3 yes votes';
+        ruleVoteBar.style.width = '60%';
+        voteRuleBtn.disabled = true;
+        voteRuleBtn.innerHTML = '<i class="bi bi-check2-circle me-2"></i> Rule Vote Recorded';
+        ruleVoteStatus.style.display = 'block';
+      };
+      if (voteRuleBtn) {
+        voteRuleBtn.addEventListener('click', window.recordBankRuleVote);
+      }
+
+      document.querySelectorAll('.mobile-nav-item').forEach(item => {
+        item.addEventListener('click', function(e) {
+          e.preventDefault();
+          const targetId = item.getAttribute('data-target');
+          const tabLink = document.querySelector(`#stokvelTabs a[href="#${targetId}"]`);
+          if (tabLink && window.bootstrap) {
+            bootstrap.Tab.getOrCreateInstance(tabLink).show();
+          }
+          document.querySelectorAll('.mobile-nav-item').forEach(navItem => navItem.classList.remove('active'));
+          item.classList.add('active');
+        });
+      });
+
+      document.querySelectorAll('[data-mobile-tab-target]').forEach(item => {
+        item.addEventListener('click', function() {
+          const targetId = item.getAttribute('data-mobile-tab-target');
+          const tabLink = document.querySelector(`#stokvelTabs a[href="#${targetId}"]`);
+          if (tabLink && window.bootstrap) {
+            bootstrap.Tab.getOrCreateInstance(tabLink).show();
+          }
+        });
+      });
+
+      // Tab Background Mode Toggles
+      document.querySelectorAll('[data-bs-toggle="pill"]').forEach(tab => {
+        tab.addEventListener('shown.bs.tab', function (e) {
+          const activeTarget = e.target.getAttribute('href')?.replace('#', '');
+          const activeText = e.target.innerText.replace(/\s+/g, ' ').trim();
+          const mobileTabLabel = document.getElementById('mobileTabLabel');
+          if (mobileTabLabel) mobileTabLabel.innerText = activeText;
+          document.querySelectorAll('.mobile-nav-item').forEach(navItem => {
+            navItem.classList.toggle('active', navItem.getAttribute('data-target') === activeTarget);
+          });
+          document.querySelectorAll('[data-mobile-tab-target]').forEach(menuItem => {
+            menuItem.classList.toggle('active', menuItem.getAttribute('data-mobile-tab-target') === activeTarget);
+          });
+          if (activeTarget === 'approvalsTab') {
+            document.body.classList.add('bg-cream-mode');
+            document.body.classList.remove('bg-green-mode');
+          } else if (['ledgerTab', 'bulkTab', 'chatsTab'].includes(activeTarget)) {
+            document.body.classList.add('bg-green-mode');
+            document.body.classList.remove('bg-cream-mode');
+          } else {
+            document.body.classList.remove('bg-cream-mode', 'bg-green-mode');
+          }
+          document.body.classList.toggle('compact-dashboard', activeTarget !== 'overviewTab');
+        });
+      });
+    });
   </script>
 </body>
 </html>
