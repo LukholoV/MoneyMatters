@@ -6,8 +6,7 @@
   <title>MoneyMatters | Savings</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
-  
-  <!-- ========== PAGE-SPECIFIC CSS ========== -->
+  <link rel="manifest" href="manifest.json">
   <style>
     :root {
   --sb-blue: #006b3f;
@@ -31,203 +30,46 @@
     * { box-sizing: border-box; }
 
     body {
-      margin: 0;
-      min-height: 100vh;
-      background:
-        radial-gradient(circle at top left, rgba(0, 166, 166, 0.12), transparent 34rem),
-        linear-gradient(135deg, rgba(0, 51, 160, 0.08), rgba(108, 194, 74, 0.05)),
-        var(--soft);
-      color: var(--ink);
-      font-family: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-      overflow-x: hidden;
-      padding-bottom: 82px;
+      margin: 0; min-height: 100vh;
+      background: radial-gradient(circle at top left, rgba(0, 166, 166, 0.12), transparent 34rem),
+                  linear-gradient(135deg, rgba(0, 51, 160, 0.08), rgba(108, 194, 74, 0.05)), var(--soft);
+      color: var(--ink); font-family: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      overflow-x: hidden; padding-bottom: 82px;
     }
 
     button, input, select, textarea { font: inherit; }
     a { color: inherit; }
 
-    .topbar {
-      position: sticky;
-      top: 0;
-      z-index: 1020;
-      background: linear-gradient(135deg, var(--sb-blue-dark), var(--sb-blue));
-      color: #fff;
-      box-shadow: 0 8px 28px rgba(0, 31, 102, 0.18);
-    }
-
-    .topbar-inner {
-      width: min(1180px, calc(100% - 28px));
-      margin: 0 auto;
-      min-height: 72px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 14px;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      color: #fff;
-      text-decoration: none;
-      font-weight: 850;
-    }
-
+    .topbar { position: sticky; top: 0; z-index: 1020; background: linear-gradient(135deg, var(--sb-blue-dark), var(--sb-blue)); color: #fff; box-shadow: 0 8px 28px rgba(0, 31, 102, 0.18); }
+    .topbar-inner { width: min(1180px, calc(100% - 28px)); margin: 0 auto; min-height: 72px; display: flex; align-items: center; justify-content: space-between; gap: 14px; }
+    .brand { display: flex; align-items: center; gap: 12px; color: #fff; text-decoration: none; font-weight: 850; }
     .brand i, .icon-tile { display: grid; place-items: center; }
-
-    .brand i {
-      width: 42px;
-      height: 42px;
-      border-radius: 8px;
-      background: rgba(255, 255, 255, 0.15);
-      font-size: 1.35rem;
-    }
-
-    .toolbar {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .member-select {
-      min-width: 172px;
-      border: 1px solid rgba(255, 255, 255, 0.28);
-      color: #fff;
-      background-color: rgba(255, 255, 255, 0.12);
-      border-radius: 8px;
-      padding: 9px 12px;
-    }
-
+    .brand i { width: 42px; height: 42px; border-radius: 8px; background: rgba(255, 255, 255, 0.15); font-size: 1.35rem; }
+    .toolbar { display: flex; align-items: center; gap: 10px; }
+    .member-select { min-width: 172px; border: 1px solid rgba(255, 255, 255, 0.28); color: #fff; background-color: rgba(255, 255, 255, 0.12); border-radius: 8px; padding: 9px 12px; }
     .member-select option { color: var(--ink); background: #fff; }
-
-    .btn-soft, .btn-blue, .btn-ghost {
-      border: 0;
-      border-radius: 8px;
-      font-weight: 780;
-      min-height: 42px;
-      padding: 9px 14px;
-      transition: transform var(--transition), box-shadow var(--transition), background var(--transition);
-    }
-
-    .btn-soft {
-      background: #fff;
-      color: var(--sb-blue);
-      box-shadow: 0 8px 22px rgba(0, 0, 0, 0.12);
-    }
-
-    .btn-blue {
-      background: var(--sb-blue);
-      color: #fff;
-      box-shadow: 0 12px 24px rgba(0, 51, 160, 0.2);
-    }
-
+    .btn-soft, .btn-blue, .btn-ghost { border: 0; border-radius: 8px; font-weight: 780; min-height: 42px; padding: 9px 14px; transition: transform var(--transition), box-shadow var(--transition), background var(--transition); }
+    .btn-soft { background: #fff; color: var(--sb-blue); box-shadow: 0 8px 22px rgba(0, 0, 0, 0.12); }
+    .btn-blue { background: var(--sb-blue); color: #fff; box-shadow: 0 12px 24px rgba(0, 51, 160, 0.2); }
     .btn-ghost { background: rgba(0, 51, 160, 0.08); color: var(--sb-blue); }
-
-    .btn-soft:hover, .btn-blue:hover, .btn-ghost:hover,
-    .dashboard-card:hover, .home-tile:hover {
-      transform: translateY(-3px);
-    }
-
+    .btn-soft:hover, .btn-blue:hover, .btn-ghost:hover, .dashboard-card:hover, .home-tile:hover { transform: translateY(-3px); }
     .btn-blue:hover { background: var(--sb-blue-dark); color: #fff; }
+    .main { width: min(1180px, calc(100% - 28px)); margin: 22px auto 38px; }
 
-    .main {
-      width: min(1180px, calc(100% - 28px));
-      margin: 22px auto 38px;
-    }
-
-    .page-hero {
-      overflow: hidden;
-      border-radius: 8px;
-      min-height: 252px;
-      background:
-        linear-gradient(90deg, rgba(0, 31, 102, 0.96), rgba(0, 51, 160, 0.74), rgba(0, 166, 166, 0.48)),
-        url("https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?auto=format&fit=crop&w=1600&q=80") center/cover;
-      color: #fff;
-      padding: clamp(22px, 4vw, 42px);
-      display: grid;
-      grid-template-columns: minmax(0, 1.3fr) minmax(260px, 0.7fr);
-      gap: 24px;
-      align-items: end;
-      box-shadow: var(--shadow);
-    }
-
-    .page-hero h1 {
-      margin: 0;
-      font-size: clamp(2rem, 5vw, 4.6rem);
-      line-height: 0.95;
-      font-weight: 900;
-    }
-
-    .page-hero p {
-      max-width: 660px;
-      margin: 14px 0 0;
-      color: rgba(255, 255, 255, 0.86);
-      font-size: clamp(0.98rem, 2vw, 1.12rem);
-    }
-
-    .hero-stats {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 10px;
-    }
-
-    .hero-stat {
-      min-height: 106px;
-      padding: 14px;
-      border-radius: 8px;
-      background: rgba(255, 255, 255, 0.14);
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      backdrop-filter: blur(10px);
-    }
-
-    .hero-stat strong {
-      display: block;
-      font-size: clamp(1.3rem, 3vw, 1.8rem);
-      line-height: 1.05;
-    }
-
+    .page-hero { overflow: hidden; border-radius: 8px; min-height: 252px; background: linear-gradient(90deg, rgba(0, 31, 102, 0.96), rgba(0, 51, 160, 0.74), rgba(0, 166, 166, 0.48)), url("https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?auto=format&fit=crop&w=1600&q=80") center/cover; color: #fff; padding: clamp(22px, 4vw, 42px); display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(260px, 0.7fr); gap: 24px; align-items: end; box-shadow: var(--shadow); }
+    .page-hero h1 { margin: 0; font-size: clamp(2rem, 5vw, 4.6rem); line-height: 0.95; font-weight: 900; }
+    .page-hero p { max-width: 660px; margin: 14px 0 0; color: rgba(255, 255, 255, 0.86); font-size: clamp(0.98rem, 2vw, 1.12rem); }
+    .hero-stats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+    .hero-stat { min-height: 106px; padding: 14px; border-radius: 8px; background: rgba(255, 255, 255, 0.14); border: 1px solid rgba(255, 255, 255, 0.18); backdrop-filter: blur(10px); }
+    .hero-stat strong { display: block; font-size: clamp(1.3rem, 3vw, 1.8rem); line-height: 1.05; }
     .hero-stat span { color: rgba(255, 255, 255, 0.78); font-size: 0.84rem; }
 
-    .app-nav {
-      display: grid;
-      grid-template-columns: repeat(7, minmax(100px, 1fr));
-      gap: 12px;
-      margin: 18px 0 8px;
-    }
-
-    .home-tile {
-      aspect-ratio: 1 / 1;
-      border: 1px solid var(--line);
-      background: var(--paper);
-      border-radius: 8px;
-      color: var(--ink);
-      text-decoration: none;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      padding: 13px;
-      box-shadow: var(--shadow-sm);
-      transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
-      min-width: 0;
-    }
-
-    .home-tile:hover, .home-tile.active {
-      border-color: rgba(0, 51, 160, 0.45);
-      box-shadow: 0 18px 35px rgba(0, 51, 160, 0.17);
-    }
-
-    .icon-tile {
-      width: 42px;
-      height: 42px;
-      border-radius: 8px;
-      color: #fff;
-      font-size: 1.25rem;
-    }
-
+    .app-nav { display: grid; grid-template-columns: repeat(8, minmax(100px, 1fr)); gap: 12px; margin: 18px 0 8px; }
+    .home-tile { aspect-ratio: 1 / 1; border: 1px solid var(--line); background: var(--paper); border-radius: 8px; text-decoration: none; display: flex; flex-direction: column; justify-content: space-between; padding: 13px; box-shadow: var(--shadow-sm); transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition); min-width: 0; }
+    .home-tile:hover, .home-tile.active { border-color: rgba(0, 51, 160, 0.45); box-shadow: 0 18px 35px rgba(0, 51, 160, 0.17); }
+    .icon-tile { width: 42px; height: 42px; border-radius: 8px; color: #fff; font-size: 1.25rem; }
     .home-tile span { font-size: 0.83rem; color: var(--muted); font-weight: 750; line-height: 1.1; }
     .home-tile strong { font-size: clamp(1rem, 2vw, 1.32rem); line-height: 1.05; }
-
     .tile-blue { background: var(--sb-blue); }
     .tile-aqua { background: var(--aqua); }
     .tile-lime { background: var(--lime); }
@@ -236,141 +78,30 @@
     .tile-violet { background: var(--violet); }
     .tile-dark { background: var(--ink); }
 
-    .dashboard-card {
-      background: var(--paper);
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      box-shadow: var(--shadow-sm);
-      transition: transform var(--transition), box-shadow var(--transition);
-      padding: 18px;
-      height: 100%;
-    }
-
-    .metric-value {
-      color: var(--sb-blue-dark);
-      font-weight: 900;
-      font-size: clamp(1.55rem, 4vw, 2.1rem);
-      line-height: 1;
-      margin: 8px 0 5px;
-    }
-
+    .dashboard-card { background: var(--paper); border: 1px solid var(--line); border-radius: 8px; box-shadow: var(--shadow-sm); transition: transform var(--transition), box-shadow var(--transition); padding: 18px; height: 100%; }
+    .metric-value { color: var(--sb-blue-dark); font-weight: 900; font-size: clamp(1.55rem, 4vw, 2.1rem); line-height: 1; margin: 8px 0 5px; }
     .muted { color: var(--muted); }
-
-    .pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      min-height: 28px;
-      border-radius: 999px;
-      background: rgba(0, 51, 160, 0.08);
-      color: var(--sb-blue-dark);
-      font-weight: 800;
-      font-size: 0.78rem;
-      padding: 5px 9px;
-      white-space: nowrap;
-    }
-
+    .pill { display: inline-flex; align-items: center; gap: 6px; min-height: 28px; border-radius: 999px; background: rgba(0, 51, 160, 0.08); color: var(--sb-blue-dark); font-weight: 800; font-size: 0.78rem; padding: 5px 9px; white-space: nowrap; }
     .pill-success { background: rgba(108, 194, 74, 0.14); color: #256b12; }
     .pill-warn { background: rgba(212, 175, 55, 0.18); color: #725700; }
+    .progress { height: 11px; border-radius: 999px; background: rgba(0, 51, 160, 0.08); }
+    .progress-bar { background: linear-gradient(90deg, var(--aqua), var(--sb-blue)); border-radius: 999px; }
 
-    .progress {
-      height: 11px;
-      border-radius: 999px;
-      background: rgba(0, 51, 160, 0.08);
-    }
+    .voice-assistant{position:fixed;bottom:100px;right:20px;width:56px;height:56px;border-radius:50%;background:var(--gold);color:var(--sb-blue-dark);border:none;font-size:1.4rem;z-index:1040;box-shadow:0 8px 24px rgba(0,0,0,0.2);cursor:pointer;display:grid;place-items:center}.voice-assistant.listening{background:var(--coral);animation:pulse 1s infinite}.voice-feedback{display:none;position:fixed;bottom:165px;right:20px;background:var(--ink);color:#fff;padding:12px 16px;border-radius:12px;font-size:.85rem;z-index:1040;max-width:250px;box-shadow:var(--shadow)}@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(255,107,95,0.5)}50%{box-shadow:0 0 0 15px rgba(255,107,95,0)}}
 
-    .progress-bar {
-      background: linear-gradient(90deg, var(--aqua), var(--sb-blue));
-      border-radius: 999px;
-    }
+    .toast-stack { position: fixed; right: 16px; bottom: 88px; z-index: 1080; display: grid; gap: 10px; width: min(340px, calc(100% - 32px)); }
+    .app-toast { background: var(--ink); color: #fff; border-radius: 8px; padding: 12px 14px; box-shadow: var(--shadow); animation: toastIn 220ms ease both; font-weight: 700; }
+    @keyframes toastIn { from { transform: translateY(12px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
 
-    .toast-stack {
-      position: fixed;
-      right: 16px;
-      bottom: 88px;
-      z-index: 1080;
-      display: grid;
-      gap: 10px;
-      width: min(340px, calc(100% - 32px));
-    }
-
-    .app-toast {
-      background: var(--ink);
-      color: #fff;
-      border-radius: 8px;
-      padding: 12px 14px;
-      box-shadow: var(--shadow);
-      animation: toastIn 220ms ease both;
-      font-weight: 700;
-    }
-
-    @keyframes toastIn {
-      from { transform: translateY(12px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
-    }
-
-    .mobile-bottom-nav {
-      position: fixed;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      z-index: 1030;
-      min-height: 72px;
-      padding: 7px 8px calc(7px + env(safe-area-inset-bottom));
-      display: grid;
-      grid-template-columns: repeat(5, minmax(0, 1fr));
-      gap: 6px;
-      background: rgba(255, 255, 255, 0.96);
-      border-top: 1px solid var(--line);
-      box-shadow: 0 -12px 28px rgba(16, 32, 51, 0.08);
-      backdrop-filter: blur(14px);
-    }
-
-    .mobile-nav-item {
-      min-width: 0;
-      min-height: 55px;
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      gap: 2px;
-      text-decoration: none;
-      color: var(--muted);
-      font-size: 0.7rem;
-      font-weight: 750;
-    }
-
+    .mobile-bottom-nav { position: fixed; left: 0; right: 0; bottom: 0; z-index: 1030; min-height: 72px; padding: 7px 8px calc(7px + env(safe-area-inset-bottom)); display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 6px; background: rgba(255, 255, 255, 0.96); border-top: 1px solid var(--line); box-shadow: 0 -12px 28px rgba(16, 32, 51, 0.08); backdrop-filter: blur(14px); }
+    .mobile-nav-item { min-width: 0; min-height: 55px; border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 2px; text-decoration: none; color: var(--muted); font-size: 0.7rem; font-weight: 750; }
     .mobile-nav-item i { font-size: 1.18rem; }
+    .mobile-nav-item.active { color: var(--sb-blue); background: rgba(0, 51, 160, 0.08); }
 
-    .mobile-nav-item.active {
-      color: var(--sb-blue);
-      background: rgba(0, 51, 160, 0.08);
-    }
-
-    @media (min-width: 860px) {
-      body { padding-bottom: 0; }
-      .mobile-bottom-nav { display: none; }
-    }
-
-    @media (max-width: 1040px) {
-      .app-nav { grid-template-columns: repeat(4, minmax(110px, 1fr)); }
-      .page-hero { grid-template-columns: 1fr; }
-    }
-
-    @media (max-width: 720px) {
-      .topbar-inner { align-items: stretch; flex-direction: column; padding: 12px 0; }
-      .toolbar { display: grid; grid-template-columns: 1fr auto; }
-      .member-select { width: 100%; min-width: 0; }
-      .app-nav { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .hero-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    }
-
-    @media (max-width: 420px) {
-      .main, .topbar-inner { width: min(100% - 20px, 1180px); }
-      .page-hero { padding: 20px; }
-      .hero-stats { grid-template-columns: 1fr; }
-    }
+    @media (min-width: 860px) { body { padding-bottom: 0; } .mobile-bottom-nav { display: none; } }
+    @media (max-width: 1040px) { .app-nav { grid-template-columns: repeat(4, minmax(110px, 1fr)); } .page-hero { grid-template-columns: 1fr; } }
+    @media (max-width: 720px) { .topbar-inner { align-items: stretch; flex-direction: column; padding: 12px 0; } .toolbar { display: grid; grid-template-columns: 1fr auto; } .member-select { width: 100%; min-width: 0; } .app-nav { grid-template-columns: repeat(2, minmax(0, 1fr)); } .hero-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+    @media (max-width: 420px) { .main, .topbar-inner { width: min(100% - 20px, 1180px); } .page-hero { padding: 20px; } .hero-stats { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body data-page="savings">
@@ -383,6 +114,17 @@
       </div>
     </div>
   </header>
+
+  <nav class="app-nav">
+    <a class="home-tile" data-nav="overview" href="index.html"><i class="bi bi-grid-1x2-fill icon-tile tile-blue"></i><span>Home</span><strong>Overview</strong></a>
+    <a class="home-tile" data-nav="stokvel" href="stokvel.html"><i class="bi bi-people-fill icon-tile tile-aqua"></i><span>Shared</span><strong>Stokvel</strong></a>
+    <a class="home-tile" data-nav="approvals" href="approvals.html"><i class="bi bi-check2-square icon-tile tile-lime"></i><span>All members</span><strong>Approvals</strong></a>
+    <a class="home-tile" data-nav="emergency" href="emergency.html"><i class="bi bi-life-preserver icon-tile tile-coral"></i><span>14% split</span><strong>Emergency</strong></a>
+    <a class="home-tile" data-nav="payments" href="payments.html"><i class="bi bi-cash-coin icon-tile tile-gold"></i><span>Money in</span><strong>Payments</strong></a>
+    <a class="home-tile" data-nav="credit" href="credit.html"><i class="bi bi-speedometer2 icon-tile tile-violet"></i><span>Profile</span><strong>Credit</strong></a>
+    <a class="home-tile active" data-nav="savings" href="savings.html"><i class="bi bi-graph-up-arrow icon-tile tile-dark"></i><span>Growth</span><strong>Savings</strong></a>
+    <a class="home-tile" data-nav="community" href="community.html"><i class="bi bi-chat-dots-fill icon-tile tile-aqua"></i><span>Connect</span><strong>Community</strong></a>
+  </nav>
 
   <main class="main">
     <section class="page-hero">
@@ -398,16 +140,6 @@
         <div class="hero-stat"><strong id="creditScoreDisplay">0</strong><span>Credit score</span></div>
       </div>
     </section>
-
-    <nav class="app-nav">
-      <a class="home-tile" data-nav="overview" href="index.html"><i class="bi bi-grid-1x2-fill icon-tile tile-blue"></i><span>Home</span><strong>Overview</strong></a>
-      <a class="home-tile" data-nav="stokvel" href="stokvel.html"><i class="bi bi-people-fill icon-tile tile-aqua"></i><span>Shared</span><strong>Stokvel</strong></a>
-      <a class="home-tile" data-nav="approvals" href="approvals.html"><i class="bi bi-check2-square icon-tile tile-lime"></i><span>All members</span><strong>Approvals</strong></a>
-      <a class="home-tile" data-nav="emergency" href="emergency.html"><i class="bi bi-life-preserver icon-tile tile-coral"></i><span>14% split</span><strong>Emergency</strong></a>
-      <a class="home-tile" data-nav="payments" href="payments.html"><i class="bi bi-cash-coin icon-tile tile-gold"></i><span>Money in</span><strong>Payments</strong></a>
-      <a class="home-tile" data-nav="credit" href="credit.html"><i class="bi bi-speedometer2 icon-tile tile-violet"></i><span>Profile</span><strong>Credit</strong></a>
-      <a class="home-tile" data-nav="savings" href="savings.html"><i class="bi bi-graph-up-arrow icon-tile tile-dark"></i><span>Growth</span><strong>Savings</strong></a>
-    </nav>
 
     <section class="row g-3 mt-3">
       <div class="col-lg-4">
@@ -438,25 +170,26 @@
         </div>
       </div>
     </section>
+
+    <button class="voice-assistant" id="voiceAssistantBtn"><i class="bi bi-mic-fill"></i></button>
+    <div class="voice-feedback" id="voiceFeedback"></div>
   </main>
 
   <nav class="mobile-bottom-nav">
-    <a href="index.html" class="mobile-nav-item" data-nav="overview"><i class="bi bi-house"></i><span>Home</span></a>
-    <a href="stokvel.html" class="mobile-nav-item" data-nav="stokvel"><i class="bi bi-people"></i><span>Stokvel</span></a>
-    <a href="approvals.html" class="mobile-nav-item" data-nav="approvals"><i class="bi bi-check2-square"></i><span>Approve</span></a>
-    <a href="emergency.html" class="mobile-nav-item" data-nav="emergency"><i class="bi bi-life-preserver"></i><span>Emergency</span></a>
-    <a href="payments.html" class="mobile-nav-item" data-nav="payments"><i class="bi bi-cash"></i><span>Cash</span></a>
+    <a href="index.html" class="mobile-nav-item"><i class="bi bi-house"></i><span>Home</span></a>
+    <a href="stokvel.html" class="mobile-nav-item"><i class="bi bi-people"></i><span>Stokvel</span></a>
+    <a href="approvals.html" class="mobile-nav-item"><i class="bi bi-check2-square"></i><span>Approve</span></a>
+    <a href="emergency.html" class="mobile-nav-item"><i class="bi bi-life-preserver"></i><span>Emergency</span></a>
+    <a href="community.html" class="mobile-nav-item"><i class="bi bi-chat-dots"></i><span>Forum</span></a>
   </nav>
 
   <div class="toast-stack" id="toastStack"></div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 
-  <!-- ========== PAGE-SPECIFIC JAVASCRIPT ========== -->
   <script>
     (function() {
       const STORAGE_KEY = "moneyMattersUltimateStokvelState";
-
       const baseMembers = [
         { name: "Thabo", role: "Chairperson", color: "#0033a0" },
         { name: "Priya", role: "Treasurer", color: "#00a6a6" },
@@ -464,47 +197,18 @@
         { name: "Sipho", role: "Member", color: "#d4af37" },
         { name: "Nandi", role: "Member", color: "#ff6b5f" }
       ];
-
       const defaultState = {
-        currentMode: "business",
-        activeMember: "Thabo",
-        stokvel: {
-          contribution: 250,
-          mainPool: 6450,
-          emergencyFund: 1050,
-          payoutIndex: 2,
-          members: baseMembers,
-          memberContributions: {
-            Thabo: 1500, Priya: 1500, Lerato: 1500, Sipho: 1500, Nandi: 1500
-          }
-        },
-        transactions: [],
-        repayments: [],
-        activity: [],
-        businessData: {
-          creditScore: 742,
-          subscriptions: [],
-          incomingPayments: [],
-          rent: { amount: 1500, paid: false },
-          savings: 8720,
-          investments: 5340
-        },
-        personalData: {
-          creditScore: 698,
-          subscriptions: [],
-          incomingPayments: [],
-          rent: { amount: 1100, paid: true },
-          savings: 4200,
-          investments: 2100
-        }
+        currentMode: "business", activeMember: "Thabo",
+        stokvel: { contribution: 250, mainPool: 6450, emergencyFund: 1050, payoutIndex: 2, members: baseMembers, memberContributions: { Thabo: 1500, Priya: 1500, Lerato: 1500, Sipho: 1500, Nandi: 1500 } },
+        transactions: [], repayments: [], activity: [],
+        businessData: { creditScore: 742, subscriptions: [], incomingPayments: [], rent: { amount: 1500, paid: false }, savings: 8720, investments: 5340 },
+        personalData: { creditScore: 698, subscriptions: [], incomingPayments: [], rent: { amount: 1100, paid: true }, savings: 4200, investments: 2100 }
       };
-
-      const clone = (value) => JSON.parse(JSON.stringify(value));
-      const qs = (selector) => document.querySelector(selector);
-      const qsa = (selector) => Array.from(document.querySelectorAll(selector));
-      const money = (value) => "R" + Number(value || 0).toLocaleString("en-ZA", { maximumFractionDigits: 2 });
+      const clone = (v) => JSON.parse(JSON.stringify(v));
+      const qs = (s) => document.querySelector(s);
+      const qsa = (s) => Array.from(document.querySelectorAll(s));
+      const money = (v) => "R" + Number(v || 0).toLocaleString("en-ZA", { maximumFractionDigits: 2 });
       const pageName = document.body.dataset.page || "savings";
-
       let state = loadState();
       let activeData = getActiveData();
 
@@ -513,71 +217,29 @@
         try {
           const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
           if (!saved) return base;
-          const merged = { ...base, ...saved,
-            stokvel: { ...base.stokvel, ...(saved.stokvel || {}),
-              members: (saved.stokvel && saved.stokvel.members) || base.stokvel.members,
-              memberContributions: { ...base.stokvel.memberContributions, ...((saved.stokvel && saved.stokvel.memberContributions) || {}) }
-            },
-            businessData: { ...base.businessData, ...(saved.businessData || {}) },
-            personalData: { ...base.personalData, ...(saved.personalData || {}) },
-            transactions: saved.transactions || base.transactions,
-            repayments: saved.repayments || base.repayments,
-            activity: saved.activity || base.activity
-          };
-          return merged;
-        } catch (error) { return base; }
+          return { ...base, ...saved, stokvel: { ...base.stokvel, ...(saved.stokvel || {}), members: (saved.stokvel && saved.stokvel.members) || base.stokvel.members, memberContributions: { ...base.stokvel.memberContributions, ...((saved.stokvel && saved.stokvel.memberContributions) || {}) } }, businessData: { ...base.businessData, ...(saved.businessData || {}) }, personalData: { ...base.personalData, ...(saved.personalData || {}) }, transactions: saved.transactions || base.transactions, repayments: saved.repayments || base.repayments, activity: saved.activity || base.activity };
+        } catch(e) { return base; }
       }
-
-      function saveState() {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-      }
-
-      function getActiveData() {
-        return state.currentMode === "business" ? state.businessData : state.personalData;
-      }
-
+      function saveState() { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
+      function getActiveData() { return state.currentMode === "business" ? state.businessData : state.personalData; }
       function getMembers() { return state.stokvel.members; }
 
-      function showToast(message) {
+      function showToast(m) {
         const stack = qs("#toastStack");
         if (!stack) return;
         const toast = document.createElement("div");
-        toast.className = "app-toast";
-        toast.textContent = message;
-        stack.appendChild(toast);
-        window.setTimeout(() => toast.remove(), 3400);
+        toast.className = "app-toast"; toast.textContent = m;
+        stack.appendChild(toast); setTimeout(() => toast.remove(), 3400);
       }
-
-      function setText(id, value) {
-        const node = qs("#" + id);
-        if (node) node.textContent = value;
-      }
-
-      function on(id, eventName, handler) {
-        const node = qs("#" + id);
-        if (node) node.addEventListener(eventName, handler);
-      }
-
-      function addActivity(icon, tone, title, detail, amount) {
-        state.activity.unshift({ icon, tone, title, detail, amount: amount || 0 });
-        state.activity = state.activity.slice(0, 8);
-      }
+      function setText(id, v) { const n = qs("#" + id); if (n) n.textContent = v; }
+      function on(id, ev, h) { const n = qs("#" + id); if (n) n.addEventListener(ev, h); }
+      function addActivity(icon, tone, title, detail, amount) { state.activity.unshift({ icon, tone, title, detail, amount: amount || 0 }); state.activity = state.activity.slice(0, 8); }
 
       function renderShell() {
-        const options = getMembers().map(member => `<option value="${member.name}">${member.name} · ${member.role}</option>`).join("");
-        qsa("[data-member-select]").forEach(select => {
-          select.innerHTML = options;
-          select.value = state.activeMember;
-        });
-
-        qsa("[data-mode-text]").forEach(node => {
-          node.textContent = state.currentMode === "business" ? "Business" : "Personal";
-        });
-
-        qsa("[data-nav]").forEach(link => {
-          link.classList.toggle("active", link.dataset.nav === pageName);
-        });
-
+        const opts = getMembers().map(m => `<option value="${m.name}">${m.name} · ${m.role}</option>`).join("");
+        qsa("[data-member-select]").forEach(s => { s.innerHTML = opts; s.value = state.activeMember; });
+        qsa("[data-mode-text]").forEach(n => { n.textContent = state.currentMode === "business" ? "Business" : "Personal"; });
+        qsa("[data-nav]").forEach(l => { l.classList.toggle("active", l.dataset.nav === pageName); });
         setText("savingsBalance", money(activeData.savings));
         setText("investmentsValue", money(activeData.investments));
         setText("heroEmergency", money(state.stokvel.emergencyFund));
@@ -588,80 +250,57 @@
         setText("savingsDetail", activeData.savings.toLocaleString("en-ZA"));
         setText("investmentsDetail", activeData.investments.toLocaleString("en-ZA"));
         setText("rentAmountDisplay", money(activeData.rent.amount));
-        const savingsBar = qs("#savingsProgressBar");
-        if (savingsBar) savingsBar.style.width = Math.min(100, (activeData.savings / 12000) * 100) + "%";
-        const rentStatus = qs("#rentStatus");
-        if (rentStatus) {
-          rentStatus.textContent = activeData.rent.paid ? "Paid" : "Pending";
-          rentStatus.className = activeData.rent.paid ? "pill pill-success mt-3" : "pill pill-warn mt-3";
-        }
-        const rentButton = qs("#markRentPaid");
-        if (rentButton) rentButton.style.display = activeData.rent.paid ? "none" : "block";
+        const bar = qs("#savingsProgressBar");
+        if (bar) bar.style.width = Math.min(100, (activeData.savings / 12000) * 100) + "%";
+        const rs = qs("#rentStatus");
+        if (rs) { rs.textContent = activeData.rent.paid ? "Paid" : "Pending"; rs.className = activeData.rent.paid ? "pill pill-success mt-3" : "pill pill-warn mt-3"; }
+        const rb = qs("#markRentPaid");
+        if (rb) rb.style.display = activeData.rent.paid ? "none" : "block";
       }
 
       function bindShell() {
-        qsa("[data-member-select]").forEach(select => {
-          select.addEventListener("change", event => {
-            state.activeMember = event.target.value;
-            saveAndRender();
-            showToast("Now acting as " + state.activeMember + ".");
-          });
-        });
-        qsa("[data-mode-toggle]").forEach(button => {
-          button.addEventListener("click", () => {
-            state.currentMode = state.currentMode === "business" ? "personal" : "business";
-            activeData = getActiveData();
-            saveAndRender();
-            showToast("Switched to " + state.currentMode + " view.");
-          });
-        });
+        qsa("[data-member-select]").forEach(s => { s.addEventListener("change", e => { state.activeMember = e.target.value; saveAndRender(); showToast("Now acting as " + state.activeMember + "."); }); });
+        qsa("[data-mode-toggle]").forEach(b => { b.addEventListener("click", () => { state.currentMode = state.currentMode === "business" ? "personal" : "business"; activeData = getActiveData(); saveAndRender(); showToast("Switched to " + state.currentMode + " view."); }); });
       }
 
       function bindForms() {
-        on("addSavingsBtn", "click", () => {
-          const amount = Number(qs("#savingsAmount").value);
-          if (!Number.isFinite(amount) || amount <= 0) return showToast("Enter a savings amount.");
-          activeData.savings += amount;
-          qs("#savingsAmount").value = "";
-          addActivity("bi-piggy-bank", "tile-lime", "Savings boosted", state.activeMember + " added to savings", amount);
-          saveAndRender();
-        });
-        on("boostInvestmentsBtn", "click", () => {
-          activeData.investments = Math.round(activeData.investments * 1.024);
-          saveAndRender();
-          showToast("Investment simulation updated.");
-        });
-        on("markRentPaid", "click", () => {
-          activeData.rent.paid = true;
-          saveAndRender();
-          showToast("Rent marked as paid.");
-        });
+        on("addSavingsBtn", "click", () => { const amt = Number(qs("#savingsAmount").value); if (!Number.isFinite(amt) || amt <= 0) return showToast("Enter a savings amount."); activeData.savings += amt; qs("#savingsAmount").value = ""; addActivity("bi-piggy-bank", "tile-lime", "Savings boosted", state.activeMember + " added to savings", amt); saveAndRender(); });
+        on("boostInvestmentsBtn", "click", () => { activeData.investments = Math.round(activeData.investments * 1.024); saveAndRender(); showToast("Investment simulation updated."); });
+        on("markRentPaid", "click", () => { activeData.rent.paid = true; saveAndRender(); showToast("Rent marked as paid."); });
       }
 
-      function renderPage() {
-        activeData = getActiveData();
-        renderShell();
-        renderSavings();
-      }
+      function renderPage() { activeData = getActiveData(); renderShell(); renderSavings(); }
+      function saveAndRender() { saveState(); renderPage(); }
 
-      function saveAndRender() {
-        saveState();
-        renderPage();
-      }
-
-      window.addEventListener("storage", event => {
-        if (event.key !== STORAGE_KEY) return;
-        state = loadState();
-        activeData = getActiveData();
-        renderPage();
-      });
-
-      document.addEventListener("DOMContentLoaded", () => {
-        renderPage();
-        bindShell();
-        bindForms();
-      });
+      window.addEventListener("storage", e => { if (e.key !== STORAGE_KEY) return; state = loadState(); activeData = getActiveData(); renderPage(); });
+      document.addEventListener("DOMContentLoaded", () => { renderPage(); bindShell(); bindForms(); });
     })();
+  </script>
+
+  <script>
+    (function() {
+      const voiceBtn = document.getElementById('voiceAssistantBtn');
+      const voiceFeedback = document.getElementById('voiceFeedback');
+      let recognition = null;
+      if (voiceBtn) {
+        voiceBtn.addEventListener('click', () => {
+          if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) { voiceFeedback.textContent = 'Speech not supported.'; voiceFeedback.style.display = 'block'; setTimeout(() => { voiceFeedback.style.display = 'none'; }, 3000); return; }
+          const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+          recognition = new SpeechRecognition(); recognition.continuous = false; recognition.interimResults = false; recognition.lang = 'en-ZA';
+          recognition.onstart = () => { voiceBtn.classList.add('listening'); voiceFeedback.textContent = '🎤 Listening...'; voiceFeedback.style.display = 'block'; };
+          recognition.onresult = (e) => { const t = e.results[0][0].transcript.toLowerCase(); let r = 'Try saying: savings, rent, or help.'; if (t.includes('savings')) r = 'Add to your savings goal to track progress toward R12,000.'; if (t.includes('rent')) r = 'Mark your rent as paid on this page.'; if (t.includes('help')) r = 'Track savings, investments, and rent payments here.'; voiceFeedback.textContent = r; if ('speechSynthesis' in window) { const u = new SpeechSynthesisUtterance(r); u.lang = 'en-ZA'; window.speechSynthesis.cancel(); window.speechSynthesis.speak(u); } };
+          recognition.onerror = () => { voiceBtn.classList.remove('listening'); };
+          recognition.onend = () => { voiceBtn.classList.remove('listening'); setTimeout(() => { voiceFeedback.style.display = 'none'; }, 4000); };
+          recognition.start();
+        });
+      }
+    })();
+  </script>
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js').then(() => console.log('SW registered')).catch(() => {});
+    }
   </script>
 </body>
 </html>
