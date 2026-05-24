@@ -157,7 +157,6 @@
     }
     .pill-success { background: rgba(108, 194, 74, 0.14); color: #256b12; }
 
-    /* Forum Styles */
     .forum-post {
       background: var(--paper);
       border-radius: 8px;
@@ -187,7 +186,6 @@
     .forum-like:hover { color: var(--coral); }
     .forum-like.liked { color: var(--coral); }
 
-    /* Help Video Cards */
     .help-video-card {
       background: var(--paper);
       border-radius: 8px;
@@ -217,7 +215,6 @@
       gap: 4px;
     }
 
-    /* Voice Assistant */
     .voice-assistant {
       position: fixed;
       bottom: 100px;
@@ -260,7 +257,6 @@
     }
     @media (min-width: 860px) { .voice-assistant { bottom: 30px; } .voice-feedback { bottom: 100px; } }
 
-    /* Toast & Mobile */
     .toast-stack {
       position: fixed;
       right: 16px;
@@ -324,27 +320,30 @@
     </div>
   </header>
 
+  <nav class="app-nav">
+    <a class="home-tile" data-nav="overview" href="index.html"><i class="bi bi-grid-1x2-fill icon-tile tile-blue"></i><span>Home</span><strong>Overview</strong></a>
+    <a class="home-tile" data-nav="stokvel" href="stokvel.html"><i class="bi bi-people-fill icon-tile tile-aqua"></i><span>Shared</span><strong>Stokvel</strong></a>
+    <a class="home-tile" data-nav="approvals" href="approvals.html"><i class="bi bi-check2-square icon-tile tile-lime"></i><span>All members</span><strong>Approvals</strong></a>
+    <a class="home-tile" data-nav="emergency" href="emergency.html"><i class="bi bi-life-preserver icon-tile tile-coral"></i><span>14% split</span><strong>Emergency</strong></a>
+    <a class="home-tile" data-nav="payments" href="payments.html"><i class="bi bi-cash-coin icon-tile tile-gold"></i><span>Money in</span><strong>Payments</strong></a>
+    <a class="home-tile" data-nav="credit" href="credit.html"><i class="bi bi-speedometer2 icon-tile tile-violet"></i><span>Profile</span><strong>Credit</strong></a>
+    <a class="home-tile" data-nav="savings" href="savings.html"><i class="bi bi-graph-up-arrow icon-tile tile-dark"></i><span>Growth</span><strong>Savings</strong></a>
+    <a class="home-tile active" data-nav="community" href="community.html"><i class="bi bi-chat-dots-fill icon-tile tile-aqua"></i><span>Connect</span><strong>Community</strong></a>
+  </nav>
+
   <main class="main">
     <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
       <h1 class="h2 fw-bold mb-0"><i class="bi bi-chat-dots-fill me-2" style="color: var(--sb-blue);"></i>Community & Help Centre</h1>
       <div><span class="offline-badge"><i class="bi bi-wifi-off"></i> Works offline</span></div>
     </div>
 
-    <!-- Navigation Tabs -->
     <ul class="nav nav-tabs mb-4" id="communityTab" role="tablist">
-      <li class="nav-item" role="presentation">
-        <button class="nav-link active" id="help-tab" data-bs-toggle="tab" data-bs-target="#help" type="button" role="tab"><i class="bi bi-play-circle me-1"></i>📱 Offline Help Centre</button>
-      </li>
-      <li class="nav-item" role="presentation">
-        <button class="nav-link" id="forum-tab" data-bs-toggle="tab" data-bs-target="#forum" type="button" role="tab"><i class="bi bi-people me-1"></i>💬 Community Forum</button>
-      </li>
-      <li class="nav-item" role="presentation">
-        <button class="nav-link" id="voice-tab" data-bs-toggle="tab" data-bs-target="#voice" type="button" role="tab"><i class="bi bi-mic me-1"></i>🎤 AI Voice Assistant</button>
-      </li>
+      <li class="nav-item"><button class="nav-link active" id="help-tab" data-bs-toggle="tab" data-bs-target="#help"><i class="bi bi-play-circle me-1"></i>📱 Offline Help Centre</button></li>
+      <li class="nav-item"><button class="nav-link" id="forum-tab" data-bs-toggle="tab" data-bs-target="#forum"><i class="bi bi-people me-1"></i>💬 Community Forum</button></li>
+      <li class="nav-item"><button class="nav-link" id="voice-tab" data-bs-toggle="tab" data-bs-target="#voice"><i class="bi bi-mic me-1"></i>🎤 AI Voice Assistant</button></li>
     </ul>
 
     <div class="tab-content" id="communityTabContent">
-      <!-- ========== TAB 1: OFFLINE HELP CENTRE ========== -->
       <div class="tab-pane fade show active" id="help" role="tabpanel">
         <div class="row g-3">
           <div class="col-12">
@@ -394,7 +393,6 @@
         </div>
       </div>
 
-      <!-- ========== TAB 2: COMMUNITY FORUM ========== -->
       <div class="tab-pane fade" id="forum" role="tabpanel">
         <div class="row g-3">
           <div class="col-lg-8">
@@ -403,9 +401,7 @@
                 <h3 class="h5 fw-bold mb-0"><i class="bi bi-chat-dots me-2"></i>South African stokvel community</h3>
                 <button class="btn-soft btn-sm" id="newPostBtn"><i class="bi bi-plus-lg me-1"></i>New post</button>
               </div>
-              <div id="forumPostsContainer">
-                <div class="text-center py-4"><div class="spinner-border text-success"></div><p class="mt-2">Loading forum...</p></div>
-              </div>
+              <div id="forumPostsContainer"><div class="text-center py-4"><div class="spinner-border text-success"></div><p class="mt-2">Loading forum...</p></div></div>
             </div>
           </div>
           <div class="col-lg-4">
@@ -436,7 +432,6 @@
         </div>
       </div>
 
-      <!-- ========== TAB 3: AI VOICE ASSISTANT ========== -->
       <div class="tab-pane fade" id="voice" role="tabpanel">
         <div class="row g-3">
           <div class="col-md-6">
@@ -472,7 +467,6 @@
     </div>
   </main>
 
-  <!-- Mobile Bottom Navigation -->
   <nav class="mobile-bottom-nav">
     <a href="index.html" class="mobile-nav-item"><i class="bi bi-house"></i><span>Home</span></a>
     <a href="stokvel.html" class="mobile-nav-item"><i class="bi bi-people"></i><span>Stokvel</span></a>
@@ -481,12 +475,10 @@
     <a href="community.html" class="mobile-nav-item active"><i class="bi bi-chat-dots"></i><span>Community</span></a>
   </nav>
 
-  <!-- Floating Voice Assistant Button (visible on all pages) -->
   <button class="voice-assistant" id="floatingVoiceBtn"><i class="bi bi-mic-fill"></i></button>
   <div class="voice-feedback" id="voiceFeedback"></div>
   <div class="toast-stack" id="toastStack"></div>
 
-  <!-- New Post Modal -->
   <div class="modal fade" id="newPostModal" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
@@ -516,19 +508,14 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
   <script>
     (function() {
-      // ========== STORAGE KEYS ==========
       const STORAGE_KEY = "moneyMattersUltimateStokvelState";
       const FORUM_KEY = "moneyMattersForum";
-
-      // ========== DEFAULT FORUM POSTS (SA-focused, moderated) ==========
       const defaultForumPosts = [
         { id: "post1", title: "Best way to split stokvel payouts?", content: "Our group has 8 members. Any advice on fair rotation? We're thinking monthly payouts but want everyone to benefit equally.", author: "Thabo_JHB", avatar: "T", likes: 12, likedBy: [], date: "2026-05-20", category: "Stokvel Tips" },
         { id: "post2", title: "Emergency fund saved my family 🙏", content: "We had a medical emergency last week and the fund helped immediately. So grateful for this system!", author: "Nandi_DBN", avatar: "N", likes: 34, likedBy: [], date: "2026-05-18", category: "Emergency" },
         { id: "post3", title: "Where do you invest your stokvel surplus?", content: "We have extra R5k this month - EasyEquities TFSA or rotate to members? What works for you?", author: "Priya_CPT", avatar: "P", likes: 8, likedBy: [], date: "2026-05-15", category: "Investments" },
         { id: "post4", title: "Saving for December holiday - tips?", content: "We're 5 members saving R250 each. Target is R10k for year-end braai and gifts. Any saving hacks?", author: "Lerato_STB", avatar: "L", likes: 5, likedBy: [], date: "2026-05-12", category: "Savings Goals" }
       ];
-
-      // ========== OFFLINE HELP VIDEOS ==========
       const helpVideos = [
         { id: 1, title: "How to make a contribution", duration: "1:30", icon: "bi-cash-stack", description: "Step-by-step guide to paying your R250 monthly" },
         { id: 2, title: "Requesting emergency funds", duration: "2:15", icon: "bi-life-preserver", description: "When and how to request emergency withdrawal" },
@@ -538,7 +525,6 @@
         { id: 6, title: "Inviting members", duration: "1:10", icon: "bi-person-plus", description: "Add new members to your stokvel" }
       ];
 
-      // ========== HELPER FUNCTIONS ==========
       function showToast(message) {
         const stack = document.getElementById('toastStack');
         if (!stack) return;
@@ -550,26 +536,15 @@
       }
 
       function getCurrentUser() {
-        try {
-          const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
-          return saved?.activeMember || 'Thabo';
-        } catch(e) { return 'Thabo'; }
+        try { const saved = JSON.parse(localStorage.getItem(STORAGE_KEY)); return saved?.activeMember || 'Thabo'; } catch(e) { return 'Thabo'; }
       }
 
       function loadForumPosts() {
-        try {
-          const saved = localStorage.getItem(FORUM_KEY);
-          if (saved) return JSON.parse(saved);
-          localStorage.setItem(FORUM_KEY, JSON.stringify(defaultForumPosts));
-          return [...defaultForumPosts];
-        } catch(e) { return [...defaultForumPosts]; }
+        try { const saved = localStorage.getItem(FORUM_KEY); if (saved) return JSON.parse(saved); localStorage.setItem(FORUM_KEY, JSON.stringify(defaultForumPosts)); return [...defaultForumPosts]; } catch(e) { return [...defaultForumPosts]; }
       }
 
-      function saveForumPosts(posts) {
-        localStorage.setItem(FORUM_KEY, JSON.stringify(posts));
-      }
+      function saveForumPosts(posts) { localStorage.setItem(FORUM_KEY, JSON.stringify(posts)); }
 
-      // ========== RENDER HELP VIDEOS ==========
       function renderHelpVideos() {
         const container = document.getElementById('helpVideosContainer');
         if (!container) return;
@@ -593,11 +568,10 @@
         });
       }
 
-      // ========== RENDER FORUM POSTS ==========
       function renderForumPosts() {
         const container = document.getElementById('forumPostsContainer');
         if (!container) return;
-        let posts = loadForumPosts();
+                let posts = loadForumPosts();
         const totalLikes = posts.reduce((sum, p) => sum + p.likes, 0);
         document.getElementById('totalPosts').innerText = posts.length;
         document.getElementById('totalLikes').innerText = totalLikes;
@@ -663,7 +637,6 @@
         });
       }
 
-      // ========== AI VOICE ASSISTANT (Multi-language) ==========
       let recognition = null;
       let isListening = false;
       const voiceFeedback = document.getElementById('voiceFeedback');
@@ -671,7 +644,6 @@
       const mainVoiceBtn = document.getElementById('voiceAssistantMainBtn');
       const voiceStatusText = document.getElementById('voiceStatusText');
 
-      // Multi-language responses
       const responses = {
         en: {
           balance: () => { try { return `Your current balance is ${document.getElementById('heroPool')?.innerText || 'R0'}`; } catch(e) { return 'Balance R0'; } },
@@ -780,9 +752,7 @@
           const response = processVoiceCommand(transcript, detectedLang);
           
           setTimeout(() => {
-            if (voiceFeedback) {
-              voiceFeedback.textContent = `🤖 ${response}`;
-            }
+            if (voiceFeedback) voiceFeedback.textContent = `🤖 ${response}`;
             if (voiceStatusText) voiceStatusText.textContent = `🤖 ${response.substring(0, 60)}...`;
           }, 500);
           
@@ -796,7 +766,6 @@
         };
         
         recognition.onerror = (event) => {
-          console.error('Speech error:', event.error);
           if (voiceFeedback) {
             voiceFeedback.textContent = `❌ Error: ${event.error}. Please try again.`;
             setTimeout(() => { if (voiceFeedback) voiceFeedback.style.display = 'none'; }, 3000);
@@ -818,7 +787,6 @@
         recognition.start();
       }
 
-      // Voice button handlers
       if (floatingBtn) floatingBtn.addEventListener('click', startVoiceListening);
       if (mainVoiceBtn) mainVoiceBtn.addEventListener('click', startVoiceListening);
       
@@ -834,7 +802,6 @@
         });
       }
 
-      // ========== FORUM NEW POST ==========
       document.getElementById('newPostBtn')?.addEventListener('click', () => {
         const modal = new bootstrap.Modal(document.getElementById('newPostModal'));
         modal.show();
@@ -844,21 +811,12 @@
         const title = document.getElementById('postTitle').value.trim();
         const content = document.getElementById('postContent').value.trim();
         const category = document.getElementById('postCategory').value;
-        if (!title || !content) {
-          showToast('Please fill in both title and content');
-          return;
-        }
+        if (!title || !content) { showToast('Please fill in both title and content'); return; }
         const user = getCurrentUser();
         const newPost = {
-          id: 'post' + Date.now(),
-          title: title,
-          content: content,
-          author: user,
-          avatar: user.charAt(0),
-          likes: 0,
-          likedBy: [],
-          date: new Date().toISOString().slice(0, 10),
-          category: category
+          id: 'post' + Date.now(), title, content, author: user,
+          avatar: user.charAt(0), likes: 0, likedBy: [],
+          date: new Date().toISOString().slice(0, 10), category
         };
         const posts = loadForumPosts();
         posts.unshift(newPost);
@@ -870,7 +828,6 @@
         showToast('✅ Post published! (moderated for quality)');
       });
 
-      // ========== MEMBER SELECT & MODE TOGGLE (sync with other pages) ==========
       function updateMemberSelect() {
         try {
           const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
@@ -887,10 +844,7 @@
       document.querySelector('[data-member-select]')?.addEventListener('change', (e) => {
         try {
           const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
-          if (saved) {
-            saved.activeMember = e.target.value;
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(saved));
-          }
+          if (saved) { saved.activeMember = e.target.value; localStorage.setItem(STORAGE_KEY, JSON.stringify(saved)); }
           showToast(`Now acting as ${e.target.value}`);
           renderForumPosts();
         } catch(err) {}
@@ -918,43 +872,35 @@
         } catch(e) {}
       }
 
-      // ========== SERVICE WORKER REGISTRATION (Offline support) ==========
       if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/sw.js').then(reg => {
-          console.log('Service Worker registered for offline support');
-        }).catch(err => console.log('SW registration failed:', err));
+        navigator.serviceWorker.register('/sw.js').then(() => console.log('SW registered')).catch(() => {});
       }
 
-      // ========== INITIAL RENDER ==========
       renderHelpVideos();
       renderForumPosts();
       updateMemberSelect();
       updateModeText();
       
-      // Also try to read hero stats from localStorage for voice assistant balance
       try {
         const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
         if (saved) {
           const totalPool = (saved.stokvel?.mainPool || 0) + (saved.stokvel?.emergencyFund || 0);
           if (!document.getElementById('heroPool')) {
             const fakeHero = document.createElement('span');
-            fakeHero.id = 'heroPool';
-            fakeHero.style.display = 'none';
+            fakeHero.id = 'heroPool'; fakeHero.style.display = 'none';
             fakeHero.innerText = 'R' + totalPool.toLocaleString();
             document.body.appendChild(fakeHero);
-          } else {
-            document.getElementById('heroPool').innerText = 'R' + totalPool.toLocaleString();
           }
         }
       } catch(e) {}
     })();
   </script>
   <script>
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('sw.js')
-      .then(() => console.log('Service Worker registered!'))
-      .catch(err => console.log('Service Worker failed:', err));
-  }
-</script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js')
+        .then(() => console.log('Service Worker registered!'))
+        .catch(err => console.log('Service Worker failed:', err));
+    }
+  </script>
 </body>
 </html>
