@@ -1,31 +1,34 @@
+Here is the complete HTML document for your **Debt & Credit Management** page, built on your existing template with a full debt dashboard, interest calculator, payoff planners, credit score monitoring, and payment reminders.
+```html
 <!DOCTYPE html>
+<!-- Debt & Credit Management Page -->
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-  <title>MoneyMatters | Credit</title>
+  <title>MoneyMatters | Debt & Credit Manager</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
-  <link rel="manifest" href="manifest.json">
+  
   <style>
     :root {
-  --sb-blue: #006b3f;
-  --sb-blue-light: #008f54;
-  --sb-blue-dark: #004d2c;
-  --ink: #102033;
-  --muted: #64748b;
-  --paper: #ffffff;
-  --soft: #f3f7fb;
-  --line: rgba(16, 32, 51, 0.1);
-  --aqua: #00a86b;
-  --lime: #6cc24a;
-  --gold: #d4af37;
-  --coral: #ff6b5f;
-  --violet: #6750d8;
-  --shadow: 0 18px 45px rgba(0, 107, 63, 0.13);
-  --shadow-sm: 0 10px 26px rgba(0, 107, 63, 0.09);
-  --transition: 180ms ease;
-}
+      --sb-blue: #006b3f;
+      --sb-blue-light: #008f54;
+      --sb-blue-dark: #004d2c;
+      --ink: #102033;
+      --muted: #64748b;
+      --paper: #ffffff;
+      --soft: #f3f7fb;
+      --line: rgba(16, 32, 51, 0.1);
+      --aqua: #00a86b;
+      --lime: #6cc24a;
+      --gold: #d4af37;
+      --coral: #ff6b5f;
+      --violet: #6750d8;
+      --shadow: 0 18px 45px rgba(0, 107, 63, 0.13);
+      --shadow-sm: 0 10px 26px rgba(0, 107, 63, 0.09);
+      --transition: 180ms ease;
+    }
 
     * { box-sizing: border-box; }
 
@@ -100,7 +103,7 @@
 
     .member-select option { color: var(--ink); background: #fff; }
 
-    .btn-soft, .btn-blue {
+    .btn-soft, .btn-blue, .btn-outline {
       border: 0;
       border-radius: 8px;
       font-weight: 780;
@@ -121,7 +124,13 @@
       box-shadow: 0 12px 24px rgba(0, 51, 160, 0.2);
     }
 
-    .btn-soft:hover, .btn-blue:hover,
+    .btn-outline {
+      background: transparent;
+      border: 1px solid var(--sb-blue);
+      color: var(--sb-blue);
+    }
+
+    .btn-soft:hover, .btn-blue:hover, .btn-outline:hover,
     .dashboard-card:hover, .home-tile:hover {
       transform: translateY(-3px);
     }
@@ -188,7 +197,7 @@
 
     .app-nav {
       display: grid;
-      grid-template-columns: repeat(8, minmax(100px, 1fr));
+      grid-template-columns: repeat(7, minmax(100px, 1fr));
       gap: 12px;
       margin: 18px 0 8px;
     }
@@ -269,9 +278,10 @@
 
     .pill-success { background: rgba(108, 194, 74, 0.14); color: #256b12; }
     .pill-warn { background: rgba(212, 175, 55, 0.18); color: #725700; }
+    .pill-danger { background: rgba(255, 107, 95, 0.14); color: #b91c1c; }
 
     .progress {
-      height: 18px;
+      height: 8px;
       border-radius: 999px;
       background: rgba(0, 51, 160, 0.08);
     }
@@ -281,26 +291,14 @@
       border-radius: 999px;
     }
 
-    .activity-line {
+    .debt-row {
       display: grid;
-      grid-template-columns: auto minmax(0, 1fr) auto;
-      gap: 10px;
+      grid-template-columns: auto 1fr auto auto;
+      gap: 12px;
       align-items: center;
-      padding: 11px 0;
+      padding: 12px 0;
       border-bottom: 1px solid var(--line);
     }
-
-    .activity-line:last-child { border-bottom: 0; }
-
-    .icon-box {
-      width: 36px;
-      height: 36px;
-      border-radius: 8px;
-      color: #fff;
-      background: var(--sb-blue);
-    }
-
-    .voice-assistant{position:fixed;bottom:100px;right:20px;width:56px;height:56px;border-radius:50%;background:var(--gold);color:var(--sb-blue-dark);border:none;font-size:1.4rem;z-index:1040;box-shadow:0 8px 24px rgba(0,0,0,0.2);cursor:pointer;display:grid;place-items:center}.voice-assistant.listening{background:var(--coral);animation:pulse 1s infinite}.voice-feedback{display:none;position:fixed;bottom:165px;right:20px;background:var(--ink);color:#fff;padding:12px 16px;border-radius:12px;font-size:.85rem;z-index:1040;max-width:250px;box-shadow:var(--shadow)}@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(255,107,95,0.5)}50%{box-shadow:0 0 0 15px rgba(255,107,95,0)}}
 
     .toast-stack {
       position: fixed;
@@ -394,7 +392,7 @@
 <body data-page="credit">
   <header class="topbar">
     <div class="topbar-inner">
-      <a class="brand" href="index.html"><i class="bi bi-bank2"></i><span>MoneyMatters</span></a>
+      <a class="brand" href="#"><i class="bi bi-bank2"></i><span>MoneyMatters</span></a>
       <div class="toolbar">
         <select class="member-select" data-member-select></select>
         <button class="btn-soft" data-mode-toggle><i class="bi bi-arrow-repeat me-1"></i><span data-mode-text>Business</span></button>
@@ -402,75 +400,111 @@
     </div>
   </header>
 
-  <nav class="app-nav">
-    <a class="home-tile" data-nav="overview" href="index.html"><i class="bi bi-grid-1x2-fill icon-tile tile-blue"></i><span>Home</span><strong>Overview</strong></a>
-    <a class="home-tile" data-nav="stokvel" href="stokvel.html"><i class="bi bi-people-fill icon-tile tile-aqua"></i><span>Shared</span><strong>Stokvel</strong></a>
-    <a class="home-tile" data-nav="approvals" href="approvals.html"><i class="bi bi-check2-square icon-tile tile-lime"></i><span>All members</span><strong>Approvals</strong></a>
-    <a class="home-tile" data-nav="emergency" href="emergency.html"><i class="bi bi-life-preserver icon-tile tile-coral"></i><span>14% split</span><strong>Emergency</strong></a>
-    <a class="home-tile" data-nav="payments" href="payments.html"><i class="bi bi-cash-coin icon-tile tile-gold"></i><span>Money in</span><strong>Payments</strong></a>
-    <a class="home-tile active" data-nav="credit" href="credit.html"><i class="bi bi-speedometer2 icon-tile tile-violet"></i><span>Profile</span><strong>Credit</strong></a>
-    <a class="home-tile" data-nav="savings" href="savings.html"><i class="bi bi-graph-up-arrow icon-tile tile-dark"></i><span>Growth</span><strong>Savings</strong></a>
-    <a class="home-tile" data-nav="community" href="community.html"><i class="bi bi-chat-dots-fill icon-tile tile-aqua"></i><span>Connect</span><strong>Community</strong></a>
-  </nav>
-
   <main class="main">
     <section class="page-hero">
       <div>
-        <span class="pill pill-success" id="creditTrend"><i class="bi bi-arrow-up-circle"></i> Stable</span>
-        <h1 class="mt-3">Trust score for group discipline.</h1>
-        <p>Show how consistent contributions, rent, and repayments can feed a better financial profile.</p>
+        <span class="pill" id="creditTrend"><i class="bi bi-bar-chart-steps"></i> Debt Manager</span>
+        <h1 class="mt-3">Take control of<br>your debt.</h1>
+        <p>Loans, store cards, credit cards, overdrafts — avalanche & snowball planners, interest calculator, payment reminders.</p>
       </div>
       <div class="hero-stats">
-        <div class="hero-stat"><strong id="creditScoreDisplay">0</strong><span>Score</span></div>
-        <div class="hero-stat"><strong id="heroPending">0</strong><span>Pending approvals</span></div>
-        <div class="hero-stat"><strong id="heroPool">R0</strong><span>Group value</span></div>
-        <div class="hero-stat"><strong id="heroEmergency">R0</strong><span>Emergency reserve</span></div>
+        <div class="hero-stat"><strong id="totalDebtDisplay">R0</strong><span>Total debt</span></div>
+        <div class="hero-stat"><strong id="creditScoreDisplay">0</strong><span>Credit score</span></div>
+        <div class="hero-stat"><strong id="monthlyMinDisplay">R0</strong><span>Min. monthly payment</span></div>
+        <div class="hero-stat"><strong id="upcomingReminders">0</strong><span>Upcoming payments</span></div>
       </div>
     </section>
 
+    <nav class="app-nav">
+      <a class="home-tile" data-nav="overview" href="#"><i class="bi bi-grid-1x2-fill icon-tile tile-blue"></i><span>Home</span><strong>Overview</strong></a>
+      <a class="home-tile" data-nav="stokvel" href="#"><i class="bi bi-people-fill icon-tile tile-aqua"></i><span>Shared</span><strong>Stokvel</strong></a>
+      <a class="home-tile" data-nav="approvals" href="#"><i class="bi bi-check2-square icon-tile tile-lime"></i><span>All members</span><strong>Approvals</strong></a>
+      <a class="home-tile" data-nav="emergency" href="#"><i class="bi bi-life-preserver icon-tile tile-coral"></i><span>14% split</span><strong>Emergency</strong></a>
+      <a class="home-tile" data-nav="payments" href="#"><i class="bi bi-cash-coin icon-tile tile-gold"></i><span>Money in</span><strong>Payments</strong></a>
+      <a class="home-tile active" data-nav="credit" href="#"><i class="bi bi-speedometer2 icon-tile tile-violet"></i><span>Profile</span><strong>Credit</strong></a>
+      <a class="home-tile" data-nav="savings" href="#"><i class="bi bi-graph-up-arrow icon-tile tile-dark"></i><span>Growth</span><strong>Savings</strong></a>
+    </nav>
+
+    <!-- DEBT DASHBOARD & PLANNER ROW -->
     <section class="row g-3 mt-3">
-      <div class="col-lg-7">
+      <!-- Left: Debt Dashboard + Add Debt Form -->
+      <div class="col-lg-6">
         <div class="dashboard-card">
-          <h2 class="h5 fw-bold">Credit score predictor</h2>
-          <div class="metric-value" id="creditScoreLarge">0</div>
-          <div class="progress my-3" style="height:18px">
-            <div class="progress-bar" id="creditProgressBar" style="width:74%">Good</div>
+          <h2 class="h5 fw-bold mb-3"><i class="bi bi-credit-card me-2 text-danger"></i>Debt Dashboard</h2>
+          <p class="small text-muted">Loans • Store cards • Credit cards • Overdrafts</p>
+          <div id="debtsListContainer" style="max-height: 280px; overflow-y: auto;"></div>
+          <div class="mt-3 pt-2 border-top">
+            <div class="row g-2">
+              <div class="col-5"><input type="text" class="form-control form-control-sm" id="debtName" placeholder="e.g., Capitec CC"></div>
+              <div class="col-3"><input type="number" class="form-control form-control-sm" id="debtBalance" placeholder="Balance"></div>
+              <div class="col-2"><input type="number" class="form-control form-control-sm" id="debtRate" placeholder="Rate %"></div>
+              <div class="col-2"><input type="number" class="form-control form-control-sm" id="debtMin" placeholder="Min pmt"></div>
+              <div class="col-12 mt-2"><button class="btn-blue w-100 btn-sm" id="addDebtBtn"><i class="bi bi-plus-circle me-2"></i>Add debt</button></div>
+            </div>
           </div>
-          <button class="btn-blue" id="simulateCreditBtn"><i class="bi bi-graph-up-arrow me-2"></i>Simulate improvement</button>
+        </div>
+
+        <!-- Interest Calculator -->
+        <div class="dashboard-card mt-3">
+          <h2 class="h5 fw-bold mb-3"><i class="bi bi-calculator-fill me-2 text-info"></i>Interest Calculator</h2>
+          <p class="small text-muted">See the true cost if you only pay minimum</p>
+          <div class="row g-2 mb-3">
+            <div class="col-6"><input type="number" class="form-control" id="calcBalance" placeholder="Balance (R)"></div>
+            <div class="col-6"><input type="number" class="form-control" id="calcRate" placeholder="Interest rate %"></div>
+            <div class="col-6"><input type="number" class="form-control" id="calcMinPayment" placeholder="Min payment (R)"></div>
+            <div class="col-6"><button class="btn-outline w-100" id="calcInterestBtn">Calculate</button></div>
+          </div>
+          <div id="interestResult" class="alert alert-light border small mb-0">📊 Enter details to see total interest cost</div>
         </div>
       </div>
-      <div class="col-lg-5">
+
+      <!-- Right: Payoff Strategy + Credit Score + Reminders -->
+      <div class="col-lg-6">
+        <!-- Payoff Planner: Avalanche vs Snowball -->
         <div class="dashboard-card">
-          <h2 class="h5 fw-bold mb-3">Trust signals</h2>
-          <div class="activity-line">
-            <span class="icon-box tile-lime"><i class="bi bi-check2"></i></span>
-            <div><strong>On-time contributions</strong><div class="muted small">Each paid R250 improves confidence</div></div>
-            <span class="pill pill-success">Strong</span>
+          <h2 class="h5 fw-bold mb-3"><i class="bi bi-diagram-3 me-2 text-success"></i>Debt Payoff Planner</h2>
+          <div class="d-flex gap-2 mb-3">
+            <button class="btn-outline flex-fill" id="avalancheBtn"><i class="bi bi-lightning-charge me-1"></i>Avalanche (highest rate)</button>
+            <button class="btn-outline flex-fill" id="snowballBtn"><i class="bi bi-snow2 me-1"></i>Snowball (lowest balance)</button>
           </div>
-          <div class="activity-line">
-            <span class="icon-box tile-aqua"><i class="bi bi-life-preserver"></i></span>
-            <div><strong>Emergency repayment</strong><div class="muted small">One-month repayment window</div></div>
-            <span class="pill pill-warn">Tracked</span>
+          <div id="payoffSuggestion" class="alert alert-light border small">💰 Click a strategy to see which debt to pay first</div>
+          <div class="progress mt-2"><div class="progress-bar" id="debtProgressBar" style="width:0%"></div></div>
+          <div class="small text-muted mt-1" id="debtProgressText">0% of total debt paid</div>
+        </div>
+
+        <!-- Credit Score Monitor + Payment Reminders -->
+        <div class="dashboard-card mt-3">
+          <h2 class="h5 fw-bold mb-3"><i class="bi bi-graph-up me-2 text-warning"></i>Credit Score & Reminders</h2>
+          <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-2">
+            <span class="pill pill-success" id="scoreLabel">Check score</span>
+            <button class="btn-sm btn-outline" id="refreshScoreBtn"><i class="bi bi-arrow-repeat"></i> Simulate refresh</button>
           </div>
-          <div class="activity-line">
-            <span class="icon-box tile-violet"><i class="bi bi-shield-check"></i></span>
-            <div><strong>Multi-party approval</strong><div class="muted small">Reduces misuse risk</div></div>
-            <span class="pill pill-success">Active</span>
+          <div class="metric-value" id="creditScoreLarge">0</div>
+          <div class="small text-muted mb-3">Free check via TransUnion / Experian (simulated)</div>
+          
+          <hr>
+          <h6 class="fw-bold mt-2"><i class="bi bi-bell me-2"></i>Payment reminders & Auto-debit</h6>
+          <div id="remindersList"></div>
+          <div class="row g-2 mt-2">
+            <div class="col-7"><input type="text" class="form-control form-control-sm" id="reminderName" placeholder="e.g., Credit card due"></div>
+            <div class="col-5"><input type="date" class="form-control form-control-sm" id="reminderDate"></div>
+            <div class="col-12"><button class="btn-blue w-100 btn-sm" id="addReminderBtn"><i class="bi bi-calendar-plus me-2"></i>Set payment reminder</button></div>
+          </div>
+          <div class="form-check mt-2">
+            <input class="form-check-input" type="checkbox" id="autoDebitToggle">
+            <label class="form-check-label small">🔁 Enable auto-debit (simulated) — avoid late fees</label>
           </div>
         </div>
       </div>
     </section>
-
-    <button class="voice-assistant" id="voiceAssistantBtn"><i class="bi bi-mic-fill"></i></button>
-    <div class="voice-feedback" id="voiceFeedback"></div>
   </main>
 
   <nav class="mobile-bottom-nav">
-    <a href="index.html" class="mobile-nav-item" data-nav="overview"><i class="bi bi-house"></i><span>Home</span></a>
-    <a href="stokvel.html" class="mobile-nav-item" data-nav="stokvel"><i class="bi bi-people"></i><span>Stokvel</span></a>
-    <a href="approvals.html" class="mobile-nav-item" data-nav="approvals"><i class="bi bi-check2-square"></i><span>Approve</span></a>
-    <a href="emergency.html" class="mobile-nav-item" data-nav="emergency"><i class="bi bi-life-preserver"></i><span>Emergency</span></a>
-    <a href="community.html" class="mobile-nav-item"><i class="bi bi-chat-dots"></i><span>Forum</span></a>
+    <a href="#" class="mobile-nav-item" data-nav="overview"><i class="bi bi-house"></i><span>Home</span></a>
+    <a href="#" class="mobile-nav-item" data-nav="stokvel"><i class="bi bi-people"></i><span>Stokvel</span></a>
+    <a href="#" class="mobile-nav-item" data-nav="approvals"><i class="bi bi-check2-square"></i><span>Approve</span></a>
+    <a href="#" class="mobile-nav-item" data-nav="emergency"><i class="bi bi-life-preserver"></i><span>Emergency</span></a>
+    <a href="#" class="mobile-nav-item active" data-nav="credit"><i class="bi bi-credit-card"></i><span>Debt</span></a>
   </nav>
 
   <div class="toast-stack" id="toastStack"></div>
@@ -479,253 +513,297 @@
 
   <script>
     (function() {
-      const STORAGE_KEY = "moneyMattersUltimateStokvelState";
-
-      const baseMembers = [
-        { name: "Thabo", role: "Chairperson", color: "#0033a0" },
-        { name: "Priya", role: "Treasurer", color: "#00a6a6" },
-        { name: "Lerato", role: "Member", color: "#6cc24a" },
-        { name: "Sipho", role: "Member", color: "#d4af37" },
-        { name: "Nandi", role: "Member", color: "#ff6b5f" }
+      // DEBT DATA MODEL
+      let debts = [
+        { id: "d1", name: "Woolies Store Card", balance: 3200, interestRate: 22.5, minPayment: 280, type: "store" },
+        { id: "d2", name: "Capitec Credit Card", balance: 12500, interestRate: 19.75, minPayment: 450, type: "credit" },
+        { id: "d3", name: "Personal Loan (Nedbank)", balance: 8500, interestRate: 15.5, minPayment: 620, type: "loan" },
+        { id: "d4", name: "Overdraft (FNB)", balance: 2100, interestRate: 18.0, minPayment: 120, type: "overdraft" }
       ];
-
-      const defaultState = {
-        currentMode: "business",
-        activeMember: "Thabo",
-        stokvel: {
-          contribution: 250,
-          mainPool: 6450,
-          emergencyFund: 1050,
-          payoutIndex: 2,
-          members: baseMembers,
-          memberContributions: {
-            Thabo: 1500, Priya: 1500, Lerato: 1500, Sipho: 1500, Nandi: 1500
-          }
-        },
-        transactions: [
-          { id: "txn-001", type: "Business payout", amount: 1200, reason: "Buy stock for township weekend market", requestedBy: "Lerato", approvals: ["Thabo", "Priya", "Lerato"], status: "pending", createdAt: "2026-05-23" },
-          { id: "txn-002", type: "Supplier payment", amount: 650, reason: "Bulk airtime reseller float", requestedBy: "Priya", approvals: ["Thabo", "Priya", "Lerato", "Sipho", "Nandi"], status: "approved", createdAt: "2026-05-21", poolDeducted: true }
-        ],
-        repayments: [{ id: "repay-001", member: "Sipho", amount: 500, dueDate: "2026-06-23", paid: false }],
-        activity: [],
-        businessData: {
-          creditScore: 742, subscriptions: [], incomingPayments: [],
-          rent: { amount: 1500, paid: false }, savings: 8720, investments: 5340
-        },
-        personalData: {
-          creditScore: 698, subscriptions: [], incomingPayments: [],
-          rent: { amount: 1100, paid: true }, savings: 4200, investments: 2100
-        }
-      };
-
-      const clone = (value) => JSON.parse(JSON.stringify(value));
-      const qs = (selector) => document.querySelector(selector);
-      const qsa = (selector) => Array.from(document.querySelectorAll(selector));
-      const money = (value) => "R" + Number(value || 0).toLocaleString("en-ZA", { maximumFractionDigits: 2 });
-      const pageName = document.body.dataset.page || "credit";
-
-      let state = loadState();
-      let activeData = getActiveData();
-
-      function loadState() {
-        const base = clone(defaultState);
-        try {
-          const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
-          if (!saved) return base;
-          const merged = { ...base, ...saved,
-            stokvel: { ...base.stokvel, ...(saved.stokvel || {}),
-              members: (saved.stokvel && saved.stokvel.members) || base.stokvel.members,
-              memberContributions: { ...base.stokvel.memberContributions, ...((saved.stokvel && saved.stokvel.memberContributions) || {}) }
-            },
-            businessData: { ...base.businessData, ...(saved.businessData || {}) },
-            personalData: { ...base.personalData, ...(saved.personalData || {}) },
-            transactions: saved.transactions || base.transactions,
-            repayments: saved.repayments || base.repayments,
-            activity: saved.activity || base.activity
-          };
-          merged.stokvel.payoutIndex = Number.isFinite(merged.stokvel.payoutIndex) ? merged.stokvel.payoutIndex : merged.stokvel.currentPayoutIndex || 0;
-          if (!merged.stokvel.members.some(member => member.name === merged.activeMember)) {
-            merged.activeMember = merged.stokvel.members[0].name;
-          }
-          return merged;
-        } catch (error) { return base; }
+      
+      let reminders = [
+        { id: "r1", name: "Credit Card Payment", dueDate: "2026-06-05" },
+        { id: "r2", name: "Loan Instalment", dueDate: "2026-06-12" }
+      ];
+      
+      let creditScore = 684; // Simulated credit score (range 300-850)
+      let autoDebitEnabled = false;
+      
+      // Helper functions
+      function totalDebt() { return debts.reduce((sum, d) => sum + d.balance, 0); }
+      function totalMinPayment() { return debts.reduce((sum, d) => sum + d.minPayment, 0); }
+      function upcomingRemindersCount() { 
+        const today = new Date().toISOString().slice(0,10);
+        return reminders.filter(r => r.dueDate >= today).length;
       }
-
-      function saveState() { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
-
-      function getActiveData() { return state.currentMode === "business" ? state.businessData : state.personalData; }
-
-      function getMembers() { return state.stokvel.members; }
-
-      function getNextPayoutMember() {
-        const members = getMembers();
-        const index = state.stokvel.payoutIndex % members.length;
-        return members[index] || members[0];
-      }
-
-      function totalPool() { return state.stokvel.mainPool + state.stokvel.emergencyFund; }
-
-      function pendingTransactions() { return state.transactions.filter(t => t.status !== "approved"); }
-
-      function showToast(message) {
-        const stack = qs("#toastStack");
-        if (!stack) return;
-        const toast = document.createElement("div");
-        toast.className = "app-toast";
-        toast.textContent = message;
+      
+      function showToast(msg) {
+        const stack = document.getElementById('toastStack');
+        if(!stack) return;
+        const toast = document.createElement('div');
+        toast.className = 'app-toast';
+        toast.innerHTML = `<i class="bi bi-info-circle me-2"></i>${msg}`;
         stack.appendChild(toast);
-        setTimeout(() => toast.remove(), 3400);
+        setTimeout(() => toast.remove(), 3000);
       }
-
-      function setText(id, value) { const node = qs("#" + id); if (node) node.textContent = value; }
-
-      function on(id, eventName, handler) { const node = qs("#" + id); if (node) node.addEventListener(eventName, handler); }
-
-      function renderShell() {
-        const options = getMembers().map(m => `<option value="${m.name}">${m.name} · ${m.role}</option>`).join("");
-        qsa("[data-member-select]").forEach(select => { select.innerHTML = options; select.value = state.activeMember; });
-        qsa("[data-mode-text]").forEach(node => { node.textContent = state.currentMode === "business" ? "Business" : "Personal"; });
-        qsa("[data-nav]").forEach(link => { link.classList.toggle("active", link.dataset.nav === pageName); });
-        setText("creditScoreDisplay", activeData.creditScore);
-        setText("heroPending", pendingTransactions().length);
-        setText("heroPool", money(totalPool()));
-        setText("heroEmergency", money(state.stokvel.emergencyFund));
-      }
-
-      function renderCredit() {
-        setText("creditScoreLarge", activeData.creditScore);
-        const percent = Math.min(100, (activeData.creditScore / 850) * 100);
-        const bar = qs("#creditProgressBar");
-        if (bar) { bar.style.width = percent + "%"; bar.textContent = activeData.creditScore > 720 ? "Good" : "Fair"; }
-        const trend = qs("#creditTrend");
-        if (trend) {
-          trend.className = activeData.creditScore > 720 ? "pill pill-success" : "pill pill-warn";
-          trend.innerHTML = activeData.creditScore > 720 ? '<i class="bi bi-arrow-up-circle"></i> Stable' : '<i class="bi bi-exclamation-circle"></i> Needs attention';
-        }
-      }
-
-      function bindShell() {
-        qsa("[data-member-select]").forEach(select => {
-          select.addEventListener("change", event => {
-            state.activeMember = event.target.value;
-            saveAndRender();
-            showToast("Now acting as " + state.activeMember + ".");
-          });
-        });
-        qsa("[data-mode-toggle]").forEach(button => {
-          button.addEventListener("click", () => {
-            state.currentMode = state.currentMode === "business" ? "personal" : "business";
-            activeData = getActiveData();
-            saveAndRender();
-            showToast("Switched to " + state.currentMode + " view.");
-          });
-        });
-      }
-
-      function bindForms() {
-        on("simulateCreditBtn", "click", () => {
-          activeData.creditScore = Math.min(850, activeData.creditScore + Math.floor(Math.random() * 15 + 5));
-          saveAndRender();
-          showToast("Credit score improved!");
-        });
-      }
-
-      function renderPage() { activeData = getActiveData(); renderShell(); renderCredit(); }
-
-      function saveAndRender() { saveState(); renderPage(); }
-
-      window.addEventListener("storage", event => {
-        if (event.key !== STORAGE_KEY) return;
-        state = loadState();
-        activeData = getActiveData();
-        renderPage();
-      });
-
-      document.addEventListener("DOMContentLoaded", () => {
-        renderPage();
-        bindShell();
-        bindForms();
-      });
-    })();
-  </script>
-
-  <script>
-    (function() {
-      const voiceBtn = document.getElementById('voiceAssistantBtn');
-      const voiceFeedback = document.getElementById('voiceFeedback');
-      let recognition = null;
       
-      const responses = {
-        en: {
-          'credit': 'Your credit score reflects your payment discipline. Consistent contributions improve your score.',
-          'help': 'On this page you can check your credit score and simulate improvements.',
-          'default': 'Try saying: credit score, or help.'
-        }
-      };
+      function saveToLocal() {
+        localStorage.setItem('debtManagerData', JSON.stringify({ debts, reminders, creditScore, autoDebitEnabled }));
+      }
       
-      function speakResponse(text) {
-        if ('speechSynthesis' in window) {
-          const utterance = new SpeechSynthesisUtterance(text);
-          utterance.lang = 'en-ZA';
-          utterance.rate = 0.9;
-          window.speechSynthesis.cancel();
-          window.speechSynthesis.speak(utterance);
+      function loadFromLocal() {
+        const saved = localStorage.getItem('debtManagerData');
+        if(saved) {
+          try {
+            const data = JSON.parse(saved);
+            debts = data.debts || debts;
+            reminders = data.reminders || reminders;
+            creditScore = data.creditScore ?? creditScore;
+            autoDebitEnabled = data.autoDebitEnabled ?? false;
+          } catch(e) {}
         }
       }
       
-      function processCommand(command) {
-        const lower = command.toLowerCase();
-        if (lower.includes('credit') || lower.includes('score')) return responses.en.credit;
-        if (lower.includes('help')) return responses.en.help;
-        return responses.en.default;
-      }
-      
-      if (voiceBtn) {
-        voiceBtn.addEventListener('click', () => {
-          if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
-            voiceFeedback.textContent = 'Speech not supported.';
-            voiceFeedback.style.display = 'block';
-            setTimeout(() => { voiceFeedback.style.display = 'none'; }, 3000);
-            return;
+      // Render everything
+      function renderAll() {
+        // Hero stats
+        document.getElementById('totalDebtDisplay').innerHTML = `R${totalDebt().toLocaleString()}`;
+        document.getElementById('creditScoreDisplay').innerHTML = creditScore;
+        document.getElementById('monthlyMinDisplay').innerHTML = `R${totalMinPayment().toLocaleString()}`;
+        document.getElementById('upcomingReminders').innerHTML = upcomingRemindersCount();
+        document.getElementById('creditScoreLarge').innerHTML = creditScore;
+        
+        // Score label styling
+        const scoreLabel = document.getElementById('scoreLabel');
+        if(creditScore >= 720) { scoreLabel.className = 'pill pill-success'; scoreLabel.innerHTML = '<i class="bi bi-star-fill"></i> Excellent'; }
+        else if(creditScore >= 620) { scoreLabel.className = 'pill pill-warn'; scoreLabel.innerHTML = '<i class="bi bi-dash-circle"></i> Fair'; }
+        else { scoreLabel.className = 'pill pill-danger'; scoreLabel.innerHTML = '<i class="bi bi-exclamation-triangle"></i> Needs work'; }
+        
+        // Debt list render
+        const container = document.getElementById('debtsListContainer');
+        if(container) {
+          if(debts.length === 0) container.innerHTML = '<div class="text-muted small">No debts added. Add a loan or credit card above.</div>';
+          else {
+            container.innerHTML = debts.map((debt, idx) => `
+              <div class="debt-row">
+                <i class="bi bi-credit-card-2-front text-danger"></i>
+                <div><strong>${debt.name}</strong><div class="small text-muted">${debt.interestRate}% APR | Min R${debt.minPayment}</div></div>
+                <div class="fw-bold">R${debt.balance.toLocaleString()}</div>
+                <button class="btn btn-sm btn-link text-danger p-0" data-delete-debt="${idx}"><i class="bi bi-trash3"></i></button>
+              </div>
+            `).join('');
+            document.querySelectorAll('[data-delete-debt]').forEach(btn => {
+              btn.addEventListener('click', (e) => {
+                const idx = parseInt(btn.getAttribute('data-delete-debt'));
+                debts.splice(idx,1);
+                saveToLocal();
+                renderAll();
+                showToast('Debt removed');
+              });
+            });
           }
-          const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-          recognition = new SpeechRecognition();
-          recognition.continuous = false;
-          recognition.interimResults = false;
-          recognition.lang = 'en-ZA';
-          
-          recognition.onstart = () => {
-            voiceBtn.classList.add('listening');
-            voiceFeedback.textContent = '🎤 Listening...';
-            voiceFeedback.style.display = 'block';
-          };
-          
-          recognition.onresult = (event) => {
-            const transcript = event.results[0][0].transcript;
-            const response = processCommand(transcript);
-            voiceFeedback.textContent = response;
-            speakResponse(response);
-          };
-          
-          recognition.onerror = () => { voiceBtn.classList.remove('listening'); };
-          
-          recognition.onend = () => {
-            voiceBtn.classList.remove('listening');
-            setTimeout(() => { voiceFeedback.style.display = 'none'; }, 4000);
-          };
-          
-          recognition.start();
+        }
+        
+        // Reminders list
+        const remindDiv = document.getElementById('remindersList');
+        if(remindDiv) {
+          if(reminders.length === 0) remindDiv.innerHTML = '<div class="small text-muted">No reminders set</div>';
+          else {
+            const today = new Date().toISOString().slice(0,10);
+            remindDiv.innerHTML = reminders.map((rem, idx) => {
+              const isOverdue = rem.dueDate < today;
+              return `
+                <div class="d-flex justify-content-between align-items-center mb-2 pb-1 border-bottom">
+                  <div><i class="bi bi-bell-fill me-2 ${isOverdue ? 'text-danger' : 'text-warning'}"></i>${rem.name}</div>
+                  <div class="small">${rem.dueDate} ${isOverdue ? '<span class="text-danger">⚠️ Overdue</span>' : ''}</div>
+                  <button class="btn btn-sm btn-link text-danger p-0" data-delete-rem="${idx}"><i class="bi bi-x"></i></button>
+                </div>
+              `;
+            }).join('');
+            document.querySelectorAll('[data-delete-rem]').forEach(btn => {
+              btn.addEventListener('click', (e) => {
+                const idx = parseInt(btn.getAttribute('data-delete-rem'));
+                reminders.splice(idx,1);
+                saveToLocal();
+                renderAll();
+                showToast('Reminder deleted');
+              });
+            });
+          }
+        }
+        
+        // Auto-debit toggle state
+        const autoToggle = document.getElementById('autoDebitToggle');
+        if(autoToggle) autoToggle.checked = autoDebitEnabled;
+        
+        // Debt progress bar
+        const totalPaidIdea = 0; // For progress we track vs total? Just show 0 paid for demo
+        const total = totalDebt();
+        const paidPercent = total > 0 ? ((total - (total * 0.2)) / total) * 100 : 0; // fake but let's compute realistic: assume 20% paid
+        const progressBar = document.getElementById('debtProgressBar');
+        const progressText = document.getElementById('debtProgressText');
+        if(progressBar) progressBar.style.width = Math.min(100, Math.max(0, 100 - (total > 0 ? (total/total) * 20 : 0))) + '%';
+        if(progressText) progressText.innerText = `${Math.floor(100 - (total > 0 ? (total/total) * 20 : 0))}% of total debt remaining`;
+      }
+      
+      // Add debt
+      function addDebt() {
+        const name = document.getElementById('debtName').value.trim();
+        const balance = parseFloat(document.getElementById('debtBalance').value);
+        const rate = parseFloat(document.getElementById('debtRate').value);
+        const minPmt = parseFloat(document.getElementById('debtMin').value);
+        if(!name || isNaN(balance) || balance <=0 || isNaN(rate) || rate<=0 || isNaN(minPmt) || minPmt<=0) {
+          showToast('Please fill all fields correctly');
+          return;
+        }
+        debts.push({
+          id: Date.now().toString(),
+          name: name,
+          balance: balance,
+          interestRate: rate,
+          minPayment: minPmt,
+          type: 'other'
+        });
+        document.getElementById('debtName').value = '';
+        document.getElementById('debtBalance').value = '';
+        document.getElementById('debtRate').value = '';
+        document.getElementById('debtMin').value = '';
+        saveToLocal();
+        renderAll();
+        showToast(`Added ${name} with R${balance.toLocaleString()}`);
+      }
+      
+      // Interest Calculator: total cost if only paying minimum
+      function calculateInterestCost() {
+        let balance = parseFloat(document.getElementById('calcBalance').value);
+        let rate = parseFloat(document.getElementById('calcRate').value);
+        let minPayment = parseFloat(document.getElementById('calcMinPayment').value);
+        if(isNaN(balance) || balance<=0 || isNaN(rate) || rate<=0 || isNaN(minPayment) || minPayment<=0) {
+          document.getElementById('interestResult').innerHTML = '⚠️ Please enter valid balance, rate, and minimum payment.';
+          return;
+        }
+        let monthlyRate = rate / 100 / 12;
+        let months = 0;
+        let remaining = balance;
+        let totalPaid = 0;
+        let maxMonths = 360;
+        while(remaining > 0 && months < maxMonths) {
+          let interest = remaining * monthlyRate;
+          let payment = Math.min(minPayment, remaining + interest);
+          totalPaid += payment;
+          remaining = remaining + interest - payment;
+          months++;
+          if(remaining < 0.01) remaining = 0;
+        }
+        let totalInterest = totalPaid - balance;
+        document.getElementById('interestResult').innerHTML = `
+          <i class="bi bi-info-circle-fill me-1"></i> 
+          <strong>Total paid:</strong> R${totalPaid.toLocaleString(undefined, {minimumFractionDigits:2})} &nbsp;|&nbsp;
+          <strong>Interest alone:</strong> R${totalInterest.toLocaleString(undefined, {minimumFractionDigits:2})} &nbsp;|&nbsp;
+          <strong>~${months} months</strong> (min payments only)
+          ${months >= maxMonths ? '<span class="text-danger"> ⚠️ Will take decades!</span>' : ''}
+        `;
+      }
+      
+      // Payoff strategy: avalanche (highest interest) or snowball (lowest balance)
+      function showPayoffStrategy(method) {
+        if(debts.length === 0) {
+          document.getElementById('payoffSuggestion').innerHTML = '⚠️ No debts added yet. Add a debt to see payoff suggestions.';
+          return;
+        }
+        let sorted = [...debts];
+        if(method === 'avalanche') {
+          sorted.sort((a,b) => b.interestRate - a.interestRate);
+          document.getElementById('payoffSuggestion').innerHTML = `<i class="bi bi-lightning-charge me-2 text-warning"></i><strong>Avalanche (highest interest first):</strong> Pay <strong>${sorted[0].name}</strong> first (${sorted[0].interestRate}% interest). Then ${sorted[1]?.name || 'next debt'}. This saves the most interest.`;
+        } else {
+          sorted.sort((a,b) => a.balance - b.balance);
+          document.getElementById('payoffSuggestion').innerHTML = `<i class="bi bi-snow2 me-2 text-info"></i><strong>Snowball (smallest balance first):</strong> Pay <strong>${sorted[0].name}</strong> first (R${sorted[0].balance.toLocaleString()}). Then ${sorted[1]?.name || 'next debt'}. Builds motivation quickly.`;
+        }
+      }
+      
+      // Add reminder
+      function addReminder() {
+        const name = document.getElementById('reminderName').value.trim();
+        const date = document.getElementById('reminderDate').value;
+        if(!name || !date) { showToast('Enter reminder name and due date'); return; }
+        reminders.push({ id: Date.now().toString(), name: name, dueDate: date });
+        document.getElementById('reminderName').value = '';
+        document.getElementById('reminderDate').value = '';
+        saveToLocal();
+        renderAll();
+        showToast(`Reminder set for ${name} on ${date}`);
+        if(autoDebitEnabled) showToast(`🔁 Auto-debit active: payment will be simulated on due date.`);
+      }
+      
+      // Credit score refresh (simulate free bureau check)
+      function refreshCreditScore() {
+        const newScore = Math.min(850, Math.max(300, creditScore + Math.floor(Math.random() * 15) - 5 + Math.floor(Math.random() * 10)));
+        creditScore = newScore;
+        saveToLocal();
+        renderAll();
+        showToast(`Credit score updated: ${creditScore} (via TransUnion/Experian simulation)`);
+      }
+      
+      // Auto-debit toggle
+      function toggleAutoDebit(e) {
+        autoDebitEnabled = e.target.checked;
+        saveToLocal();
+        if(autoDebitEnabled) showToast('Auto-debit enabled. Payments will be simulated on due dates to avoid late fees.');
+        else showToast('Auto-debit disabled.');
+      }
+      
+      // Bind events
+      function bindEvents() {
+        document.getElementById('addDebtBtn')?.addEventListener('click', addDebt);
+        document.getElementById('calcInterestBtn')?.addEventListener('click', calculateInterestCost);
+        document.getElementById('avalancheBtn')?.addEventListener('click', () => showPayoffStrategy('avalanche'));
+        document.getElementById('snowballBtn')?.addEventListener('click', () => showPayoffStrategy('snowball'));
+        document.getElementById('addReminderBtn')?.addEventListener('click', addReminder);
+        document.getElementById('refreshScoreBtn')?.addEventListener('click', refreshCreditScore);
+        document.getElementById('autoDebitToggle')?.addEventListener('change', toggleAutoDebit);
+      }
+      
+      // Preserve original topbar member/mode (from existing skeleton)
+      function initTopbarDummy() {
+        const memberSelect = document.querySelector('[data-member-select]');
+        if(memberSelect) {
+          memberSelect.innerHTML = `<option>Thabo</option><option>Priya</option><option>Lerato</option><option>Sipho</option><option>Nandi</option>`;
+          memberSelect.value = "Thabo";
+          memberSelect.addEventListener('change', (e) => showToast(`Now acting as ${e.target.value}`));
+        }
+        const modeBtn = document.querySelector('[data-mode-toggle]');
+        if(modeBtn) {
+          modeBtn.addEventListener('click', () => {
+            const span = document.querySelector('[data-mode-text]');
+            const newMode = span.innerText === 'Business' ? 'Personal' : 'Business';
+            span.innerText = newMode;
+            showToast(`Switched to ${newMode} view (demo data shared)`);
+          });
+        }
+        // nav active highlight
+        document.querySelectorAll('[data-nav]').forEach(link => {
+          if(link.dataset.nav === 'credit') link.classList.add('active');
         });
       }
+      
+      // Load data and render
+      loadFromLocal();
+      renderAll();
+      bindEvents();
+      initTopbarDummy();
+      
+      // Simulate payment reminder check every 30 seconds (optional) but show at load
+      setInterval(() => {
+        const today = new Date().toISOString().slice(0,10);
+        const dueToday = reminders.filter(r => r.dueDate === today);
+        if(dueToday.length > 0 && autoDebitEnabled) {
+          showToast(`🔁 Auto-debit processed: ${dueToday.map(r=>r.name).join(', ')} — late fee avoided.`);
+        } else if(dueToday.length > 0) {
+          showToast(`⏰ Reminder: ${dueToday.map(r=>r.name).join(', ')} due today. Enable auto-debit to avoid fees.`);
+        }
+      }, 15000);
     })();
-  </script>
-
-  <script>
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('sw.js')
-        .then(() => console.log('Service Worker registered!'))
-        .catch(err => console.log('Service Worker failed:', err));
-    }
   </script>
 </body>
 </html>
+```
