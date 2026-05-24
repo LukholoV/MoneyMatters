@@ -9,20 +9,22 @@
   <style>
     :root {
       /* Theme Colors */
-      --sb-blue: #0033a0;
-      --sb-blue-light: #006494;
-      --sb-blue-dark: #001f66;
+      --sb-blue: #00543d;
+      --sb-blue-light: #087a55;
+      --sb-blue-dark: #003b2f;
+      --brand-rgb: 0, 84, 61;
+      --brand-dark-rgb: 0, 59, 47;
       --warm-gold: #d8ae3d;
       --warm-gold-soft: #fff5d6;
       --warm-gold-pale: #fffaf0;
       --soft-white: #f4f6f9;
       --white: #ffffff;
-      --shadow-sm: 0 4px 12px rgba(0, 51, 160, 0.08);
+      --shadow-sm: 0 4px 12px rgba(var(--brand-rgb), 0.08);
       --transition: all 0.2s ease;
     }
 
     body {
-      background: #0b1d3d;
+      background: #052f25;
       font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
       color: #1e2b3c;
       margin: 0;
@@ -46,8 +48,8 @@
     }
     body.lobby-mode {
       background:
-        linear-gradient(135deg, rgba(0, 51, 160, 0.96) 0 22%, rgba(216, 174, 61, 0.9) 22% 26%, rgba(0, 31, 102, 0.95) 26% 52%, rgba(255, 245, 214, 0.92) 52% 56%, rgba(0, 100, 148, 0.9) 56% 100%),
-        #0033a0;
+        linear-gradient(135deg, rgba(0, 84, 61, 0.98) 0 22%, rgba(216, 174, 61, 0.9) 22% 26%, rgba(0, 59, 47, 0.96) 26% 52%, rgba(255, 245, 214, 0.92) 52% 56%, rgba(8, 122, 85, 0.92) 56% 100%),
+        var(--sb-blue);
       min-height: 100vh;
     }
     body.lobby-mode .site-backdrop {
@@ -60,7 +62,7 @@
       z-index: 0;
       background-image: url("Gathering of Black South African Aunties and Uncles.png");
       background-size: cover;
-      background-position: left center;
+      background-position: center center;
       will-change: transform;
       transform: translate3d(0, 0, 0) scale(1.04);
       pointer-events: none;
@@ -70,8 +72,8 @@
       position: absolute;
       inset: 0;
       background:
-        linear-gradient(180deg, rgba(5, 18, 44, 0.54) 0%, rgba(244, 246, 249, 0.12) 28%, rgba(244, 246, 249, 0.35) 56%, rgba(244, 246, 249, 0.78) 100%),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.02) 0%, rgba(255, 255, 255, 0.08) 44%, rgba(0, 31, 102, 0.18) 100%);
+        linear-gradient(180deg, rgba(0, 42, 34, 0.56) 0%, rgba(244, 246, 249, 0.12) 28%, rgba(244, 246, 249, 0.35) 56%, rgba(244, 246, 249, 0.78) 100%),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.02) 0%, rgba(255, 255, 255, 0.08) 44%, rgba(var(--brand-dark-rgb), 0.2) 100%);
     }
     #appContainer {
       position: relative;
@@ -120,7 +122,7 @@
       border: 1px solid rgba(255, 255, 255, 0.62);
       border-radius: 1.25rem;
       padding: 1rem;
-      box-shadow: 0 24px 60px rgba(0, 31, 102, 0.28);
+      box-shadow: 0 24px 60px rgba(var(--brand-dark-rgb), 0.28);
       backdrop-filter: blur(16px);
     }
     .lobby-section-title {
@@ -135,11 +137,11 @@
       overflow: hidden;
       color: var(--white);
       background-image:
-        linear-gradient(90deg, rgba(0, 31, 102, 0.96) 0%, rgba(0, 51, 160, 0.82) 44%, rgba(0, 51, 160, 0.18) 100%),
+        linear-gradient(90deg, rgba(0, 59, 47, 0.97) 0%, rgba(0, 84, 61, 0.84) 44%, rgba(0, 84, 61, 0.2) 100%),
         url("Gemini_Generated_Image_q5qs7vq5qs7vq5qs.png");
       background-size: cover;
       background-position: center 43%;
-      box-shadow: 0 12px 32px rgba(0, 31, 102, 0.18);
+      box-shadow: 0 12px 32px rgba(var(--brand-dark-rgb), 0.18);
       border-bottom: 8px solid var(--sb-blue-dark);
     }
     .dashboard-hero::after {
@@ -309,13 +311,24 @@
       background: var(--sb-blue);
       color: var(--white);
     }
+    .bg-primary,
+    .btn-primary {
+      background-color: var(--sb-blue) !important;
+      border-color: var(--sb-blue) !important;
+    }
+    .text-primary {
+      color: var(--sb-blue-light) !important;
+    }
+    .badge.bg-primary {
+      background: var(--sb-blue) !important;
+    }
 
     /* Cards */
     .dashboard-card {
       background: rgba(255, 255, 255, 0.94);
       border-radius: 1rem;
       padding: 1.2rem;
-      box-shadow: 0 12px 30px rgba(0, 31, 102, 0.12);
+      box-shadow: 0 12px 30px rgba(var(--brand-dark-rgb), 0.12);
       border: 1px solid rgba(255, 255, 255, 0.7);
       transition: var(--transition);
       height: 100%;
@@ -324,7 +337,7 @@
     }
     .dashboard-card:hover {
       transform: translateY(-2px);
-      box-shadow: 0 16px 36px rgba(0, 31, 102, 0.16);
+      box-shadow: 0 16px 36px rgba(var(--brand-dark-rgb), 0.16);
     }
     .card-top-accent {
       border-top: 4px solid var(--sb-blue);
@@ -345,7 +358,7 @@
     .stokvel-card:hover {
       border-top: 4px solid var(--sb-blue);
       transform: translateY(-5px);
-      box-shadow: 0 15px 35px rgba(0, 31, 102, 0.2);
+      box-shadow: 0 15px 35px rgba(var(--brand-dark-rgb), 0.2);
     }
     .stokvel-card.featured-stokvel {
       background: linear-gradient(145deg, #ffffff 0%, #fff7dc 100%);
@@ -387,7 +400,7 @@
     .poll-option:hover,
     .rule-card:hover {
       transform: translateY(-3px);
-      box-shadow: 0 14px 28px rgba(0, 31, 102, 0.14);
+      box-shadow: 0 14px 28px rgba(var(--brand-dark-rgb), 0.14);
     }
     .risk-score {
       color: #a36f00;
@@ -397,7 +410,7 @@
     .risk-meter {
       height: 12px;
       border-radius: 999px;
-      background: #eef2f8;
+      background: #e8f4ee;
       overflow: hidden;
     }
     .risk-meter-fill {
@@ -408,7 +421,7 @@
     .default-horizon {
       min-height: 100%;
       background:
-        linear-gradient(145deg, rgba(0, 51, 160, 0.95), rgba(0, 31, 102, 0.92)),
+        linear-gradient(145deg, rgba(0, 84, 61, 0.96), rgba(0, 59, 47, 0.94)),
         var(--sb-blue);
       color: var(--white);
       border-color: rgba(255, 245, 214, 0.28) !important;
@@ -455,8 +468,8 @@
       max-width: 86%;
       padding: 0.85rem 1rem;
       border-radius: 1rem;
-      background: #eef4ff;
-      border: 1px solid rgba(0, 51, 160, 0.1);
+      background: #eaf7f0;
+      border: 1px solid rgba(var(--brand-rgb), 0.12);
     }
     .chat-bubble.mine {
       margin-left: auto;
@@ -465,7 +478,7 @@
     }
     .poll-option,
     .rule-card {
-      border: 1px solid rgba(0, 51, 160, 0.1);
+      border: 1px solid rgba(var(--brand-rgb), 0.12);
       border-radius: 0.9rem;
       padding: 0.85rem;
       background: rgba(255, 255, 255, 0.84);
@@ -479,7 +492,7 @@
     .poll-result {
       height: 8px;
       border-radius: 999px;
-      background: #edf1f7;
+      background: #e8f4ee;
       overflow: hidden;
     }
     .poll-result span {
@@ -507,7 +520,7 @@
       gap: 0.75rem;
       color: var(--sb-blue-dark);
       background: #fff;
-      border: 1px solid rgba(0, 51, 160, 0.1);
+      border: 1px solid rgba(var(--brand-rgb), 0.12);
       border-radius: 0.85rem;
       padding: 0.8rem;
       text-decoration: none;
@@ -516,7 +529,7 @@
     .pdf-card:hover {
       color: var(--sb-blue);
       transform: translateY(-3px);
-      box-shadow: 0 14px 28px rgba(0, 31, 102, 0.12);
+      box-shadow: 0 14px 28px rgba(var(--brand-dark-rgb), 0.12);
     }
     .pdf-icon {
       width: 42px;
@@ -545,11 +558,11 @@
       margin-top: 1.5rem;
       margin-bottom: 0;
       color: rgba(255, 255, 255, 0.82);
-      background: linear-gradient(135deg, rgba(0, 31, 102, 0.95), rgba(0, 75, 61, 0.94));
+      background: linear-gradient(135deg, rgba(0, 59, 47, 0.96), rgba(0, 75, 61, 0.94));
       border: 1px solid rgba(255, 255, 255, 0.16);
       border-radius: 1.1rem;
       padding: 1.25rem;
-      box-shadow: 0 18px 44px rgba(0, 31, 102, 0.18);
+      box-shadow: 0 18px 44px rgba(var(--brand-dark-rgb), 0.18);
     }
     .company-footer h6 {
       color: var(--white);
@@ -584,7 +597,7 @@
       border: 1px solid rgba(216, 174, 61, 0.38);
       border-radius: 999px;
       padding: 0.58rem 0.85rem;
-      box-shadow: 0 16px 40px rgba(0, 31, 102, 0.18);
+      box-shadow: 0 16px 40px rgba(var(--brand-dark-rgb), 0.18);
       backdrop-filter: blur(12px);
       font-size: 0.82rem;
       font-weight: 800;
@@ -603,7 +616,7 @@
       background: rgba(255, 255, 255, 0.78);
       border: 1px solid rgba(255, 255, 255, 0.72);
       border-radius: 999px;
-      box-shadow: 0 10px 26px rgba(0, 31, 102, 0.1);
+      box-shadow: 0 10px 26px rgba(var(--brand-dark-rgb), 0.1);
       padding: 0.45rem;
       backdrop-filter: blur(12px);
       
@@ -643,14 +656,14 @@
       border-radius: 1rem;
       background: rgba(255, 255, 255, 0.94);
       color: var(--sb-blue-dark);
-      border: 1px solid rgba(0, 51, 160, 0.14);
-      box-shadow: 0 12px 26px rgba(0, 31, 102, 0.12);
+      border: 1px solid rgba(var(--brand-rgb), 0.14);
+      box-shadow: 0 12px 26px rgba(var(--brand-dark-rgb), 0.12);
       font-weight: 800;
     }
     .mobile-tab-menu .dropdown-menu {
       border: 0;
       border-radius: 1rem;
-      box-shadow: 0 20px 45px rgba(0, 31, 102, 0.2);
+      box-shadow: 0 20px 45px rgba(var(--brand-dark-rgb), 0.2);
       padding: 0.45rem;
     }
     .mobile-tab-menu .dropdown-item {
@@ -665,8 +678,8 @@
 
     /* DOMINANT STATE WHEN STUCK */
     .nav-pills.is-stuck {
-      background: rgba(0, 31, 102, 0.95);
-      border: 1px solid rgba(0, 31, 102, 1);
+      background: rgba(var(--brand-dark-rgb), 0.96);
+      border: 1px solid rgba(var(--brand-dark-rgb), 1);
       box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
       border-radius: 1.2rem;
     }
@@ -728,14 +741,20 @@
     .bg-pending { background: #fff3e0; color: #ef6c00; }
 
     @media (max-width: 767.98px) {
+      body {
+        background-attachment: scroll;
+      }
       .site-backdrop {
-        background-size: auto 118%;
-        background-position: 18% center;
+        inset: -8vh 0 -12vh;
+        background-size: cover;
+        background-position: center center;
+        transform: translate3d(0, 0, 0) scale(1);
       }
       .dashboard-hero {
         background-image:
-          linear-gradient(180deg, rgba(0, 31, 102, 0.96) 0%, rgba(0, 51, 160, 0.9) 58%, rgba(0, 51, 160, 0.5) 100%),
+          linear-gradient(180deg, rgba(0, 59, 47, 0.97) 0%, rgba(0, 84, 61, 0.91) 58%, rgba(0, 84, 61, 0.56) 100%),
           url("Gemini_Generated_Image_q5qs7vq5qs7vq5qs.png");
+        background-size: cover;
         background-position: center top;
       }
       .dashboard-content {
@@ -769,6 +788,10 @@
       }
       .lobby-panel {
         margin-top: 1.5rem;
+      }
+      body.lobby-mode {
+        background-size: 180% 180%;
+        background-position: center top;
       }
       .risk-grid,
       .chat-layout,
