@@ -377,6 +377,13 @@
       background: linear-gradient(145deg, #ffffff 0%, var(--warm-gold-pale) 100%);
       border-color: rgba(216, 174, 61, 0.28);
     }
+    #overviewTab .dashboard-card.default-horizon {
+      background:
+        linear-gradient(145deg, rgba(0, 84, 61, 0.97), rgba(0, 59, 47, 0.96)) !important;
+      color: var(--white);
+      border-color: rgba(255, 245, 214, 0.32) !important;
+      box-shadow: 0 18px 42px rgba(var(--brand-dark-rgb), 0.24);
+    }
     #overviewTab .card-top-accent {
       border-top-color: var(--warm-gold);
     }
@@ -395,6 +402,14 @@
       border-radius: 0.9rem;
       padding: 0.9rem;
       transition: var(--transition);
+    }
+    .forecast-member {
+      background: #fbfffc;
+      border-color: rgba(0, 84, 61, 0.18);
+    }
+    .forecast-member small,
+    .forecast-member .text-muted {
+      color: #49655c !important;
     }
     .risk-member:hover,
     .poll-option:hover,
@@ -427,12 +442,18 @@
       border-color: rgba(255, 245, 214, 0.28) !important;
     }
     .default-horizon .text-muted {
-      color: rgba(255, 255, 255, 0.7) !important;
+      color: rgba(255, 255, 255, 0.88) !important;
     }
     .default-horizon h5,
+    .default-horizon p,
     .default-horizon strong,
-    .default-horizon .horizon-callout {
+    .default-horizon .horizon-callout,
+    .default-horizon small,
+    .default-horizon span {
       color: var(--white);
+    }
+    .default-horizon .badge {
+      color: #163028 !important;
     }
     .horizon-callout {
       background: rgba(255, 255, 255, 0.13);
@@ -1017,35 +1038,35 @@
                 <div class="dashboard-card">
                   <div class="d-flex justify-content-between align-items-start gap-3 mb-3">
                     <div>
-                      <h5 class="fw-bold mb-1"><i class="bi bi-activity" style="color: var(--sb-blue);"></i> Predictive Default Watch</h5>
-                      <p class="text-muted small mb-0">Simulation based on late history, reminder response, and payment timing.</p>
+                      <h5 class="fw-bold mb-1"><i class="bi bi-activity" style="color: var(--sb-blue);"></i> Stokvel Wealth Forecast</h5>
+                      <p class="text-muted small mb-0">Forecast based on current pool wealth, expected collections, payout pressure, and member payment behaviour.</p>
                     </div>
                     <span class="badge rounded-pill" style="background: var(--warm-gold-soft); color: #806312;">AI forecast</span>
                   </div>
                   <div class="risk-grid">
-                    <div class="risk-member">
+                    <div class="risk-member forecast-member">
                       <div class="d-flex justify-content-between align-items-center mb-2">
-                        <strong>Lerato</strong>
-                        <span class="risk-score">82%</span>
+                        <strong>Pool health</strong>
+                        <span class="risk-score">77%</span>
                       </div>
-                      <div class="risk-meter mb-2"><div class="risk-meter-fill" style="width: 82%;"></div></div>
-                      <small class="text-muted">High risk: late twice and no reminder confirmation.</small>
+                      <div class="risk-meter mb-2"><div class="risk-meter-fill" style="width: 77%;"></div></div>
+                      <small class="text-muted">R15,450 collected against a R20,000 target. The group is healthy if two pending members pay before cutoff.</small>
                     </div>
-                    <div class="risk-member">
+                    <div class="risk-member forecast-member">
                       <div class="d-flex justify-content-between align-items-center mb-2">
-                        <strong>Thabo</strong>
-                        <span class="risk-score">54%</span>
+                        <strong>Liquidity cover</strong>
+                        <span class="risk-score">68%</span>
                       </div>
-                      <div class="risk-meter mb-2"><div class="risk-meter-fill" style="width: 54%;"></div></div>
-                      <small class="text-muted">Medium risk: pending, salary date falls after due date.</small>
+                      <div class="risk-meter mb-2"><div class="risk-meter-fill" style="width: 68%;"></div></div>
+                      <small class="text-muted">Cash can cover most of the next payout, but late contributions may reduce buying power for bulk deals.</small>
                     </div>
-                    <div class="risk-member">
+                    <div class="risk-member forecast-member">
                       <div class="d-flex justify-content-between align-items-center mb-2">
-                        <strong>Nandi</strong>
-                        <span class="risk-score">41%</span>
+                        <strong>Collection risk</strong>
+                        <span class="risk-score">38%</span>
                       </div>
-                      <div class="risk-meter mb-2"><div class="risk-meter-fill" style="width: 41%;"></div></div>
-                      <small class="text-muted">Watch: usually pays close to the cutoff.</small>
+                      <div class="risk-meter mb-2"><div class="risk-meter-fill" style="width: 38%;"></div></div>
+                      <small class="text-muted">Risk is moderate. Send reminders now to protect the November payout date and avoid emergency top-ups.</small>
                     </div>
                   </div>
                 </div>
@@ -1053,12 +1074,12 @@
               <div class="col-12 col-lg-4">
                 <div class="dashboard-card default-horizon">
                   <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h5 class="fw-bold m-0"><i class="bi bi-hourglass-split me-1"></i> Group Default Horizon</h5>
+                    <h5 class="fw-bold m-0"><i class="bi bi-hourglass-split me-1"></i> Group Forecast Horizon</h5>
                     <span class="badge rounded-pill bg-warning text-dark">38%</span>
                   </div>
                   <div class="horizon-callout">
                     <strong class="d-block">Likely pressure point: Week 4</strong>
-                    <small>The stokvel remains stable now, but missed contributions could delay the November payout after 30 Nov.</small>
+                    <small>The stokvel wealth trend is positive, but missed contributions could delay the November payout after 30 Nov.</small>
                   </div>
                   <div class="horizon-bar mb-2" aria-label="Default horizon meter">
                     <span class="horizon-step active"></span>
