@@ -14,21 +14,27 @@
     a{color:inherit;text-decoration:none}
     .topbar{background:linear-gradient(135deg,var(--sb-blue-dark),var(--sb-blue));color:#fff}
     .brand i{color:var(--gold)}
-    .hero-card{background:linear-gradient(135deg,var(--sb-blue-dark),var(--sb-blue));color:#fff;border-radius:20px;padding:35px 40px}
-    .hero-stat-box{background:rgba(255,255,255,0.15);padding:16px;border-radius:12px;text-align:center}
-    .hero-stat-box strong{display:block;font-size:1.5rem}
-    .hero-stat-box span{font-size:0.75rem;opacity:0.8}
-    .nav-block{background:var(--paper);border-radius:14px;padding:30px 20px;text-align:center;box-shadow:0 10px 30px rgba(0,107,63,0.1);transition:transform 0.2s,box-shadow 0.2s;display:block;color:var(--ink);height:100%}
+    .hero-card{background:linear-gradient(135deg,var(--sb-blue-dark),var(--sb-blue));color:#fff;border-radius:20px;padding:30px 35px}
+    .hero-stat-box{background:rgba(255,255,255,0.15);padding:14px;border-radius:12px;text-align:center}
+    .hero-stat-box strong{display:block;font-size:1.4rem}
+    .hero-stat-box span{font-size:0.7rem;opacity:0.8}
+    .nav-block{background:var(--paper);border-radius:14px;padding:25px 15px;text-align:center;box-shadow:0 10px 30px rgba(0,107,63,0.1);transition:transform 0.2s,box-shadow 0.2s;display:block;color:var(--ink);height:100%}
     .nav-block:hover{transform:translateY(-5px);box-shadow:0 15px 40px rgba(0,107,63,0.15)}
-    .nav-block i{font-size:2.5rem;display:block;margin-bottom:12px}
-    .nav-block strong{display:block;font-size:1.1rem;margin-bottom:4px}
-    .nav-block small{color:var(--muted);font-size:0.8rem}
+    .nav-block i{font-size:2.2rem;display:block;margin-bottom:10px}
+    .nav-block strong{display:block;font-size:1rem;margin-bottom:3px}
+    .nav-block small{color:var(--muted);font-size:0.75rem}
     .icon-gold{color:var(--gold)}.icon-violet{color:var(--violet)}.icon-aqua{color:var(--aqua)}.icon-coral{color:var(--coral)}
-    .metric-box{background:var(--soft);padding:18px;border-radius:10px;text-align:center}
-    .metric-box .value{font-size:1.6rem;font-weight:900;color:var(--sb-blue-dark)}
-    .metric-box .label{font-size:0.75rem;color:var(--muted)}
-    .toast-stack{position:fixed;right:20px;bottom:30px;z-index:1080}
-    .app-toast{background:var(--ink);color:#fff;padding:12px 18px;border-radius:10px;margin-top:8px;font-weight:700;font-size:0.9rem}
+    .section-card{background:var(--paper);border-radius:16px;padding:22px;box-shadow:0 8px 24px rgba(0,107,63,0.08);margin-bottom:20px}
+    .section-card h5{font-weight:800;margin-bottom:15px;display:flex;align-items:center;gap:8px}
+    .transaction-item{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid rgba(0,0,0,0.05)}
+    .transaction-item:last-child{border-bottom:0}
+    .transaction-item .desc{font-weight:600;font-size:0.9rem}
+    .transaction-item .amount{font-weight:700;font-size:0.95rem}
+    .transaction-item .amount.positive{color:#256b12}
+    .transaction-item .amount.negative{color:#b34040}
+    .badge-status{padding:4px 10px;border-radius:20px;font-size:0.7rem;font-weight:700}
+    .badge-good{background:rgba(108,194,74,0.15);color:#256b12}
+    .badge-warn{background:rgba(212,175,55,0.15);color:#725700}
     .mobile-nav{background:rgba(255,255,255,0.96);border-top:1px solid rgba(16,32,51,0.1);z-index:1030}
     .mobile-nav a{color:var(--muted);font-size:0.7rem;font-weight:700}
     .mobile-nav a i{font-size:1.2rem}
@@ -51,14 +57,14 @@
         <div class="col-lg-7">
           <span class="badge mb-2 px-3 py-2" style="background:rgba(255,255,255,0.2);font-size:0.75rem;border-radius:20px"><i class="bi bi-person me-1"></i>PERSONAL DASHBOARD</span>
           <h1 class="fw-bold display-4 mb-2">Your money, your goals.</h1>
-          <p class="opacity-75 fs-5">Manage payments, track credit, join stokvels, and connect with the community.</p>
+          <p class="opacity-75 fs-5">Everything in one place — payments, credit, stokvels, and community.</p>
         </div>
         <div class="col-lg-5 mt-3 mt-lg-0">
           <div class="row g-2">
             <div class="col-6"><div class="hero-stat-box"><strong id="creditScoreDisplay">0</strong><span>Credit score</span></div></div>
-            <div class="col-6"><div class="hero-stat-box"><strong id="savingsBalance">R0</strong><span>Savings</span></div></div>
-            <div class="col-6"><div class="hero-stat-box"><strong id="investmentsValue">R0</strong><span>Investments</span></div></div>
-            <div class="col-6"><div class="hero-stat-box"><strong id="subsTotal">R0</strong><span>Monthly bills</span></div></div>
+            <div class="col-6"><div class="hero-stat-box"><strong id="totalIncome">R0</strong><span>Monthly income</span></div></div>
+            <div class="col-6"><div class="hero-stat-box"><strong id="totalBills">R0</strong><span>Monthly bills</span></div></div>
+            <div class="col-6"><div class="hero-stat-box"><strong id="leftToSpend">R0</strong><span>Left to spend</span></div></div>
           </div>
         </div>
       </div>
@@ -66,28 +72,59 @@
 
     <div class="row g-4 mb-4">
       <div class="col-6 col-lg">
-        <a href="payments.html" class="nav-block"><i class="bi bi-cash-coin icon-gold"></i><strong>Payments</strong><small>Cash flow tracking</small></a>
+        <a href="payments.html" class="nav-block"><i class="bi bi-cash-coin icon-gold"></i><strong>Payments</strong><small>Income & bills</small></a>
       </div>
       <div class="col-6 col-lg">
-        <a href="credit.html" class="nav-block"><i class="bi bi-speedometer2 icon-violet"></i><strong>Credit</strong><small>Score monitoring</small></a>
+        <a href="credit.html" class="nav-block"><i class="bi bi-speedometer2 icon-violet"></i><strong>Credit</strong><small>Score: <span id="navCreditScore">0</span></small></a>
       </div>
       <div class="col-6 col-lg">
-        <a href="stokvel.html" class="nav-block"><i class="bi bi-people-fill icon-aqua"></i><strong>Stokvels</strong><small>Group savings</small></a>
+        <a href="stokvel.html" class="nav-block"><i class="bi bi-people-fill icon-aqua"></i><strong>Stokvels</strong><small>Pool: <span id="navStokvelPool">R0</span></small></a>
       </div>
       <div class="col-6 col-lg">
-        <a href="community.html" class="nav-block"><i class="bi bi-chat-dots-fill icon-aqua"></i><strong>Community</strong><small>Help & forum</small></a>
+        <a href="community.html" class="nav-block"><i class="bi bi-chat-dots-fill icon-aqua"></i><strong>Community</strong><small>Help & tips</small></a>
       </div>
       <div class="col-6 col-lg">
-        <a href="Vault.html" class="nav-block"><i class="bi bi-safe icon-coral"></i><strong>Vault</strong><small>Secure storage</small></a>
+        <a href="Vault.html" class="nav-block"><i class="bi bi-safe icon-coral"></i><strong>Vault</strong><small>Documents</small></a>
       </div>
     </div>
 
-    <h4 class="fw-bold mb-3">Quick overview</h4>
-    <div class="row g-3 mb-4">
-      <div class="col-6 col-lg-3"><div class="metric-box"><div class="value" id="creditScoreDisplay2">0</div><div class="label">Credit score</div></div></div>
-      <div class="col-6 col-lg-3"><div class="metric-box"><div class="value" id="subsTotal2">R0</div><div class="label">Monthly bills</div></div></div>
-      <div class="col-6 col-lg-3"><div class="metric-box"><div class="value" id="savingsBalance2">R0</div><div class="label">Savings</div></div></div>
-      <div class="col-6 col-lg-3"><div class="metric-box"><div class="value" id="investmentsValue2">R0</div><div class="label">Investments</div></div></div>
+    <div class="row g-4">
+      <div class="col-lg-6">
+        <div class="section-card">
+          <h5><i class="bi bi-cash-coin icon-gold"></i>Recent Payments</h5>
+          <div id="recentPayments"><p class="text-muted small">No recent payments</p></div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="section-card">
+          <h5><i class="bi bi-credit-card icon-violet"></i>Credit Overview</h5>
+          <div class="d-flex align-items-center gap-3 mb-3">
+            <div style="font-size:3rem;font-weight:900;color:var(--sb-blue-dark)" id="creditScoreLarge">0</div>
+            <div><span class="badge-status badge-good" id="creditStatus">Good</span><p class="small text-muted mt-1 mb-0">Out of 850</p></div>
+          </div>
+          <p class="small text-muted">Based on payment history and stokvel contributions.</p>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="section-card">
+          <h5><i class="bi bi-people-fill icon-aqua"></i>Your Stokvels</h5>
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <span class="fw-bold">Active group</span>
+            <span class="badge-status badge-good">Active</span>
+          </div>
+          <div class="d-flex justify-content-between"><span>Pool balance</span><strong id="stokvelPool">R0</strong></div>
+          <div class="d-flex justify-content-between"><span>Your contribution</span><strong>R250/month</strong></div>
+          <div class="d-flex justify-content-between"><span>Next payout</span><strong id="stokvelNext">-</strong></div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="section-card">
+          <h5><i class="bi bi-chat-dots-fill icon-aqua"></i>Community Updates</h5>
+          <div class="transaction-item"><div class="desc"><i class="bi bi-chat-text me-2"></i>New tips posted</div><span class="badge-status badge-good">3 new</span></div>
+          <div class="transaction-item"><div class="desc"><i class="bi bi-question-circle me-2"></i>FAQ updated</div><span class="text-muted small">Today</span></div>
+          <div class="transaction-item"><div class="desc"><i class="bi bi-people me-2"></i>Members online</div><span class="fw-bold">12</span></div>
+        </div>
+      </div>
     </div>
   </main>
 
@@ -107,18 +144,29 @@
     const setText=(id,v)=>{const n=document.getElementById(id);if(n)n.textContent=v};
     const STORAGE_KEY="moneyMattersUltimateStokvelState";
     let state;
-    try{state=JSON.parse(localStorage.getItem(STORAGE_KEY))||{personalData:{creditScore:698,incomingPayments:[{amount:4200},{amount:650}],subscriptions:[{cost:15.99},{cost:9.99},{cost:29.99}],savings:4200,investments:2100},activity:[]}}catch(e){state={personalData:{creditScore:0,incomingPayments:[],subscriptions:[],savings:0,investments:0},activity:[]}}
+    try{state=JSON.parse(localStorage.getItem(STORAGE_KEY))||{stokvel:{mainPool:6450,emergencyFund:1050,payoutIndex:2,members:[{name:"Thabo"},{name:"Priya"},{name:"Lerato"},{name:"Sipho"},{name:"Nandi"}]},personalData:{creditScore:698,incomingPayments:[{client:"Salary",amount:4200},{client:"Freelance",amount:650},{client:"Stokvel payout",amount:1800}],subscriptions:[{name:"Rent",cost:4800},{name:"Electricity",cost:850},{name:"Netflix",cost:159},{name:"Phone",cost:599}],savings:4200,investments:2100},activity:[]}}catch(e){state={stokvel:{mainPool:0,emergencyFund:0,payoutIndex:0,members:[]},personalData:{creditScore:0,incomingPayments:[],subscriptions:[],savings:0,investments:0},activity:[]}}
 
     function render(){
       const ad=state.personalData;
+      const totalIncome=(ad.incomingPayments||[]).reduce((s,x)=>s+(x.amount||0),0);
+      const totalBills=(ad.subscriptions||[]).reduce((s,x)=>s+(x.cost||0),0);
+      const leftToSpend=totalIncome-totalBills;
+
       setText('creditScoreDisplay',ad.creditScore||0);
-      setText('creditScoreDisplay2',ad.creditScore||0);
-      setText('savingsBalance',money(ad.savings||0));
-      setText('savingsBalance2',money(ad.savings||0));
-      setText('investmentsValue',money(ad.investments||0));
-      setText('investmentsValue2',money(ad.investments||0));
-      setText('subsTotal',money((ad.subscriptions||[]).reduce((s,x)=>s+(x.cost||0),0)));
-      setText('subsTotal2',money((ad.subscriptions||[]).reduce((s,x)=>s+(x.cost||0),0)));
+      setText('creditScoreLarge',ad.creditScore||0);
+      setText('navCreditScore',ad.creditScore||0);
+      setText('totalIncome',money(totalIncome));
+      setText('totalBills',money(totalBills));
+      setText('leftToSpend',money(Math.max(0,leftToSpend)));
+      setText('stokvelPool',money(state.stokvel.mainPool||0));
+      setText('navStokvelPool',money(state.stokvel.mainPool||0));
+      setText('stokvelNext',(state.stokvel.members||[])[state.stokvel.payoutIndex%(state.stokvel.members||[]).length]?.name||'-');
+
+      const creditStatus=document.getElementById('creditStatus');
+      if(creditStatus){creditStatus.textContent=ad.creditScore>700?'Good':'Fair';creditStatus.className='badge-status '+(ad.creditScore>700?'badge-good':'badge-warn')}
+
+      const rp=document.getElementById('recentPayments');
+      if(rp){rp.innerHTML=(ad.incomingPayments||[]).slice(0,4).map(p=>`<div class="transaction-item"><span class="desc"><i class="bi bi-arrow-down-circle text-success me-2"></i>${p.client||'Payment'}</span><span class="amount positive">+${money(p.amount||0)}</span></div>`).join('')+(ad.subscriptions||[]).slice(0,2).map(b=>`<div class="transaction-item"><span class="desc"><i class="bi bi-arrow-up-circle text-danger me-2"></i>${b.name||'Bill'}</span><span class="amount negative">-${money(b.cost||0)}</span></div>`).join('')}
     }
 
     if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});
